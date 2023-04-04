@@ -34,3 +34,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/.idea/.gitignore
+/.idea/breenkyshop-frontend.iml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/jsLinters/eslint.xml
+/.idea/prettier.xml
+/.idea/codeStyles/Project.xml
+/yarn.lock
+/storybook-static/
+/src/keys
+/.idea/artgallery-frontend.iml
