@@ -5,7 +5,7 @@ const Logo = () => (
     version="1.2"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 246 247"
-    width="246"
+    width="61"
     height="60"
   >
     <title>300-orange-border</title>

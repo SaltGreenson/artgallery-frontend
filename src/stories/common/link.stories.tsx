@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import CustomLink from "@/components/common/CustomLink";
+import CustomLink from "src/components/common/Link";
 
 export default {
   title: "Common/Link",

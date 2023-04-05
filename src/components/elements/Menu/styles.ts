@@ -30,7 +30,7 @@ export const StyledMenuLogoWrapper = styled.div`
   padding-top: 1rem;
 
   svg {
-    transition: height 400ms;
+    transition: height 400ms, width 400ms;
   }
 `;
 
@@ -50,6 +50,7 @@ export const MenuContainer = styled.div`
 
     ${StyledMenuLogoWrapper} svg {
       height: 171px;
+      width: 246px;
     }
 
     ${StyledMenuText} {

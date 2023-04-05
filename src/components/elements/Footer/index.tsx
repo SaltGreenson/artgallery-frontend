@@ -2,7 +2,7 @@ import React from "react";
 
 import { CustomBlock, FlexBlock } from "@/components/common/Block";
 import Paragraph from "@/components/common/Paragraph";
-import CustomLink from "@/components/common/CustomLink";
+import CustomLink from "src/components/common/Link";
 import CustomTitle from "@/components/common/Title";
 import { LimitContent } from "@/components/common/LimitContent";
 
