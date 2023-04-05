@@ -12,7 +12,7 @@ export type PrimaryProps = {
 export const StyledPrimaryButton = styled.button<PrimaryProps>`
   width: ${({ width = "206px" }) => width};
   height: ${({ height = "42px" }) => height};
-  background-color: ${({ bgColor = Colors.DARK_BLUE }) => bgColor};
+  background-color: ${({ bgColor = Colors.PURPLE }) => bgColor};
   border-radius: ${({ brRadius = "40px" }) => brRadius};
   cursor: pointer;
   transition: 300ms;
@@ -20,7 +20,7 @@ export const StyledPrimaryButton = styled.button<PrimaryProps>`
   will-change: left;
 
   &:hover {
-    background-color: ${({ bgHover = Colors.HOVER_DARK_BLUE }) => bgHover};
+    background-color: ${({ bgHover = Colors.DARK_PURPLE }) => bgHover};
   }
 
   &:disabled {

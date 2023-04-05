@@ -1,6 +1,11 @@
 import styled, { css } from "styled-components";
 import { StyledMenuList } from "@/components/elements/Menu/styles";
 
+type StyledMenuRotateProps = {
+  isNeedRotate?: boolean;
+  isActive?: boolean;
+};
+
 export const StyledMenuRotateList = styled(StyledMenuList)`
   svg {
     transition: 300ms transform;
@@ -8,25 +13,33 @@ export const StyledMenuRotateList = styled(StyledMenuList)`
   }
 `;
 
-export const StyledMenuSettings = styled.div`
+export const StyledMenuRotate = styled.div`
   max-height: 0;
-  transition: 400ms max-height, 200ms padding-top;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: 400ms max-height;
   overflow: hidden;
 `;
 
-export const StyledMenuSettingsWrapper = styled.div<{ isNeedRotate?: boolean }>`
+export const StyledMenuRotateWrapper = styled.div<StyledMenuRotateProps>`
   display: flex;
   flex-direction: column;
+  gap: 10px;
 
-  &:hover > ${StyledMenuSettings} {
-    max-height: 500px;
-    padding-top: 10px;
-  }
-
-  ${({ isNeedRotate }) =>
-    isNeedRotate &&
+  ${({ isActive }) =>
+    isActive &&
     css`
-      &:hover > ${StyledMenuRotateList} {
+      ${StyledMenuRotate} {
+        max-height: 140px;
+      }
+    `}
+
+  ${({ isNeedRotate, isActive }) =>
+    isNeedRotate &&
+    isActive &&
+    css`
+      ${StyledMenuRotateList} {
         svg {
           transform: rotate(180deg);
         }

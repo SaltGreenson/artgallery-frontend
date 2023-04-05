@@ -15,6 +15,17 @@ export interface StyledInputProps
   isDarkTheme?: boolean;
 }
 
+export const PasswordTitle = styled(Paragraph)`
+  position: absolute;
+  top: 16px;
+  right: 5px;
+  font-family: "Gotham Pro Medium", serif;
+  font-size: 14px;
+  transition: color 200ms;
+  cursor: pointer;
+  user-select: none;
+`;
+
 export const InputStyled = styled.input<StyledInputProps>`
   width: 100%;
   height: 44px;
@@ -24,16 +35,16 @@ export const InputStyled = styled.input<StyledInputProps>`
   color: ${Colors.BLACK};
   border: 1px solid ${Colors.LINE_COLOR};
   border-radius: 3px;
-  background-color: transparent;
+  background-color: ${Colors.WHITE};
   outline: none;
-  transition: border 300ms;
+  transition: border 200ms, box-shadow 200ms, color 200ms;
 
   &:focus {
-    border: 1px solid ${Colors.DARK_BLUE};
-  }
-
-  &:active {
-    border: 1px solid ${Colors.DARK_BLUE};
+    box-shadow: 0 0 8px ${Colors.PURPLE};
+    color: ${Colors.DARK_PURPLE};
+    & ~ ${PasswordTitle} {
+      color: ${Colors.PURPLE};
+    }
   }
 
   &::placeholder {
@@ -65,10 +76,6 @@ export const InputStyled = styled.input<StyledInputProps>`
         border: 1px solid ${Colors.ERROR_BORDER_COLOR};
       }
 
-      &:active {
-        border: 1px solid ${Colors.ERROR_BORDER_COLOR};
-      }
-
       @keyframes shake {
         0% {
           transform: translateX(-3px);
@@ -85,14 +92,4 @@ export const InputStyled = styled.input<StyledInputProps>`
         }
       }
     `}
-`;
-
-export const PasswordTitle = styled(Paragraph)`
-  font-family: "Gotham Pro Medium", serif;
-  font-size: 14px;
-  position: absolute;
-  top: 16px;
-  right: 5px;
-  cursor: pointer;
-  user-select: none;
 `;

@@ -16,7 +16,7 @@ const SignUpForm = (): JSX.Element => {
   } = useForm();
   const validatePasswordRepeat = (value: string) => {
     const { password } = getValues();
-    return value === password || "Пароли не совпадают";
+    return value === password || "Passwords don't match";
   };
 
   return (
@@ -28,11 +28,15 @@ const SignUpForm = (): JSX.Element => {
           register={register("nickname", {
             required: {
               value: true,
-              message: "Поле Nickname должно быть заполнено",
+              message: "The Nickname field must be filled in",
             },
             minLength: {
               value: 3,
-              message: "Поле не может содержать менее 3-х символов",
+              message: "The field cannot contain less than 3 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "The field cannot contain more than 20 characters",
             },
           })}
           error={errors.nickname && String(errors.nickname.message)}
@@ -44,7 +48,7 @@ const SignUpForm = (): JSX.Element => {
           register={register("email", {
             required: {
               value: true,
-              message: "Поле Email должно быть заполнено",
+              message: "The Email field must be filled in",
             },
           })}
           error={errors.email && String(errors.email.message)}
@@ -57,11 +61,15 @@ const SignUpForm = (): JSX.Element => {
           register={register("password", {
             required: {
               value: true,
-              message: "Поле Пароль должно быть заполнено",
+              message: "The Password field must be filled in",
             },
             minLength: {
               value: 3,
-              message: "Поле не может содержать менее 3-х символов",
+              message: "The field cannot contain less than 3 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "The field cannot contain more than 20 characters",
             },
           })}
           error={errors.password && String(errors.password.message)}
@@ -73,11 +81,15 @@ const SignUpForm = (): JSX.Element => {
           register={register("repeatPassword", {
             required: {
               value: true,
-              message: "Поле должно быть заполнено",
+              message: "The field must be filled in",
             },
             minLength: {
               value: 3,
-              message: "Поле не может содержать менее 3-х символов",
+              message: "The field cannot contain less than 3 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "The field cannot contain more than 20 characters",
             },
             validate: validatePasswordRepeat,
           })}

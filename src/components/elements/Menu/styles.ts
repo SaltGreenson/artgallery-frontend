@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Colors } from "@/styles/colors";
 
 export const StyledMenuIcon = styled.div`
@@ -24,44 +24,53 @@ export const StyledMenuText = styled.div`
 
 export const StyledMenuLogoWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  width: 300px;
   padding-top: 1rem;
+  padding-left: 5px;
 
   svg {
-    transition: height 400ms, width 400ms;
+    transition: height 300ms, width 300ms;
   }
 `;
 
-export const MenuContainer = styled.div`
+export const MenuContainer = styled.div<{ isFullSizeView: boolean }>`
   width: 70px;
   position: fixed;
   left: 0;
   top: 0;
   min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: ${Colors.WHITE};
   transition: 400ms;
 
-  &:hover {
-    width: 300px;
-
-    ${StyledMenuLogoWrapper} svg {
-      height: 171px;
-      width: 246px;
-    }
-
-    ${StyledMenuText} {
-      display: flex;
-    }
-
-    ${StyledMenuIcon} {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  ::-webkit-scrollbar {
+    display: none;
   }
+
+  ${({ isFullSizeView }) =>
+    isFullSizeView &&
+    css`
+      width: 300px;
+
+      ${StyledMenuLogoWrapper} svg {
+        height: 90px;
+        width: 91px;
+      }
+
+      ${StyledMenuText} {
+        display: flex;
+      }
+
+      ${StyledMenuIcon} {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    `}
 `;
 
 export const StyledMenu = styled.ul`
@@ -91,4 +100,70 @@ export const StyledMenuList = styled.li<{ isActive?: boolean }>`
         isActive ? Colors.DARK_PURPLE : Colors.LIGHT_SELECTED};
     }
   }
+`;
+
+export const StyledMenuOpenCloseButtonContainer = styled.div`
+  width: 300px;
+  display: flex;
+  align-items: center;
+  transition: background-color 200ms;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-top: 10px;
+`;
+
+export const StyledMenuOpenCloseButton = styled(StyledMenuIcon)<{
+  isOpen?: boolean;
+}>`
+  background-color: ${Colors.LIGHT_SELECTED};
+
+  svg {
+    transform: rotate(0deg);
+    transition: rotate 300ms;
+
+    @keyframes changeIcon {
+      0% {
+        transform: rotate(90deg);
+        opacity: 0.75;
+      }
+
+      25% {
+        transform: rotate(180deg);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: rotate(270deg);
+        opacity: 0.75;
+      }
+
+      100% {
+        transform: rotate(360deg);
+        opacity: 1;
+      }
+    }
+
+    ${({ isOpen }) =>
+      isOpen &&
+      css`
+        animation: linear changeIcon 300ms;
+
+        ${StyledMenuOpenCloseButtonText} {
+          display: flex;
+        }
+      `}
+  }
+`;
+
+export const StyledMenuOpenCloseButtonText = styled(StyledMenuText)`
+  display: none;
+  margin-right: 10px;
+  background-color: ${Colors.LIGHT_SELECTED};
+`;
+
+export const StyledMenuOwnerInfo = styled(StyledMenuText)`
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
 `;

@@ -20,12 +20,12 @@ export const StyledA = styled.a<StyledAPropsTypes>`
   font-size: ${({ fontSize = "15px" }) => fontSize};
   font-weight: ${({ bold, fontWidth }) => (bold ? "500" : fontWidth ?? "400")};
   line-height: ${({ lineHeight = "15px" }) => lineHeight};
-  color: ${({ color = Colors.LIGHT_BLUE }) => color};
+  color: ${({ color = Colors.PURPLE }) => color};
   cursor: pointer;
   transition: 300ms;
 
   &:hover {
-    color: ${({ hoverColor }) => hoverColor};
+    color: ${({ hoverColor = Colors.DARK_PURPLE }) => hoverColor};
   }
 
   ${({ bold }) =>

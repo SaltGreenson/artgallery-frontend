@@ -1,12 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { HTMLAttributes, useCallback, useState } from "react";
 
+import { IoSettingsOutline } from "react-icons/io5";
 import Paragraph from "@/components/common/Paragraph";
 import Logo from "@/components/common/Sign/Logo";
-import DressIcon from "@/components/common/Sign/Dress";
 import MenuDropDownElement from "@/components/elements/Menu/DropDownElement";
-import { IoSettingsOutline } from "react-icons/io5";
-
+import { CustomBlock, FlexBlock } from "@/components/common/Block";
+import CustomLink from "@/components/common/Link";
 import {
+  displayStyleIconConfig,
+  DisplayStyleText,
+  iconLogInLogOutUserConfig,
   menuIconColorsConfig,
   menuLinksConfig,
   MenuLinkType,
@@ -19,14 +22,28 @@ import {
   StyledMenuIcon,
   StyledMenuList,
   StyledMenuLogoWrapper,
+  StyledMenuOpenCloseButton,
+  StyledMenuOpenCloseButtonContainer,
+  StyledMenuOpenCloseButtonText,
+  StyledMenuOwnerInfo,
   StyledMenuText,
 } from "@/components/elements/Menu/styles";
+import { Colors } from "@/styles/colors";
 
-const Menu = () => {
+interface MenuProps extends HTMLAttributes<HTMLDivElement> {
+  isAuthUser?: boolean;
+}
+
+const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
   const [activeMainIdx, setActiveMainIdx] = useState(0);
   const [activeSettingsIdx, setActiveSettingsIdx] = useState(-1);
+  const [isFullSizeView, setIsFullSizeView] = useState(false);
 
-  const handleClick = useCallback(
+  const handleClickDisplayStyle = useCallback(() => {
+    setIsFullSizeView((prev) => !prev);
+  }, []);
+
+  const handleClickActiveIdx = useCallback(
     ({ mainIdx, settingsIdx }: { mainIdx?: number; settingsIdx?: number }) =>
       () => {
         setActiveMainIdx(mainIdx ?? -1);
@@ -41,7 +58,7 @@ const Menu = () => {
       linkElement: MenuLinkType,
       fontSize: string,
       isActive: boolean,
-      onClick: () => void
+      onClick?: () => void
     ) => {
       const iconProps = isActive ? { color: menuIconColorsConfig.active } : {};
       const { icon, title } = linkElement;
@@ -75,10 +92,10 @@ const Menu = () => {
           link,
           "16px",
           idx === activeMainIdx,
-          handleClick({ mainIdx: idx })
+          handleClickActiveIdx({ mainIdx: idx })
         )
       ),
-    [activeMainIdx, handleClick, renderLink]
+    [activeMainIdx, handleClickActiveIdx, renderLink]
   );
 
   const renderSubLinks = useCallback(
@@ -89,49 +106,79 @@ const Menu = () => {
           link,
           "15px",
           idx === activeSettingsIdx,
-          handleClick({ settingsIdx: idx })
+          handleClickActiveIdx({ settingsIdx: idx })
         )
       ),
-    [activeSettingsIdx, handleClick, renderLink]
+    [activeSettingsIdx, handleClickActiveIdx, renderLink]
   );
 
   const displayMainLinks = renderMainLinks();
 
   return (
-    <MenuContainer>
-      <StyledMenuLogoWrapper>
-        <Logo />
-      </StyledMenuLogoWrapper>
-      <StyledMenu>
-        {displayMainLinks}
-        <MenuDropDownElement
-          activeIdx={activeSettingsIdx}
-          isNeedRotateHeadElement
-          headElement={{
-            title: "Настройки",
-            icon: (
-              <IoSettingsOutline
-                fontSize="30px"
-                color={menuIconColorsConfig.inactive}
-              />
-            ),
-          }}
-          renderLinks={renderSubLinks(menuSettingLinksConfig)}
-        />
-        <MenuDropDownElement
-          activeIdx={activeSettingsIdx}
-          headElement={{
-            title: "Женские вещи",
-            icon: (
-              <DressIcon
-                fontSize="30px"
-                color={menuIconColorsConfig.inactive}
-              />
-            ),
-          }}
-          renderLinks={renderSubLinks(menuSettingLinksConfig)}
-        />
-      </StyledMenu>
+    <MenuContainer isFullSizeView={isFullSizeView} {...props}>
+      <FlexBlock direction="column" justify="space-between" flex={1}>
+        <CustomBlock>
+          <StyledMenuOpenCloseButtonContainer onClick={handleClickDisplayStyle}>
+            <StyledMenuOpenCloseButton isOpen={isFullSizeView}>
+              {displayStyleIconConfig(isFullSizeView)}
+            </StyledMenuOpenCloseButton>
+            <StyledMenuOpenCloseButtonText>
+              <Paragraph fontSize="16px" color={Colors.PURPLE} bold>
+                {DisplayStyleText.FULL}
+              </Paragraph>
+            </StyledMenuOpenCloseButtonText>
+          </StyledMenuOpenCloseButtonContainer>
+          <CustomLink href="#" fontSize="16px" bold>
+            <StyledMenuLogoWrapper>
+              <Logo />
+              <StyledMenuOwnerInfo>
+                <CustomLink href="#" fontSize="16px" bold>
+                  Vlad Yuskovich
+                </CustomLink>
+                <CustomLink
+                  href="#"
+                  color={Colors.NEW_ORANGE}
+                  hoverColor={Colors.NEW_ORANGE}
+                  fontSize="16px"
+                  bold
+                >
+                  Likes: 999+
+                </CustomLink>
+                <CustomLink
+                  href="#"
+                  color={Colors.NEW_ORANGE}
+                  hoverColor={Colors.NEW_ORANGE}
+                  fontSize="16px"
+                  bold
+                >
+                  Posts: 999+
+                </CustomLink>
+              </StyledMenuOwnerInfo>
+            </StyledMenuLogoWrapper>
+          </CustomLink>
+          <StyledMenu>
+            {displayMainLinks}
+            <MenuDropDownElement
+              activeIdx={activeSettingsIdx}
+              isNeedRotateHeadElement
+              headElement={{
+                title: "Settings",
+                icon: (
+                  <IoSettingsOutline
+                    fontSize="30px"
+                    color={menuIconColorsConfig.inactive}
+                  />
+                ),
+              }}
+              renderLinks={renderSubLinks(menuSettingLinksConfig)}
+            />
+          </StyledMenu>
+        </CustomBlock>
+
+        <CustomBlock padding="0 0 20px 10px">
+          {renderLink(-2, iconLogInLogOutUserConfig(isAuthUser), "16px", false)}
+        </CustomBlock>
+      </FlexBlock>
     </MenuContainer>
   );
 };

@@ -25,8 +25,12 @@ export const LabelDescription = styled.label<LabelDescriptionPropsType>`
   hyphens: auto;
   transition: color 300ms;
 
+  &:hover:not(svg) {
+    color: ${({ error }) => !error && Colors.DARK_PURPLE};
+  }
+
   &:focus-within:not(svg) {
-    color: ${({ error }) => !error && Colors.DARK_BLUE};
+    color: ${({ error }) => !error && Colors.PURPLE};
   }
 
   ${({ error }) =>

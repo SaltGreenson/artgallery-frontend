@@ -9,7 +9,7 @@ export interface CustomLinkProps
   href: string;
 }
 
-const Index = ({
+const CustomLink = ({
   children,
   href,
   ...aProps
@@ -19,4 +19,4 @@ const Index = ({
   </Link>
 );
 
-export default Index;
+export default CustomLink;

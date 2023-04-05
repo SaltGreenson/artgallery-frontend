@@ -21,6 +21,7 @@ type FlexPropsTypes = {
   align?: string;
   direction?: string;
   flexWrap?: "wrap";
+  flex?: number;
   gap?: string;
   justify?: string;
   justifyPhoneMode?: string;
@@ -67,6 +68,7 @@ export const RelativeBlock = styled(CustomBlock)`
 
 export const FlexBlock = styled(CustomBlock)<FlexPropsTypes>`
   display: flex;
+  flex: ${({ flex = "unset" }) => flex};
   flex-wrap: ${({ flexWrap }) => flexWrap};
   flex-direction: ${({ direction }) => direction};
   align-items: ${({ align }) => align};

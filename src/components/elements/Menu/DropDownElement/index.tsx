@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, useCallback, useState } from "react";
 import {
   StyledMenuIcon,
   StyledMenuText,
@@ -9,10 +9,13 @@ import {
 } from "@/components/elements/Menu/config";
 import Paragraph from "@/components/common/Paragraph";
 import {
+  StyledMenuRotate,
   StyledMenuRotateList,
-  StyledMenuSettings,
-  StyledMenuSettingsWrapper,
+  StyledMenuRotateWrapper,
 } from "./styles";
+import { IoIosArrowDown } from "react-icons/io";
+import { FlexBlock } from "@/components/common/Block";
+import { Colors } from "@/styles/colors";
 
 interface MenuDropDownElementProps extends HTMLAttributes<HTMLDivElement> {
   activeIdx: number;
@@ -27,27 +30,49 @@ const MenuDropDownElement = ({
   headElement,
   renderLinks,
 }: MenuDropDownElementProps) => {
+  const [isActive, setIsActive] = useState(false);
+
   const iconProps =
     activeIdx >= 0 ? { color: menuIconColorsConfig.active } : {};
 
+  const onClickHandler = useCallback(() => {
+    setIsActive((prev) => !prev);
+  }, []);
+
   return (
-    <StyledMenuSettingsWrapper isNeedRotate={isNeedRotateHeadElement}>
-      <StyledMenuRotateList isActive={activeIdx >= 0}>
+    <StyledMenuRotateWrapper
+      isNeedRotate={isNeedRotateHeadElement}
+      isActive={isActive}
+    >
+      <StyledMenuRotateList isActive={activeIdx >= 0} onClick={onClickHandler}>
         <StyledMenuIcon>
           {React.cloneElement(headElement.icon, iconProps)}
         </StyledMenuIcon>
         <StyledMenuText>
-          <Paragraph
-            fontSize="16px"
-            color={iconProps.color ?? menuIconColorsConfig.inactive}
-            bold
+          <FlexBlock
+            justify="space-between"
+            align="center"
+            width="100%"
+            padding="0 10px 0 0"
           >
-            {headElement.title}
-          </Paragraph>
+            <Paragraph
+              fontSize="16px"
+              color={iconProps.color ?? menuIconColorsConfig.inactive}
+              bold
+            >
+              {headElement.title}
+            </Paragraph>
+            {React.cloneElement(
+              <IoIosArrowDown fontSize="20px" color={Colors.FONT_SIZE_GREY} />,
+              iconProps
+            )}
+          </FlexBlock>
         </StyledMenuText>
       </StyledMenuRotateList>
-      <StyledMenuSettings>{renderLinks()}</StyledMenuSettings>
-    </StyledMenuSettingsWrapper>
+      <StyledMenuRotate onClick={onClickHandler}>
+        {renderLinks()}
+      </StyledMenuRotate>
+    </StyledMenuRotateWrapper>
   );
 };
 
