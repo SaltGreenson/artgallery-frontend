@@ -37,21 +37,7 @@ const SignUpForm = (): JSX.Element => {
           })}
           error={errors.nickname && String(errors.nickname.message)}
         />
-        <CustomInput
-          variant="default"
-          label="Login"
-          register={register("login", {
-            required: {
-              value: true,
-              message: "Поле Имя должно быть заполнено",
-            },
-            minLength: {
-              value: 3,
-              message: "Поле не может содержать менее 3-х символов",
-            },
-          })}
-          error={errors.login && String(errors.login.message)}
-        />
+
         <CustomInput
           variant="default"
           label="Email"
@@ -99,12 +85,12 @@ const SignUpForm = (): JSX.Element => {
         />
 
         <CustomButton variant="primary" size="large" type="submit">
-          Зарегистрироваться
+          SIGN UP
         </CustomButton>
 
         <FlexBlock gap="5px">
-          <Paragraph>Уже зарегистрированы?</Paragraph>
-          <CustomLink href="/log-in">Войти</CustomLink>
+          <Paragraph>Already registered?</Paragraph>
+          <CustomLink href="/log-in">Log in</CustomLink>
         </FlexBlock>
       </FlexBlock>
     </form>

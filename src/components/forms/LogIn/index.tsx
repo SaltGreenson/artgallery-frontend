@@ -33,7 +33,7 @@ const LogInForm = (): JSX.Element => {
           <FlexBlock direction="column" gap="8px" width="100%">
             <CustomInput
               variant="default"
-              label="Пароль"
+              label="Password"
               type="password"
               register={register("password", {
                 required: {
@@ -43,16 +43,18 @@ const LogInForm = (): JSX.Element => {
               })}
               error={errors.password && String(errors.password.message)}
             />
-            <CustomLink href="/password-recovery">Забыли пароль?</CustomLink>
+            <CustomLink href="/password-recovery">
+              Forgot your password?
+            </CustomLink>
           </FlexBlock>
 
           <CustomButton type="submit" variant="primary" size="large">
-            Войти
+            LOG IN
           </CustomButton>
 
           <FlexBlock gap="5px">
-            <Paragraph>Нету аккаунта?</Paragraph>
-            <CustomLink href="/sign-up">Регистрация</CustomLink>
+            <Paragraph>Don&lsquo;t have an account?</Paragraph>
+            <CustomLink href="/sign-up">Sign up</CustomLink>
           </FlexBlock>
         </FlexBlock>
       </form>
