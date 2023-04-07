@@ -48,6 +48,16 @@ body {
   background-color: #ffffff;
 }
 
+body::-webkit-scrollbar-thumb {
+  border-radius: 25px;
+  background-color: #cbcbcb;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #e7e7e7;
+}
+
 @font-face {
   font-family: "Gotham Pro";
   src: url("../../fonts/GothamProRegular.ttf") format("truetype");
