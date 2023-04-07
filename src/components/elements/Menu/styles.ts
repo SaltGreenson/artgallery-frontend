@@ -35,11 +35,8 @@ export const StyledMenuLogoWrapper = styled.div`
 
 export const MenuContainer = styled.div<{ isFullSizeView: boolean }>`
   width: 70px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
@@ -52,21 +49,30 @@ export const MenuContainer = styled.div<{ isFullSizeView: boolean }>`
     display: none;
   }
 
+  @media (max-width: 1024px) {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+
   ${({ isFullSizeView }) =>
     isFullSizeView &&
     css`
       width: 300px;
 
-      ${StyledMenuLogoWrapper} svg {
+      #logo-wrapper svg {
         height: 90px;
         width: 91px;
       }
 
-      ${StyledMenuText} {
+      #menu-text {
         display: flex;
       }
 
-      ${StyledMenuIcon} {
+      #menu-icon {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
@@ -89,13 +95,15 @@ export const StyledMenuList = styled.li<{ isActive?: boolean }>`
   transition: background-color 200ms;
   cursor: pointer;
 
-  ${StyledMenuIcon}, ${StyledMenuText} {
+  #menu-icon,
+  #menu-text {
     background-color: ${({ isActive }) =>
       isActive ? Colors.PURPLE : Colors.WHITE};
   }
 
   &:hover {
-    ${StyledMenuIcon}, ${StyledMenuText} {
+    #menu-icon,
+    #menu-text {
       background-color: ${({ isActive }) =>
         isActive ? Colors.DARK_PURPLE : Colors.LIGHT_SELECTED};
     }
@@ -148,7 +156,7 @@ export const StyledMenuOpenCloseButton = styled(StyledMenuIcon)<{
       css`
         animation: linear changeIcon 300ms;
 
-        ${StyledMenuOpenCloseButtonText} {
+        #open-close-text {
           display: flex;
         }
       `}

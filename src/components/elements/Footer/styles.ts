@@ -14,9 +14,5 @@ export const StyledFooterContentContainer = styled.div`
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
-  padding-top: 48px;
-
-  @media (max-width: 1500px) {
-    padding: 48px 5% 0 5%;
-  }
+  padding: 48px 5% 0 5%;
 `;

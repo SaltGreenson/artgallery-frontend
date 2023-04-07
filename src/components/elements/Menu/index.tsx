@@ -64,8 +64,10 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       const { icon, title } = linkElement;
       return (
         <StyledMenuList key={idx} isActive={isActive} onClick={onClick}>
-          <StyledMenuIcon>{React.cloneElement(icon, iconProps)}</StyledMenuIcon>
-          <StyledMenuText>
+          <StyledMenuIcon id="menu-icon">
+            {React.cloneElement(icon, iconProps)}
+          </StyledMenuIcon>
+          <StyledMenuText id="menu-text">
             <Paragraph
               fontSize={fontSize}
               color={
@@ -119,43 +121,41 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       <FlexBlock direction="column" justify="space-between" flex={1}>
         <CustomBlock>
           <StyledMenuOpenCloseButtonContainer onClick={handleClickDisplayStyle}>
-            <StyledMenuOpenCloseButton isOpen={isFullSizeView}>
+            <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
               {displayStyleIconConfig(isFullSizeView)}
             </StyledMenuOpenCloseButton>
-            <StyledMenuOpenCloseButtonText>
+            <StyledMenuOpenCloseButtonText id="menu-text">
               <Paragraph fontSize="16px" color={Colors.PURPLE} bold>
                 {DisplayStyleText.FULL}
               </Paragraph>
             </StyledMenuOpenCloseButtonText>
           </StyledMenuOpenCloseButtonContainer>
-          <CustomLink href="#" fontSize="16px" bold>
-            <StyledMenuLogoWrapper>
-              <Logo />
-              <StyledMenuOwnerInfo>
-                <CustomLink href="#" fontSize="16px" bold>
-                  Vlad Yuskovich
-                </CustomLink>
-                <CustomLink
-                  href="#"
-                  color={Colors.NEW_ORANGE}
-                  hoverColor={Colors.NEW_ORANGE}
-                  fontSize="16px"
-                  bold
-                >
-                  Likes: 999+
-                </CustomLink>
-                <CustomLink
-                  href="#"
-                  color={Colors.NEW_ORANGE}
-                  hoverColor={Colors.NEW_ORANGE}
-                  fontSize="16px"
-                  bold
-                >
-                  Posts: 999+
-                </CustomLink>
-              </StyledMenuOwnerInfo>
-            </StyledMenuLogoWrapper>
-          </CustomLink>
+          <StyledMenuLogoWrapper id="logo-wrapper">
+            <Logo />
+            <StyledMenuOwnerInfo id="menu-text">
+              <CustomLink href="#" fontSize="16px" bold>
+                Vlad Yuskovich
+              </CustomLink>
+              <CustomLink
+                href="#"
+                color={Colors.NEW_ORANGE}
+                hoverColor={Colors.NEW_ORANGE}
+                fontSize="16px"
+                bold
+              >
+                Likes: 999+
+              </CustomLink>
+              <CustomLink
+                href="#"
+                color={Colors.NEW_ORANGE}
+                hoverColor={Colors.NEW_ORANGE}
+                fontSize="16px"
+                bold
+              >
+                Posts: 999+
+              </CustomLink>
+            </StyledMenuOwnerInfo>
+          </StyledMenuLogoWrapper>
           <StyledMenu>
             {displayMainLinks}
             <MenuDropDownElement

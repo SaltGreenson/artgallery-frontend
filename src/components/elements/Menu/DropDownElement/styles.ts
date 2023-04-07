@@ -30,7 +30,7 @@ export const StyledMenuRotateWrapper = styled.div<StyledMenuRotateProps>`
   ${({ isActive }) =>
     isActive &&
     css`
-      ${StyledMenuRotate} {
+      #rotate-menu {
         max-height: 140px;
       }
     `}
@@ -39,7 +39,7 @@ export const StyledMenuRotateWrapper = styled.div<StyledMenuRotateProps>`
     isNeedRotate &&
     isActive &&
     css`
-      ${StyledMenuRotateList} {
+      #rotate-menu-list {
         svg {
           transform: rotate(180deg);
         }

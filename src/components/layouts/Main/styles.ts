@@ -2,50 +2,40 @@ import styled from "styled-components";
 
 export const MainLayoutContainer = styled.div<{ visible?: boolean }>`
   display: grid;
-  grid-template-rows: 60px auto 100px 350px;
-  grid-template-columns: 100%;
+  grid-template-rows: auto 100px 350px;
+  grid-template-columns: max-content auto;
   min-height: 100vh;
+  max-width: 100vw;
 
   @media (max-width: 768px) {
-    grid-template-rows: 60px auto 100px auto;
+    grid-template-rows: auto 100px auto;
   }
 
   @media (max-width: 1024px) {
-    grid-template-columns: 3px calc(100% - 6px) 3px;
+    grid-template-columns: 70px calc(100% - 73px) 3px;
   }
 `;
 export const ContentContainer = styled.div`
-  grid-row: 2;
-
-  @media (max-width: 1024px) {
-    grid-column: 2;
-  }
+  grid-row: 1;
+  grid-column: 2;
 `;
 
-export const HeaderContainer = styled.div<{ visible?: boolean }>`
-  z-index: 101;
-  width: 100%;
-  position: fixed;
-  top: ${({ visible }) => (visible ? 0 : "-60px")};
-  transition: top 200ms;
+export const MenuContainer = styled.div<{ visible?: boolean }>`
+  grid-row: 1 / span 3;
+  grid-column: 1;
+  max-height: 100vh;
 
-  @media (max-width: 1024px) {
-    grid-column: 1 / span 3;
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: 0;
   }
 `;
 
 export const FooterContainer = styled.div`
-  grid-row: 4;
+  grid-row: 3;
+  grid-column: 2;
 
   @media (max-width: 1024px) {
-    grid-column: 1 / span 3;
-  }
-`;
-
-export const MobileMenuContainer = styled.div`
-  display: none;
-
-  @media (max-width: 1024px) {
-    display: block;
+    grid-column: 2 / span 3;
   }
 `;

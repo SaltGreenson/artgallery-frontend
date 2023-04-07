@@ -44,11 +44,15 @@ const MenuDropDownElement = ({
       isNeedRotate={isNeedRotateHeadElement}
       isActive={isActive}
     >
-      <StyledMenuRotateList isActive={activeIdx >= 0} onClick={onClickHandler}>
-        <StyledMenuIcon>
+      <StyledMenuRotateList
+        id="rotate-menu-list"
+        isActive={activeIdx >= 0}
+        onClick={onClickHandler}
+      >
+        <StyledMenuIcon id="menu-icon">
           {React.cloneElement(headElement.icon, iconProps)}
         </StyledMenuIcon>
-        <StyledMenuText>
+        <StyledMenuText id="menu-text">
           <FlexBlock
             justify="space-between"
             align="center"
@@ -69,7 +73,7 @@ const MenuDropDownElement = ({
           </FlexBlock>
         </StyledMenuText>
       </StyledMenuRotateList>
-      <StyledMenuRotate onClick={onClickHandler}>
+      <StyledMenuRotate id="rotate-menu" onClick={onClickHandler}>
         {renderLinks()}
       </StyledMenuRotate>
     </StyledMenuRotateWrapper>

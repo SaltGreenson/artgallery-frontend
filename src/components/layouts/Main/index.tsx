@@ -1,44 +1,27 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import Footer from "../../elements/Footer";
+import Menu from "@/components/elements/Menu";
 
 import {
   ContentContainer,
   FooterContainer,
-  HeaderContainer,
   MainLayoutContainer,
+  MenuContainer,
 } from "./styles";
 
 type PropsTypes = {
   children: ReactNode;
 };
-const Index = ({ children }: PropsTypes): JSX.Element => {
-  const [prevScrollPos, setPrevScrollPos] = useState(
-    typeof window !== "undefined" ? window.scrollY : 0
-  );
-  const [visible, setVisible] = useState(true);
+const MainLayout = ({ children }: PropsTypes): JSX.Element => (
+  <MainLayoutContainer>
+    <MenuContainer>
+      <Menu />
+    </MenuContainer>
+    <ContentContainer>{children}</ContentContainer>
+    <FooterContainer>
+      <Footer />
+    </FooterContainer>
+  </MainLayoutContainer>
+);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setVisible(prevScrollPos > currentScrollPos);
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
-
-  return (
-    <>
-      <MainLayoutContainer>
-        <HeaderContainer visible={visible}>{/*<Header />*/}</HeaderContainer>
-        <ContentContainer>{children}</ContentContainer>
-        <FooterContainer>
-          <Footer />
-        </FooterContainer>
-      </MainLayoutContainer>
-    </>
-  );
-};
-
-export default Index;
+export default MainLayout;

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { Colors } from "@/styles/colors";
 
 export const StyledCardContainer = styled.div`
-  width: 800px;
-  height: 524px;
+  width: clamp(300px, 100vw / 1.5, 800px);
+  height: clamp(300px, 100vh / 2 - 20px, 524px);
   display: flex;
   position: relative;
   transition: box-shadow 300ms;
@@ -11,7 +11,7 @@ export const StyledCardContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     &:hover {
       box-shadow: 0 0 8px ${Colors.ICE};
     }
@@ -30,10 +30,11 @@ export const StyledCardImageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: linear 300ms;
+  transition-delay: 300ms;
+  transition: linear 600ms;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     &:hover {
       max-width: 80%;
     }
