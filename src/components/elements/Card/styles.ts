@@ -11,8 +11,16 @@ export const StyledCardContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
-  &:hover {
-    box-shadow: 0 0 8px ${Colors.ICE};
+  @media (min-width: 1024px) {
+    &:hover {
+      box-shadow: 0 0 8px ${Colors.ICE};
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
   }
 `;
 
@@ -25,20 +33,33 @@ export const StyledCardImageContainer = styled.div`
   transition: linear 300ms;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
-  &:hover {
-    max-width: 80%;
+  @media (min-width: 1024px) {
+    &:hover {
+      max-width: 80%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: unset;
+    max-height: 400px;
   }
 `;
 
 export const StyledCardImage = styled.img`
   height: 100%;
   object-fit: contain;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const StyledCardContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
   padding: 5px 3%;
 `;
 
