@@ -3,7 +3,7 @@ import { Colors } from "@/styles/colors";
 
 export const StyledMenuIcon = styled.div`
   border-radius: 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 5px 10px;
@@ -90,7 +90,7 @@ export const StyledMenu = styled.ul`
 
 export const StyledMenuList = styled.li<{ isActive?: boolean }>`
   width: 300px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   transition: background-color 200ms;
   cursor: pointer;
@@ -112,7 +112,7 @@ export const StyledMenuList = styled.li<{ isActive?: boolean }>`
 
 export const StyledMenuOpenCloseButtonContainer = styled.div`
   width: 300px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   transition: background-color 200ms;
   cursor: pointer;
@@ -157,7 +157,7 @@ export const StyledMenuOpenCloseButton = styled(StyledMenuIcon)<{
         animation: linear changeIcon 300ms;
 
         #open-close-text {
-          display: flex;
+          display: inline-flex;
         }
       `}
   }

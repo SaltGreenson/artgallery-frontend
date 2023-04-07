@@ -1,16 +1,10 @@
-import React, { HTMLAttributes } from "react";
-import {
-  StyledPreloaderContainer,
-  StyledPreloaderSign,
-} from "@/components/common/Preloader/styles";
-import { DynamicOptionsLoadingProps } from "next/dynamic";
+import { preloaderTypesConfig } from "@/components/common/Preloader/config";
 
-const Preloader = ({
-  ...props
-}: HTMLAttributes<HTMLDivElement> & DynamicOptionsLoadingProps) => (
-  <StyledPreloaderContainer {...props}>
-    <StyledPreloaderSign />
-  </StyledPreloaderContainer>
-);
+interface IPreloaderProps {
+  variant: "default" | "card";
+}
+
+const Preloader = ({ variant }: IPreloaderProps) =>
+  preloaderTypesConfig[variant];
 
 export default Preloader;

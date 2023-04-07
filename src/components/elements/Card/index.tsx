@@ -6,6 +6,7 @@ import CustomLink from "@/components/common/Link";
 import { FlexBlock } from "@/components/common/Block";
 import { numberPrettier } from "@/utils/helpers/formatters.helper";
 import { MdFileDownload } from "react-icons/md";
+import CustomButton from "@/components/common/Button";
 
 import {
   likeDislikeFontColorConfig,
@@ -22,7 +23,6 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
-import CustomButton from "@/components/common/Button";
 
 const Card = () => {
   const renderIcon = useCallback(

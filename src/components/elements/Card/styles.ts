@@ -11,7 +11,7 @@ export const StyledCardContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     &:hover {
       box-shadow: 0 0 8px ${Colors.ICE};
     }

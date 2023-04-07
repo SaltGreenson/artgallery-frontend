@@ -30,15 +30,19 @@ import {
 } from "@/components/elements/Menu/styles";
 import { Colors } from "@/styles/colors";
 import CustomButton from "@/components/common/Button";
+import { useRouter } from "next/router";
+import { isEqual } from "@/utils/helpers/isEqual";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   isAuthUser?: boolean;
 }
 
 const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
+  isAuthUser = true;
   const [activeMainIdx, setActiveMainIdx] = useState(0);
   const [activeSettingsIdx, setActiveSettingsIdx] = useState(-1);
   const [isFullSizeView, setIsFullSizeView] = useState(false);
+  const router = useRouter();
 
   const handleClickDisplayStyle = useCallback(() => {
     setIsFullSizeView((prev) => !prev);
@@ -62,29 +66,31 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       onClick?: () => void
     ) => {
       const iconProps = isActive ? { color: menuIconColorsConfig.active } : {};
-      const { icon, title } = linkElement;
+      const { icon, title, href } = linkElement;
       return (
-        <StyledMenuList key={idx} isActive={isActive} onClick={onClick}>
-          <StyledMenuIcon id="menu-icon">
-            <CustomButton variant="icon">
-              {React.cloneElement(icon, iconProps)}
-            </CustomButton>
-          </StyledMenuIcon>
+        <CustomLink key={idx} href={href}>
+          <StyledMenuList isActive={isActive} onClick={onClick}>
+            <StyledMenuIcon id="menu-icon">
+              <CustomButton variant="icon">
+                {React.cloneElement(icon, iconProps)}
+              </CustomButton>
+            </StyledMenuIcon>
 
-          <StyledMenuText id="menu-text">
-            <Paragraph
-              fontSize={fontSize}
-              color={
-                isActive
-                  ? menuIconColorsConfig.active
-                  : menuIconColorsConfig.inactive
-              }
-              bold
-            >
-              {title}
-            </Paragraph>
-          </StyledMenuText>
-        </StyledMenuList>
+            <StyledMenuText id="menu-text">
+              <Paragraph
+                fontSize={fontSize}
+                color={
+                  isActive
+                    ? menuIconColorsConfig.active
+                    : menuIconColorsConfig.inactive
+                }
+                bold
+              >
+                {title}
+              </Paragraph>
+            </StyledMenuText>
+          </StyledMenuList>
+        </CustomLink>
       );
     },
     []
@@ -92,12 +98,12 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
 
   const renderMainLinks = useCallback(
     () =>
-      menuLinksConfig.map((link, idx) =>
+      menuLinksConfig(isAuthUser).map((link, idx) =>
         renderLink(
           idx,
           link,
           "16px",
-          idx === activeMainIdx,
+          isEqual(router.pathname, link.href),
           handleClickActiveIdx({ mainIdx: idx })
         )
       ),
@@ -111,7 +117,7 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
           idx,
           link,
           "15px",
-          idx === activeSettingsIdx,
+          isEqual(router.pathname, link.href),
           handleClickActiveIdx({ settingsIdx: idx })
         )
       ),
@@ -137,50 +143,54 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
               </Paragraph>
             </StyledMenuOpenCloseButtonText>
           </StyledMenuOpenCloseButtonContainer>
-          <StyledMenuLogoWrapper id="logo-wrapper">
-            <CustomLink href="#">
-              <Logo />
-            </CustomLink>
-            <StyledMenuOwnerInfo id="menu-text">
-              <CustomLink href="#" fontSize="16px" bold>
-                Vlad Yuskovich
+          {isAuthUser && (
+            <StyledMenuLogoWrapper id="logo-wrapper">
+              <CustomLink href="#">
+                <Logo />
               </CustomLink>
-              <CustomLink
-                href="#"
-                color={Colors.NEW_ORANGE}
-                hoverColor={Colors.NEW_ORANGE}
-                fontSize="16px"
-                bold
-              >
-                Likes: 999+
-              </CustomLink>
-              <CustomLink
-                href="#"
-                color={Colors.NEW_ORANGE}
-                hoverColor={Colors.NEW_ORANGE}
-                fontSize="16px"
-                bold
-              >
-                Posts: 999+
-              </CustomLink>
-            </StyledMenuOwnerInfo>
-          </StyledMenuLogoWrapper>
+              <StyledMenuOwnerInfo id="menu-text">
+                <CustomLink href="#" fontSize="16px" bold>
+                  Vlad Yuskovich
+                </CustomLink>
+                <CustomLink
+                  href="#"
+                  color={Colors.NEW_ORANGE}
+                  hoverColor={Colors.NEW_ORANGE}
+                  fontSize="16px"
+                  bold
+                >
+                  Likes: 999+
+                </CustomLink>
+                <CustomLink
+                  href="#"
+                  color={Colors.NEW_ORANGE}
+                  hoverColor={Colors.NEW_ORANGE}
+                  fontSize="16px"
+                  bold
+                >
+                  Posts: 999+
+                </CustomLink>
+              </StyledMenuOwnerInfo>
+            </StyledMenuLogoWrapper>
+          )}
           <StyledMenu>
             {displayMainLinks}
-            <MenuDropDownElement
-              activeIdx={activeSettingsIdx}
-              isNeedRotateHeadElement
-              headElement={{
-                title: "Settings",
-                icon: (
-                  <IoSettingsOutline
-                    fontSize="30px"
-                    color={menuIconColorsConfig.inactive}
-                  />
-                ),
-              }}
-              renderLinks={renderSubLinks(menuSettingLinksConfig)}
-            />
+            {isAuthUser && (
+              <MenuDropDownElement
+                activeIdx={activeSettingsIdx}
+                isNeedRotateHeadElement
+                headElement={{
+                  title: "Settings",
+                  icon: (
+                    <IoSettingsOutline
+                      fontSize="30px"
+                      color={menuIconColorsConfig.inactive}
+                    />
+                  ),
+                }}
+                renderLinks={renderSubLinks(menuSettingLinksConfig)}
+              />
+            )}
           </StyledMenu>
         </CustomBlock>
 

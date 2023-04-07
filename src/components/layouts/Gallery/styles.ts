@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CatalogContentContainer = styled.div`
+export const CatalogViewContainer = styled.div`
   display: grid;
   align-items: center;
   justify-content: center;
@@ -13,6 +13,6 @@ export const CatalogContentContainer = styled.div`
   }
 `;
 
-export const CatalogTitleContainer = styled.div`
+export const CatalogViewTitleContainer = styled.div`
   padding-bottom: 3rem;
 `;

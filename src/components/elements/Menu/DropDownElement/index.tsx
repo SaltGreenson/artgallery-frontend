@@ -4,8 +4,8 @@ import {
   StyledMenuText,
 } from "@/components/elements/Menu/styles";
 import {
+  MenuDropDownLinkType,
   menuIconColorsConfig,
-  MenuLinkType,
 } from "@/components/elements/Menu/config";
 import Paragraph from "@/components/common/Paragraph";
 import {
@@ -21,7 +21,7 @@ import CustomButton from "@/components/common/Button";
 interface MenuDropDownElementProps extends HTMLAttributes<HTMLDivElement> {
   activeIdx: number;
   isNeedRotateHeadElement?: boolean;
-  headElement: MenuLinkType;
+  headElement: MenuDropDownLinkType;
   renderLinks: () => JSX.Element[];
 }
 
