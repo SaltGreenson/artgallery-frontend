@@ -1,12 +1,14 @@
-import { Colors } from "@/styles/colors";
-
-export const formatNumberToPrice = (number: number): string => {
-  const _ = new Intl.NumberFormat("ru", {}).format(number);
-  return `${_} p.`;
+export const numberPrettier = (num: number): string => {
+  if (num < 1000) {
+    return num.toString();
+  } else if (num >= 1000 && num < 10000) {
+    return (num / 100).toFixed(0) + "k";
+  } else if (num >= 10000 && num < 1000000) {
+    return (num / 1000).toFixed(1) + "k";
+  } else {
+    return (num / 1000000).toFixed(1) + "m";
+  }
 };
-
-export const getActiveColorForText = (isActive?: boolean) =>
-  isActive ? Colors.DARK_BLUE : Colors.BLACK;
 
 export const formatDate = (dateStr: Date) => {
   const date = new Date(dateStr);

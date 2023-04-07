@@ -52,5 +52,7 @@ export enum Colors {
   NEW_ORANGE = "#FF6E40",
   NEW_PINK = "#FF7FAB",
   NEW_BLUE = "#87CEEB",
+  NEW_LIGHT_GREEN = "#b4d8a9",
+  NEW_LIGHT_RED = "#e6c1c1",
   ACTIVE_LINK_BACKGROUND = "#E7F0F672",
 }
