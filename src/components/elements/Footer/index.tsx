@@ -20,7 +20,7 @@ const Footer = () => (
       <StyledFooterContentContainer>
         <FlexBlock direction="column" gap="48px" justify="space-between">
           <FlexBlock gap="16px" direction="column">
-            <CustomTitle variant="small" color={Colors.WHITE}>
+            <CustomTitle variant="small" color={Colors.PURPLE}>
               Познакомьтесь с нами поближе
             </CustomTitle>
             {getToKnowUsLinks &&
@@ -28,8 +28,7 @@ const Footer = () => (
                 <CustomLink
                   key={link.title}
                   href={link.href}
-                  color={Colors.MEDIUM_GREY}
-                  hoverColor={Colors.WHITE}
+                  color={Colors.NEW_PINK}
                   fontSize="14px"
                   bold
                 >
@@ -44,7 +43,7 @@ const Footer = () => (
               flexWrap="wrap"
               direction="row"
             >
-              <Paragraph color={Colors.MEDIUM_GREY} fontSize="14px" bold>
+              <Paragraph color={Colors.PURPLE} fontSize="14px" bold>
                 © 2023 BREENKY
               </Paragraph>
               {generalLinks &&
@@ -52,8 +51,7 @@ const Footer = () => (
                   <CustomLink
                     key={link.title}
                     href={link.href}
-                    color={Colors.MEDIUM_GREY}
-                    hoverColor={Colors.WHITE}
+                    color={Colors.PURPLE}
                     fontSize="14px"
                     bold
                   >
