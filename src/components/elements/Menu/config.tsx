@@ -5,8 +5,7 @@ import { BsList, BsViewList } from "react-icons/bs";
 import { IoPersonOutline } from "react-icons/io5";
 import { BiExit, BiLockAlt } from "react-icons/bi";
 import { RxExit } from "react-icons/rx";
-
-import Sign from "@/components/common/Sign";
+import { HiOutlineHeart } from "react-icons/hi";
 
 import { Colors } from "@/styles/colors";
 
@@ -14,22 +13,25 @@ export enum DisplayStyleText {
   FULL = "Full-size view",
 }
 
+const iconGreyProps = { fontSize: "30px", color: Colors.FONT_SIZE_GREY };
+const iconPurpleProps = { fontSize: "30px", color: Colors.PURPLE };
+
 export const iconLogInLogOutUserConfig = (isAuth?: boolean): MenuLinkType =>
   isAuth
     ? {
         title: "Log Out",
-        icon: <RxExit fontSize="30px" color={Colors.FONT_SIZE_GREY} />,
+        icon: <RxExit {...iconGreyProps} />,
       }
     : {
         title: "Log In",
-        icon: <BiExit fontSize="30px" color={Colors.FONT_SIZE_GREY} />,
+        icon: <BiExit {...iconGreyProps} />,
       };
 
 export const displayStyleIconConfig = (isFullSize: boolean) =>
   isFullSize ? (
-    <BsList fontSize="30px" color={Colors.PURPLE} />
+    <BsList {...iconPurpleProps} />
   ) : (
-    <BsViewList fontSize="30px" color={Colors.PURPLE} />
+    <BsViewList {...iconPurpleProps} />
   );
 
 export type MenuLinkType = {
@@ -44,44 +46,26 @@ export const menuIconColorsConfig = {
 
 export const menuLinksConfig: MenuLinkType[] = [
   {
-    icon: (
-      <AiOutlineFileSearch
-        fontSize="30px"
-        color={menuIconColorsConfig.inactive}
-      />
-    ),
+    icon: <AiOutlineFileSearch {...iconGreyProps} />,
     title: "Search board",
   },
   {
-    icon: (
-      <Sign
-        variant="heart"
-        fontSize="30px"
-        color={menuIconColorsConfig.inactive}
-      />
-    ),
+    icon: <HiOutlineHeart {...iconGreyProps} />,
     title: "Liked",
   },
   {
-    icon: (
-      <AiOutlinePlusCircle
-        fontSize="30px"
-        color={menuIconColorsConfig.inactive}
-      />
-    ),
+    icon: <AiOutlinePlusCircle {...iconGreyProps} />,
     title: "New art",
   },
 ];
 
 export const menuSettingLinksConfig: MenuLinkType[] = [
   {
-    icon: (
-      <IoPersonOutline fontSize="30px" color={menuIconColorsConfig.inactive} />
-    ),
+    icon: <IoPersonOutline {...iconGreyProps} />,
     title: "Personal data",
   },
   {
-    icon: <BiLockAlt fontSize="30px" color={menuIconColorsConfig.inactive} />,
+    icon: <BiLockAlt {...iconGreyProps} />,
     title: "Safety",
   },
 ];

@@ -50,11 +50,12 @@ const MenuDropDownElement = ({
         isActive={activeIdx >= 0}
         onClick={onClickHandler}
       >
-        <CustomButton variant="icon">
-          <StyledMenuIcon id="menu-icon">
+        <StyledMenuIcon id="menu-icon">
+          <CustomButton variant="icon">
             {React.cloneElement(headElement.icon, iconProps)}
-          </StyledMenuIcon>
-        </CustomButton>
+          </CustomButton>
+        </StyledMenuIcon>
+
         <StyledMenuText id="menu-text">
           <FlexBlock
             justify="space-between"

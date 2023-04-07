@@ -65,11 +65,12 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       const { icon, title } = linkElement;
       return (
         <StyledMenuList key={idx} isActive={isActive} onClick={onClick}>
-          <CustomButton variant="icon">
-            <StyledMenuIcon id="menu-icon">
+          <StyledMenuIcon id="menu-icon">
+            <CustomButton variant="icon">
               {React.cloneElement(icon, iconProps)}
-            </StyledMenuIcon>
-          </CustomButton>
+            </CustomButton>
+          </StyledMenuIcon>
+
           <StyledMenuText id="menu-text">
             <Paragraph
               fontSize={fontSize}
@@ -124,11 +125,12 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       <FlexBlock direction="column" justify="space-between" flex={1}>
         <CustomBlock>
           <StyledMenuOpenCloseButtonContainer onClick={handleClickDisplayStyle}>
-            <CustomButton variant="icon">
-              <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
+            <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
+              <CustomButton variant="icon">
                 {displayStyleIconConfig(isFullSizeView)}
-              </StyledMenuOpenCloseButton>
-            </CustomButton>
+              </CustomButton>
+            </StyledMenuOpenCloseButton>
+
             <StyledMenuOpenCloseButtonText id="menu-text">
               <Paragraph fontSize="16px" color={Colors.PURPLE} bold>
                 {DisplayStyleText.FULL}
@@ -136,7 +138,9 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
             </StyledMenuOpenCloseButtonText>
           </StyledMenuOpenCloseButtonContainer>
           <StyledMenuLogoWrapper id="logo-wrapper">
-            <Logo />
+            <CustomLink href="#">
+              <Logo />
+            </CustomLink>
             <StyledMenuOwnerInfo id="menu-text">
               <CustomLink href="#" fontSize="16px" bold>
                 Vlad Yuskovich
