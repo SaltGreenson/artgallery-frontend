@@ -165,5 +165,5 @@ export const StyledMenuOwnerInfo = styled(StyledMenuText)`
   padding: 10px;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 13px;
 `;
