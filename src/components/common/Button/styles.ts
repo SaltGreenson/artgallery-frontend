@@ -72,6 +72,11 @@ export const StyledOutlinedButton = styled(StyledPrimaryButton)`
   }
 `;
 
+export const StyledIconButton = styled.button`
+  background-color: transparent;
+  cursor: pointer;
+`;
+
 export const StyledTextButton = styled.button`
   background-color: transparent;
   cursor: pointer;

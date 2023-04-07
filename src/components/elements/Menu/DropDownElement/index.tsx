@@ -16,6 +16,7 @@ import {
 import { IoIosArrowDown } from "react-icons/io";
 import { FlexBlock } from "@/components/common/Block";
 import { Colors } from "@/styles/colors";
+import CustomButton from "@/components/common/Button";
 
 interface MenuDropDownElementProps extends HTMLAttributes<HTMLDivElement> {
   activeIdx: number;
@@ -49,9 +50,11 @@ const MenuDropDownElement = ({
         isActive={activeIdx >= 0}
         onClick={onClickHandler}
       >
-        <StyledMenuIcon id="menu-icon">
-          {React.cloneElement(headElement.icon, iconProps)}
-        </StyledMenuIcon>
+        <CustomButton variant="icon">
+          <StyledMenuIcon id="menu-icon">
+            {React.cloneElement(headElement.icon, iconProps)}
+          </StyledMenuIcon>
+        </CustomButton>
         <StyledMenuText id="menu-text">
           <FlexBlock
             justify="space-between"

@@ -22,6 +22,7 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
+import CustomButton from "@/components/common/Button";
 
 const Card = () => {
   const renderIcon = useCallback(
@@ -31,7 +32,9 @@ const Card = () => {
     ) => (
       <FlexBlock gap="5px" align="center">
         <StyledCardIconContainer>
-          {likeDislikeIconsConfig[variant]}
+          <CustomButton variant="icon">
+            {likeDislikeIconsConfig[variant]}
+          </CustomButton>
         </StyledCardIconContainer>
         <Paragraph color={likeDislikeFontColorConfig[variant]} bold>
           {numberPrettier(quantity)}
@@ -48,12 +51,18 @@ const Card = () => {
       </StyledCardImageContainer>
       <StyledCardContentContainer>
         <FlexBlock gap="5px" justify="flex-end">
-          <Paragraph variant="default">Posted by:</Paragraph>
-          <CustomLink href="#">Vlad Yuskovich</CustomLink>
+          <Paragraph variant="default" color={Colors.FONT_SIZE_GREY} bold>
+            Posted by:
+          </Paragraph>
+          <CustomLink href="#" bold>
+            Vlad Yuskovich
+          </CustomLink>
         </FlexBlock>
 
         <StyledCardTextContainer>
-          <Title variant="large">Vlad yuskovich is super cool i like him</Title>
+          <Title variant="medium">
+            Vlad yuskovich is super cool i like him
+          </Title>
         </StyledCardTextContainer>
 
         <FlexBlock gap="10px">

@@ -29,6 +29,7 @@ import {
   StyledMenuText,
 } from "@/components/elements/Menu/styles";
 import { Colors } from "@/styles/colors";
+import CustomButton from "@/components/common/Button";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   isAuthUser?: boolean;
@@ -64,9 +65,11 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       const { icon, title } = linkElement;
       return (
         <StyledMenuList key={idx} isActive={isActive} onClick={onClick}>
-          <StyledMenuIcon id="menu-icon">
-            {React.cloneElement(icon, iconProps)}
-          </StyledMenuIcon>
+          <CustomButton variant="icon">
+            <StyledMenuIcon id="menu-icon">
+              {React.cloneElement(icon, iconProps)}
+            </StyledMenuIcon>
+          </CustomButton>
           <StyledMenuText id="menu-text">
             <Paragraph
               fontSize={fontSize}
@@ -121,9 +124,11 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
       <FlexBlock direction="column" justify="space-between" flex={1}>
         <CustomBlock>
           <StyledMenuOpenCloseButtonContainer onClick={handleClickDisplayStyle}>
-            <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
-              {displayStyleIconConfig(isFullSizeView)}
-            </StyledMenuOpenCloseButton>
+            <CustomButton variant="icon">
+              <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
+                {displayStyleIconConfig(isFullSizeView)}
+              </StyledMenuOpenCloseButton>
+            </CustomButton>
             <StyledMenuOpenCloseButtonText id="menu-text">
               <Paragraph fontSize="16px" color={Colors.PURPLE} bold>
                 {DisplayStyleText.FULL}

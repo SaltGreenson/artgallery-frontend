@@ -6,6 +6,7 @@ import { Colors } from "@/styles/colors";
 import { buttonSizesConfig } from "./config";
 import {
   PrimaryProps,
+  StyledIconButton,
   StyledOutlinedButton,
   StyledPrimaryButton,
   StyledSecondaryButton,
@@ -18,7 +19,6 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary" | "outlined" | "icon" | "text";
   size?: "small" | "medium" | "large";
   height?: string;
-  icon?: ReactNode;
   isFetching?: boolean;
 }
 
@@ -26,7 +26,6 @@ const CustomButton = ({
   children,
   color = Colors.WHITE,
   size,
-  icon,
   variant,
   isFetching,
   ...props
@@ -60,15 +59,12 @@ const CustomButton = ({
       </Paragraph>
     </StyledOutlinedButton>
   ) : variant === "icon" ? (
-    <StyledOutlinedButton
+    <StyledIconButton
       width={buttonSizesConfig[size ?? "medium"].width}
       {...props}
     >
-      {icon}
-      <Paragraph fontSize="15px" margin="0" bold>
-        {children}
-      </Paragraph>
-    </StyledOutlinedButton>
+      {children}
+    </StyledIconButton>
   ) : (
     <StyledTextButton {...props}>
       <Paragraph fontSize="14px" color={Colors.DARK_BLUE} margin="0">

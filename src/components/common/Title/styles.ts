@@ -7,15 +7,15 @@ export interface IStyledTitleProps {
   fontSize?: string;
 }
 
-export const StyledLarge = styled.h2<IStyledTitleProps>`
+export const StyledLarge = styled.h1<IStyledTitleProps>`
   font-family: "Gotham Pro Bold", serif;
-  font-size: ${({ fontSize = "29px" }) => fontSize};
+  font-size: ${({ fontSize = "32px" }) => fontSize};
   color: ${({ color = Colors.BLACK }) => color};
 `;
 
-export const StyledMedium = styled.h3<IStyledTitleProps>`
+export const StyledMedium = styled.h2<IStyledTitleProps>`
   font-family: "Gotham Pro Bold", serif;
-  font-size: ${({ fontSize = "24px" }) => fontSize};
+  font-size: ${({ fontSize = "29px" }) => fontSize};
   color: ${({ color = Colors.BLACK }) => color};
 `;
 
