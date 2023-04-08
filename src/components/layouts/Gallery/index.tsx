@@ -11,7 +11,10 @@ interface GalleryViewProps {
   title: string;
 }
 
-const GalleryView = ({ children, title }: GalleryViewProps): JSX.Element => (
+const GalleryViewLayout = ({
+  children,
+  title,
+}: GalleryViewProps): JSX.Element => (
   <CatalogViewContainer>
     <CatalogViewTitleContainer>
       <Title variant="large">{title}</Title>
@@ -21,6 +24,7 @@ const GalleryView = ({ children, title }: GalleryViewProps): JSX.Element => (
       align="center"
       justify="center"
       gap="20px"
+      flex={1}
       direction="column"
     >
       {children}
@@ -28,4 +32,4 @@ const GalleryView = ({ children, title }: GalleryViewProps): JSX.Element => (
   </CatalogViewContainer>
 );
 
-export default GalleryView;
+export default GalleryViewLayout;

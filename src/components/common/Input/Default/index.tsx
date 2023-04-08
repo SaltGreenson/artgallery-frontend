@@ -1,8 +1,8 @@
 import React, { InputHTMLAttributes, useEffect, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { withLabels } from "@/utils/hocs";
 
 import { RelativeBlock } from "../../Block";
-import CustomLabel from "../../Label";
 
 import { InputStyled, PasswordTitle } from "./styles";
 
@@ -14,7 +14,6 @@ interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const CustomInput = ({
   error,
-  label,
   register,
   type,
   ...inputProps
@@ -36,25 +35,19 @@ const CustomInput = ({
   };
 
   return (
-    <CustomLabel error={error}>
-      {label}
-      <RelativeBlock>
-        <InputStyled
-          error={error}
-          type={inputType}
-          initialType={type}
-          {...register}
-          {...inputProps}
-        />
-        {type === "password" && (
-          <PasswordTitle onClick={handleOnClick()}>
-            {passwordText}
-          </PasswordTitle>
-        )}
-      </RelativeBlock>
-      {error && <CustomLabel variant="error">{error}</CustomLabel>}
-    </CustomLabel>
+    <RelativeBlock>
+      <InputStyled
+        error={error}
+        type={inputType}
+        initialType={type}
+        {...register}
+        {...inputProps}
+      />
+      {type === "password" && (
+        <PasswordTitle onClick={handleOnClick()}>{passwordText}</PasswordTitle>
+      )}
+    </RelativeBlock>
   );
 };
 
-export default CustomInput;
+export default withLabels(CustomInput);

@@ -8,7 +8,7 @@ export const MainLayoutContainer = styled.div<{ visible?: boolean }>`
   max-width: 100vw;
 
   @media (max-width: 768px) {
-    grid-template-rows: auto 100px auto;
+    grid-template-rows: auto 100px 377px;
   }
 
   @media (max-width: 1024px) {

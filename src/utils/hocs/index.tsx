@@ -1,3 +1,4 @@
 import withRouter from "./withRouter";
+import withLabels from "./withLabels";
 
-export { withRouter };
+export { withRouter, withLabels };

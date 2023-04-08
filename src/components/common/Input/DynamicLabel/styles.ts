@@ -13,24 +13,27 @@ export const StyledInputWDLInput = styled.input<
   border-width: 0;
   padding-top: 13px;
   padding-bottom: 3px;
-  border-bottom: 2px solid ${({ error }) => (error ? Colors.RED : Colors.ICE)};
+  border-bottom: 2px solid
+    ${({ error }) => (error ? Colors.RED : Colors.NEW_PINK)};
   font-size: 15px;
   line-height: 18px;
   font-family: "Gotham Pro", serif;
   transition: 150ms cubic-bezier(0, 0, 0, 1);
   outline: none;
+  color: ${Colors.PURPLE};
 
   &::placeholder {
     color: transparent;
   }
+
   &:focus {
-    border-bottom: 2px solid ${Colors.DARK_BLUE};
+    border-bottom: 2px solid ${Colors.PURPLE};
   }
 
   &:focus ~ label {
     transform: translateY(-50%) scale(0.8);
     left: ${({ leftPosition }) => leftPosition};
-    color: ${Colors.DARK_BLUE};
+    color: ${Colors.PURPLE};
   }
 `;
 
@@ -41,7 +44,7 @@ export const StyledInputWDLabel = styled.label<
   left: 0;
   font-size: 14px;
   font-family: "Gotham Pro", serif;
-  color: ${Colors.LIGHT_BLACK};
+  color: ${Colors.NEW_PINK};
   pointer-events: none;
   transition: 150ms cubic-bezier(0, 0, 0, 1);
   transform: translateY(13px);
@@ -51,6 +54,6 @@ export const StyledInputWDLabel = styled.label<
     css`
       left: ${leftPosition};
       transform: translateY(-50%) scale(0.8);
-      color: ${Colors.LIGHT_BLACK};
+      color: ${Colors.NEW_PINK};
     `}
 `;

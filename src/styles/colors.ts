@@ -25,7 +25,7 @@ export enum Colors {
   MEDIUM_ORANGE = "#ca913d",
   DARK_ORANGE = "#e2a242d1",
   RED = "#FF2929",
-  HOVER_RED = "rgba(255,41,41,0.71)",
+  HOVER_RED = "rgba(255,41,41,0.42)",
   LIGHT_RED = "#ea64644d",
   DARK_WHITE = "#F7F7F7",
   WHITE = "#ffffff",

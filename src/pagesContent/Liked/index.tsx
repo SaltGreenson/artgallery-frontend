@@ -1,11 +1,11 @@
 import React from "react";
-import GalleryView from "src/components/layouts/Gallery";
+import GalleryViewLayout from "src/components/layouts/Gallery";
 import Card from "@/components/elements/Card";
 
 const Liked = () => (
-  <GalleryView title="Liked">
+  <GalleryViewLayout title="Liked">
     <Card />
-  </GalleryView>
+  </GalleryViewLayout>
 );
 
 export default Liked;

@@ -5,21 +5,21 @@ import Preloader from "@/components/common/Preloader";
 import MainLayout from "@/components/layouts/Main";
 import GalleryViewLayout from "@/components/layouts/Gallery";
 
-const DynamicGalleryContent = dynamic(
-  () => import("../../pagesContent/Gallery"),
+const DynamicCreateContent = dynamic(
+  () => import("../../pagesContent/Create"),
   {
     loading: () => (
-      <GalleryViewLayout title="Gallery">
+      <GalleryViewLayout title="Create">
         <Preloader variant="card" />
       </GalleryViewLayout>
     ),
   }
 );
 
-const Gallery = () => (
+const Create = () => (
   <MainLayout>
-    <DynamicGalleryContent />
+    <DynamicCreateContent />
   </MainLayout>
 );
 
-export default Gallery;
+export default Create;

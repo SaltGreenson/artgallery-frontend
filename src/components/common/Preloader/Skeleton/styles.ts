@@ -24,10 +24,11 @@ export const SkeletonLoader = styled.div<{ isLightTheme?: boolean }>`
 `;
 
 export const StyledSkeletonCard = styled.div`
-  width: clamp(300px, 100vw / 1.5, 800px);
-  height: clamp(300px, 100vh / 2 - 20px, 524px);
+  min-width: clamp(300px, 100vw / 1.5, 800px);
+  min-height: clamp(300px, 100vh / 2 - 20px, 524px);
   position: relative;
   display: flex;
+  flex: 1;
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
@@ -35,7 +36,7 @@ export const StyledSkeletonCard = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 300px;
+    height: 350px;
     flex-direction: column;
   }
 `;
