@@ -5,9 +5,13 @@ import CustomInput from "@/components/common/Input";
 import CustomButton from "@/components/common/Button";
 import Paragraph from "@/components/common/Paragraph";
 import CustomLink from "@/components/common/Link";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
-const SignUpForm = (): JSX.Element => {
+interface SignUpFormProps {
+  onSubmitHandler: (data: FieldValues) => void;
+}
+
+const SignUpForm = ({ onSubmitHandler }: SignUpFormProps): JSX.Element => {
   const {
     formState: { errors },
     register,
@@ -20,15 +24,15 @@ const SignUpForm = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit((data) => onSubmitHandler(data))}>
       <FlexBlock direction="column" gap="20px">
         <CustomInput
           variant="default"
-          label="Nickname"
-          register={register("nickname", {
+          label="Name"
+          register={register("name", {
             required: {
               value: true,
-              message: "The Nickname field must be filled in",
+              message: "The Name field must be filled in",
             },
             minLength: {
               value: 3,
@@ -39,7 +43,7 @@ const SignUpForm = (): JSX.Element => {
               message: "The field cannot contain more than 20 characters",
             },
           })}
-          error={errors.nickname && String(errors.nickname.message)}
+          error={errors.name && String(errors.name.message)}
         />
 
         <CustomInput

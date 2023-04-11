@@ -1,36 +1,42 @@
 import axios from "axios";
 import { IAuthResponse } from "@/models/AuthResponse";
 
-export const API_URL = "http://localhost:5000/api";
+export const API_URL = process.env.API_URL || "http://localhost:5000/api";
 
 const api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
 });
 
+const handleRefreshToken = async (error: any) => {
+  const originalRequest = error.config;
+  console.log("here");
+  if (error.response.status == 401 && error.config && !error.config._isRetry) {
+    originalRequest._isRetry = true;
+    try {
+      const response = await axios.put<IAuthResponse>(
+        `${API_URL}/users/refresh`,
+        {
+          withCredentials: true,
+        }
+      );
+      localStorage.setItem("token", response.data.accessToken);
+      return api.request(originalRequest);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  throw error;
+};
+
 api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
-api.interceptors.response.use(
-  (config) => config,
-  async (err) => {
-    const originalRequest = err.config;
-    if (err.response.status == 401 && err.config && !err.config._isRetry) {
-      originalRequest._isRetry = true;
-      try {
-        const response = await axios.get<IAuthResponse>(`${API_URL}/refresh`, {
-          withCredentials: true,
-        });
-        localStorage.setItem("token", response.data.accessToken);
-        return api.request(originalRequest);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    throw err;
-  }
-);
+api.interceptors.response.use((config) => config, handleRefreshToken);
 
 export default api;

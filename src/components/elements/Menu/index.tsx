@@ -31,14 +31,19 @@ import {
 import { Colors } from "@/styles/colors";
 import CustomButton from "@/components/common/Button";
 import { useRouter } from "next/router";
-import { isEqual } from "@/utils/helpers/isEqual";
+import { isEqualHelper } from "@/utils/helpers/isEqual.helper";
+import { IUser } from "@/models/IUser";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
-  isAuthUser?: boolean;
+  authUser: IUser | null;
+  logOutHandler: () => void;
 }
 
-const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
-  isAuthUser = true;
+const Menu = ({
+  authUser,
+  logOutHandler,
+  ...props
+}: MenuProps): JSX.Element => {
   const [activeMainIdx, setActiveMainIdx] = useState(0);
   const [activeSettingsIdx, setActiveSettingsIdx] = useState(-1);
   const [isFullSizeView, setIsFullSizeView] = useState(false);
@@ -93,17 +98,17 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
         </CustomLink>
       );
     },
-    []
+    [authUser]
   );
 
   const renderMainLinks = useCallback(
     () =>
-      menuLinksConfig(isAuthUser).map((link, idx) =>
+      menuLinksConfig(!!authUser).map((link, idx) =>
         renderLink(
           idx,
           link,
           "16px",
-          isEqual(router.pathname, link.href),
+          isEqualHelper(router.pathname, link.href),
           handleClickActiveIdx({ mainIdx: idx })
         )
       ),
@@ -117,7 +122,7 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
           idx,
           link,
           "15px",
-          isEqual(router.pathname, link.href),
+          isEqualHelper(router.pathname, link.href),
           handleClickActiveIdx({ settingsIdx: idx })
         )
       ),
@@ -143,7 +148,7 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
               </Paragraph>
             </StyledMenuOpenCloseButtonText>
           </StyledMenuOpenCloseButtonContainer>
-          {isAuthUser && (
+          {authUser && (
             <StyledMenuLogoWrapper id="logo-wrapper">
               <CustomLink href="#">
                 <Logo />
@@ -175,7 +180,7 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
           )}
           <StyledMenu>
             {displayMainLinks}
-            {isAuthUser && (
+            {authUser && (
               <MenuDropDownElement
                 activeIdx={activeSettingsIdx}
                 isNeedRotateHeadElement
@@ -194,8 +199,8 @@ const Menu = ({ isAuthUser, ...props }: MenuProps): JSX.Element => {
           </StyledMenu>
         </CustomBlock>
 
-        <CustomBlock padding="0 0 20px 10px">
-          {renderLink(-2, iconLogInLogOutUserConfig(isAuthUser), "16px", false)}
+        <CustomBlock padding="0 0 20px 10px" onClick={logOutHandler}>
+          {renderLink(-2, iconLogInLogOutUserConfig(!!authUser), "16px", false)}
         </CustomBlock>
       </FlexBlock>
     </MenuContainer>
