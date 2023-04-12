@@ -1,5 +1,6 @@
 import { UserActionTypes } from "@/store/userReducer/actionTypes";
 import { IUser } from "@/models/IUser";
+import { IGallery } from "@/models/IGallery";
 
 interface IFetching {
   type: UserActionTypes.FETCH_APP;
@@ -31,13 +32,19 @@ interface ISetAuthUser {
   payload: { authUser: IUser | null };
 }
 
+interface ISetLikedPosts {
+  type: UserActionTypes.SET_LIKED_POSTS;
+  payload: { likedPosts: IGallery[] | null };
+}
+
 export type AppActionsType =
   | IFetching
   | ISetIsAuth
   | ISetAuthUser
   | IFetchingSuccess
   | IFetchingError
-  | ISetMessage;
+  | ISetMessage
+  | ISetLikedPosts;
 
 export const userActions = {
   setFetching: (isFetching: boolean): IFetching =>
@@ -69,5 +76,10 @@ export const userActions = {
     ({
       type: UserActionTypes.SET_AUTH_USER,
       payload: { authUser },
+    } as const),
+  setLikedPosts: (likedPosts: IGallery[] | null): ISetLikedPosts =>
+    ({
+      type: UserActionTypes.SET_LIKED_POSTS,
+      payload: { likedPosts },
     } as const),
 };

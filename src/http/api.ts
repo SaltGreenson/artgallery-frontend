@@ -10,7 +10,7 @@ const api = axios.create({
 
 const handleRefreshToken = async (error: any) => {
   const originalRequest = error.config;
-  console.log("here");
+
   if (error.response.status == 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
     try {

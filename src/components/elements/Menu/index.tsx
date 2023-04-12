@@ -126,6 +126,7 @@ const Menu = ({
           handleClickActiveIdx({ settingsIdx: idx })
         )
       ),
+
     [activeSettingsIdx, handleClickActiveIdx, renderLink]
   );
 
@@ -199,7 +200,10 @@ const Menu = ({
           </StyledMenu>
         </CustomBlock>
 
-        <CustomBlock padding="0 0 20px 10px" onClick={logOutHandler}>
+        <CustomBlock
+          padding="0 0 20px 10px"
+          onClick={() => !!authUser && logOutHandler()}
+        >
           {renderLink(-2, iconLogInLogOutUserConfig(!!authUser), "16px", false)}
         </CustomBlock>
       </FlexBlock>

@@ -1,4 +1,5 @@
 import { IUser } from "@/models/IUser";
+import { IGallery } from "@/models/IGallery";
 
 export const initialState = {
   message: "",
@@ -7,4 +8,5 @@ export const initialState = {
   fetchingError: false,
   isAuth: false,
   authUser: null as IUser | null,
+  likedPosts: null as IGallery[] | null,
 };

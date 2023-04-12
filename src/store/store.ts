@@ -1,5 +1,5 @@
 import { Action, applyMiddleware, combineReducers, createStore } from "redux";
-import thunkMiddleware, { ThunkDispatch } from "redux-thunk";
+import thunkMiddleware, { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
 import { createWrapper } from "next-redux-wrapper";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "@/store/userReducer/reducer";
@@ -8,13 +8,8 @@ const rootReducer = combineReducers({
   user: userReducer,
 });
 
-const middleware = [thunkMiddleware];
-const enhancers = composeWithDevTools(applyMiddleware(...middleware));
-const store = createStore(rootReducer, enhancers);
-
 export type AppStateType = ReturnType<typeof rootReducer>;
 export type AppState = ReturnType<typeof rootReducer>;
-export type AppStore = typeof store;
 
 export type ThunkAction<
   A extends Action,
@@ -26,6 +21,17 @@ export type ThunkAction<
   getState: () => S,
   extraArgument: E
 ) => R;
+
+const bindMiddleware = (middleware: ThunkMiddleware[]) => {
+  if (process.env.NODE_ENV !== "production") {
+    return composeWithDevTools(applyMiddleware(...middleware));
+  }
+  return applyMiddleware(...middleware);
+};
+
+const store = createStore(rootReducer, bindMiddleware([thunkMiddleware]));
+
+export type AppStore = typeof store;
 
 export const wrapper = createWrapper<AppStore>((): AppStore => store, {
   debug: false,

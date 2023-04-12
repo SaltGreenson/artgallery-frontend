@@ -86,6 +86,5 @@ export const checkAuth =
 
 export const clearModalMessage =
   (): ThunkAction<AppActionsType> => async (dispatch) => {
-    console.log("here");
     dispatch(userActions.setModalMessage(""));
   };
