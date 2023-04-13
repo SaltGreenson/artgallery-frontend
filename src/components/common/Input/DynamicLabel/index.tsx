@@ -59,7 +59,7 @@ const InputWithDynamicLabel = ({
           dimension="small"
           color={error ? Colors.RED : Colors.LIGHT_BLACK}
         >
-          Обязательное поле
+          required
         </Paragraph>
       )}
     </FlexBlock>

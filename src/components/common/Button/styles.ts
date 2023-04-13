@@ -17,10 +17,14 @@ export const StyledPrimaryButton = styled.button<PrimaryProps>`
   cursor: pointer;
   transition: 300ms;
   overflow: hidden;
-  will-change: left;
+  will-change: left, transform;
 
   &:hover {
     background-color: ${({ bgHover = Colors.DARK_PURPLE }) => bgHover};
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 
   &:disabled {

@@ -6,6 +6,7 @@ import { FlexBlock } from "@/components/common/Block";
 import CustomButton from "@/components/common/Button";
 import Paragraph from "@/components/common/Paragraph";
 import CustomLink from "src/components/common/Link";
+import { StyledLogInForm } from "@/components/forms/LogIn/styles";
 
 interface LogInFormProps {
   onSubmitHandler: (data: FieldValues) => void;
@@ -19,7 +20,7 @@ const LogInForm = ({ onSubmitHandler }: LogInFormProps): JSX.Element => {
   } = useForm();
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmitHandler(data))}>
+    <StyledLogInForm onSubmit={handleSubmit((data) => onSubmitHandler(data))}>
       <FlexBlock direction="column" gap="20px" width="100%">
         <CustomInput
           variant="default"
@@ -60,7 +61,7 @@ const LogInForm = ({ onSubmitHandler }: LogInFormProps): JSX.Element => {
           <CustomLink href="/sign-up">Sign up</CustomLink>
         </FlexBlock>
       </FlexBlock>
-    </form>
+    </StyledLogInForm>
   );
 };
 

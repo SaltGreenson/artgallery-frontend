@@ -11,12 +11,11 @@ import {
 import Paragraph from "@/components/common/Paragraph";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Colors } from "@/styles/colors";
+import { withLabels } from "@/utils/hocs";
 
 export interface IInputFileProps {
   error?: string;
   hoverTitle?: string;
-  label?: string;
-  multiple?: boolean;
   maxSize?: number;
   minSize?: number;
   name?: string;
@@ -24,16 +23,16 @@ export interface IInputFileProps {
   fileTypes?: string[];
   register?: UseFormRegisterReturn<string>;
   onTypeError?: (err: Error) => void;
-  onSizeError?: (file: File | File[]) => void;
-  onDrop?: (file: File | File[]) => void;
-  onChange?: (file: File | File[]) => void;
-  onSelect?: (file: File | File[]) => void;
+  onSizeError?: (file: File) => void;
+  onDrop?: (file: File) => void;
+  onChangeFile?: (file: File) => void;
+  onSelect?: (file: File) => void;
 }
 
 const InputFile = ({
   fileTypes,
   register,
-  onChange,
+  onChangeFile,
   ...props
 }: IInputFileProps): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState("");
@@ -45,7 +44,7 @@ const InputFile = ({
     if (file) {
       reader.readAsDataURL(file);
     }
-    onChange?.(file);
+    onChangeFile?.(file);
   };
 
   return (
@@ -80,4 +79,4 @@ const InputFile = ({
   );
 };
 
-export default InputFile;
+export default withLabels(InputFile);
