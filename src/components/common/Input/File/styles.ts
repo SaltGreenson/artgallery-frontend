@@ -10,30 +10,31 @@ export const StyledInputDropFileContainer = styled.div`
   padding: 2%;
   border: 4px dashed ${Colors.PURPLE};
   border-radius: 23px;
+  cursor: pointer;
 `;
 
 export const StyledInputDropFileIcon = styled.div`
-  width: 50%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
   border-radius: 10px;
   border: 2px dotted ${Colors.NEW_PINK};
-  cursor: pointer;
 `;
 
 export const StyledInputDropFileSelectedImageContainer = styled.div`
-  width: 50%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: 10px;
-`;
+  display: flex;
+  justify-content: center;
 
-export const StyledInputDropFileSelectedImage = styled.img`
-  height: 100%;
-  object-fit: cover;
+  & > image {
+    object-fit: cover;
+  }
 `;
 
 export const StyledInputFileContainer = styled.div`
