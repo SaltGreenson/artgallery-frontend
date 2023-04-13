@@ -1,33 +1,15 @@
-import React, { useCallback } from "react";
+import React from "react";
 import CreateForm from "@/components/forms/Create";
 import GalleryViewLayout from "@/components/layouts/Gallery";
-import useActions from "@/utils/hooks/useActions";
-import { useSelector } from "react-redux";
-import { getIsFetchingApp } from "@/selectors/userSelectors";
-import Preloader from "@/components/common/Preloader";
 
-const Create = () => {
-  const { createGallery } = useActions();
-  const isFetching = useSelector(getIsFetchingApp);
+export interface CreateProps {
+  createGallery: (photo: File, title: string) => void;
+}
 
-  const handleSubmit = useCallback(
-    (photo: File, title: string) => {
-      console.log(photo);
-      console.log(title);
-      createGallery(photo, title);
-    },
-    [createGallery]
-  );
-
-  return (
-    <GalleryViewLayout title="Create">
-      {isFetching ? (
-        <Preloader variant="default" />
-      ) : (
-        <CreateForm onSubmitHandler={handleSubmit} />
-      )}
-    </GalleryViewLayout>
-  );
-};
+const Create = ({ createGallery }: CreateProps): JSX.Element => (
+  <GalleryViewLayout title="Create">
+    <CreateForm onSubmitHandler={createGallery} />
+  </GalleryViewLayout>
+);
 
 export default Create;

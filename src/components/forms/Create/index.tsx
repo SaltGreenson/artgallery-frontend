@@ -51,8 +51,8 @@ const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
             message: "Title is required",
           },
           maxLength: {
-            value: 30,
-            message: "Title length should be less than 30",
+            value: 40,
+            message: "Title length should be less than 40",
           },
           minLength: {
             value: 3,
