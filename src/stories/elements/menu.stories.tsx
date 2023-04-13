@@ -2,7 +2,7 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Menu from "@/components/elements/Menu";
-import { IUser } from "@/models/IUser";
+import { IAuthUser } from "@/models/IUser";
 
 export default {
   title: "Elements/Menu",
@@ -21,5 +21,5 @@ const TemplateHomePage: ComponentStory<typeof Menu> = (args) => (
 
 export const _Menu = TemplateHomePage.bind({});
 _Menu.args = {
-  authUser: {} as IUser,
+  authUser: {} as IAuthUser,
 };

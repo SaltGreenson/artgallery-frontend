@@ -1,12 +1,17 @@
-import { IGallery } from "@/models/IGallery";
+import { ILikedPosts } from "@/models/ILikedPosts";
 
-export interface IUser {
+export interface IAuthUser {
   _id: string;
   name: string;
   email: string;
   password: string;
   likesCount: number;
   postsCount: number;
-  likedPosts: IGallery[];
+  likedPosts: ILikedPosts;
   createdAt: Date;
+}
+
+export interface IUser {
+  _id: string;
+  name: string;
 }

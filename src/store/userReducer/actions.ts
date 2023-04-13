@@ -1,5 +1,5 @@
 import { UserActionTypes } from "@/store/userReducer/actionTypes";
-import { IUser } from "@/models/IUser";
+import { IAuthUser } from "@/models/IUser";
 import { IGallery } from "@/models/IGallery";
 
 interface IFetching {
@@ -29,7 +29,7 @@ interface ISetIsAuth {
 
 interface ISetAuthUser {
   type: UserActionTypes.SET_AUTH_USER;
-  payload: { authUser: IUser | null };
+  payload: { authUser: IAuthUser | null };
 }
 
 interface ISetLikedPosts {
@@ -72,7 +72,7 @@ export const userActions = {
       type: UserActionTypes.SET_IS_AUTH,
       payload: { isAuth },
     } as const),
-  setAuthUser: (authUser: IUser | null): ISetAuthUser =>
+  setAuthUser: (authUser: IAuthUser | null): ISetAuthUser =>
     ({
       type: UserActionTypes.SET_AUTH_USER,
       payload: { authUser },

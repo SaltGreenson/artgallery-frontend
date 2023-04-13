@@ -1,6 +1,8 @@
 export interface IPhoto {
   _id: string;
-  url: string;
-  name: string;
+  originalUrl: string;
+  originalName: string;
+  compressedUrl: string;
+  compressedName: string;
   createdAt: Date;
 }

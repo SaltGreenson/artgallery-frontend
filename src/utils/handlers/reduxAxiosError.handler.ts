@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import { AxiosError } from "axios";
 import { userActions } from "@/store/userReducer/actions";
 
-const handleAxiosError = (error: any, dispatch: Dispatch) => {
+export const handleAxiosError = (error: any, dispatch: Dispatch) => {
   if (error instanceof AxiosError) {
     dispatch(userActions.setFetchingError(true));
     dispatch(userActions.setFetchingSuccess(false));

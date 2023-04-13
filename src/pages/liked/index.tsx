@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import dynamic from "next/dynamic";
 import Preloader from "@/components/common/Preloader";
 import MainLayout from "@/components/layouts/Main";
 import GalleryViewLayout from "@/components/layouts/Gallery";
-import { parseCookies } from "nookies";
+import createAxiosInstance from "@/utils/http/axiosInstance";
+import { userActions } from "@/store/userReducer/actions";
+import { bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
+import { IGallery } from "@/models/IGallery";
 import { NextPageContext } from "next";
-import axios from "axios";
+import { ILikedPosts } from "@/models/ILikedPosts";
+import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
+import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
 
 const DynamicLikedContent = dynamic(() => import("../../pagesContent/Liked"), {
   loading: () => (
@@ -16,15 +22,25 @@ const DynamicLikedContent = dynamic(() => import("../../pagesContent/Liked"), {
   ),
 });
 
-const Liked = () => (
-  <MainLayout>
-    <DynamicLikedContent />
-  </MainLayout>
-);
+interface LikedPageProps {
+  likedPosts: IGallery[];
+  setLikedPosts: (likedPosts: IGallery[]) => void;
+}
+
+const Liked = ({ likedPosts, setLikedPosts }: LikedPageProps): JSX.Element => {
+  useEffect(() => {
+    setLikedPosts(likedPosts);
+  }, [likedPosts]);
+
+  return (
+    <MainLayout>
+      <DynamicLikedContent />
+    </MainLayout>
+  );
+};
 
 export async function getServerSideProps(context: NextPageContext) {
-  const cookies = parseCookies(context);
-  const token = cookies.accessToken;
+  const token = getAccessTokenHelper(context);
 
   if (!token) {
     return {
@@ -36,28 +52,21 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 
   try {
-    const response = await axios.get(
-      "http://localhost:5000/api/users/liked-posts",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log(response.data);
+    const instance = createAxiosInstance(token);
+    const data = (await instance.get<ILikedPosts>("/users/liked-posts")).data;
 
     return {
       props: {
-        posts: response.data,
+        likedPosts: data.likedPosts,
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        posts: [],
-      },
-    };
+  } catch (error: any) {
+    return serverSideAxiosErrorHandler(error, context, { likedPosts: [] });
   }
 }
 
-export default Liked;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setLikedPosts: bindActionCreators(userActions.setLikedPosts, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(Liked);

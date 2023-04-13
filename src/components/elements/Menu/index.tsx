@@ -32,10 +32,10 @@ import { Colors } from "@/styles/colors";
 import CustomButton from "@/components/common/Button";
 import { useRouter } from "next/router";
 import { isEqualHelper } from "@/utils/helpers/isEqual.helper";
-import { IUser } from "@/models/IUser";
+import { IAuthUser } from "@/models/IUser";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
-  authUser: IUser | null;
+  authUser: IAuthUser | null;
   logOutHandler: () => void;
 }
 
