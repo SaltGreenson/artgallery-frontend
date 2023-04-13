@@ -1,4 +1,4 @@
-import { AppActionsType } from "@/store/userReducer/actions";
+import { UserActionsType } from "@/store/userReducer/actions";
 import { UserActionTypes } from "@/store/userReducer/actionTypes";
 import { initialState } from "@/store/userReducer/initialState";
 
@@ -6,7 +6,7 @@ export type UserStateType = typeof initialState;
 
 export const userReducer = (
   state = initialState,
-  action: AppActionsType
+  action: UserActionsType
 ): UserStateType => {
   switch (action.type) {
     case UserActionTypes.FETCH_APP:

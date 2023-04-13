@@ -3,9 +3,11 @@ import thunkMiddleware, { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
 import { createWrapper } from "next-redux-wrapper";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userReducer } from "@/store/userReducer/reducer";
+import { galleryReducer } from "@/store/galleryReducer/reducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  gallery: galleryReducer,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;

@@ -6,7 +6,11 @@ import { Colors } from "@/styles/colors";
 import { useForm } from "react-hook-form";
 import { StyledCreateForm } from "@/components/forms/Create/styles";
 
-const CreateForm = () => {
+interface CreateFormProps {
+  onSubmitHandler: (photo: File, title: string) => void;
+}
+
+const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
   const {
     handleSubmit,
     register,
@@ -14,7 +18,7 @@ const CreateForm = () => {
     setValue,
   } = useForm();
 
-  const handlerFileChange = useCallback(
+  const handleFileChange = useCallback(
     (file: File) => {
       setValue("photo", file);
     },
@@ -22,7 +26,9 @@ const CreateForm = () => {
   );
 
   return (
-    <StyledCreateForm onSubmit={handleSubmit((data) => console.log(data))}>
+    <StyledCreateForm
+      onSubmit={handleSubmit((data) => onSubmitHandler(data.photo, data.title))}
+    >
       <CustomInput
         variant="file"
         label=""
@@ -34,7 +40,7 @@ const CreateForm = () => {
           },
         })}
         error={errors.photo && String(errors.photo.message)}
-        onChangeFile={handlerFileChange}
+        onChangeFile={handleFileChange}
       />
       <CustomInput
         variant="dynamicLabel"

@@ -1,14 +1,14 @@
 import { ThunkAction } from "../store";
-import { AppActionsType, userActions } from "@/store/userReducer/actions";
+import { UserActionsType, userActions } from "@/store/userReducer/actions";
 import { userService } from "@/services/UserService";
 import { IAuthUser } from "@/models/IUser";
 import Messages from "@/messages";
 import { Dispatch } from "redux";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
 
-const _commonActions = async (
+export const _commonActions = async (
   callback: () => void,
-  dispatch: Dispatch<AppActionsType>
+  dispatch: Dispatch<UserActionsType>
 ) => {
   try {
     dispatch(userActions.setFetching(true));
@@ -26,7 +26,7 @@ export const login =
     email: string,
     password: string,
     callback: () => void
-  ): ThunkAction<AppActionsType> =>
+  ): ThunkAction<UserActionsType> =>
   async (dispatch) => {
     await _commonActions(async () => {
       const data = (await userService.login(email, password)).data;
@@ -43,7 +43,7 @@ export const signup =
     email: string,
     password: string,
     callback: () => void
-  ): ThunkAction<AppActionsType> =>
+  ): ThunkAction<UserActionsType> =>
   async (dispatch) => {
     await _commonActions(async () => {
       const data = (await userService.signup(name, email, password)).data;
@@ -54,7 +54,7 @@ export const signup =
     }, dispatch);
   };
 
-export const logout = (): ThunkAction<AppActionsType> => async (dispatch) => {
+export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
   await _commonActions(async () => {
     await userService.logout();
     localStorage.removeItem("token");
@@ -65,7 +65,7 @@ export const logout = (): ThunkAction<AppActionsType> => async (dispatch) => {
 };
 
 export const checkAuth =
-  (): ThunkAction<AppActionsType> => async (dispatch) => {
+  (): ThunkAction<UserActionsType> => async (dispatch) => {
     await _commonActions(async () => {
       const data = (await userService.refresh()).data;
       localStorage.setItem("token", data.accessToken);
@@ -75,6 +75,6 @@ export const checkAuth =
   };
 
 export const clearModalMessage =
-  (): ThunkAction<AppActionsType> => async (dispatch) => {
+  (): ThunkAction<UserActionsType> => async (dispatch) => {
     dispatch(userActions.setModalMessage(""));
   };

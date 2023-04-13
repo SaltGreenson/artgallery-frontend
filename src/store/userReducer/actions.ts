@@ -37,7 +37,7 @@ interface ISetLikedPosts {
   payload: { likedPosts: IGallery[] | null };
 }
 
-export type AppActionsType =
+export type UserActionsType =
   | IFetching
   | ISetIsAuth
   | ISetAuthUser
