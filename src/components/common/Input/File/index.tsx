@@ -36,11 +36,16 @@ const InputFile = ({
   onChange,
   ...props
 }: IInputFileProps): JSX.Element => {
-  const [file, setFile] = useState(null as File | null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const handleChange = (file: File) => {
-    setFile(file);
-    console.log(file);
-    onChange && onChange(file);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setPreviewUrl(reader.result as string);
+    });
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    onChange?.(file);
   };
 
   return (
@@ -61,12 +66,12 @@ const InputFile = ({
       >
         <StyledInputDropFileContainer>
           <StyledInputDropFileSelectedImageContainer>
-            <StyledInputDropFileSelectedImage src="bigImage.png" />
+            <StyledInputDropFileSelectedImage src={previewUrl} />
           </StyledInputDropFileSelectedImageContainer>
           <StyledInputDropFileIcon>
             <AiOutlinePlusCircle fontSize="30px" color={Colors.PURPLE} />
             <Paragraph color={Colors.PURPLE} bold>
-              Select file
+              Select {fileTypes?.join(", ")} file
             </Paragraph>
           </StyledInputDropFileIcon>
         </StyledInputDropFileContainer>

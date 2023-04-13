@@ -6,7 +6,7 @@ import { Colors } from "@/styles/colors";
 
 const CreateForm = () => (
   <FlexBlock direction="column" gap="30px">
-    <CustomInput variant="file" label="" />
+    <CustomInput variant="file" label="" fileTypes={["jpeg"]} />
     <CustomInput variant="dynamicLabel" label="Title" />
     <FlexBlock direction="column" gap="10px">
       <CustomButton variant="primary" width="100%">
