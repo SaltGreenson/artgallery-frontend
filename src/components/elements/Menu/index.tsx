@@ -76,7 +76,7 @@ const Menu = ({
         <CustomLink key={idx} href={href}>
           <StyledMenuList isActive={isActive} onClick={onClick}>
             <StyledMenuIcon id="menu-icon">
-              <CustomButton variant="icon">
+              <CustomButton variant="transparent">
                 {React.cloneElement(icon, iconProps)}
               </CustomButton>
             </StyledMenuIcon>
@@ -138,7 +138,7 @@ const Menu = ({
         <CustomBlock>
           <StyledMenuOpenCloseButtonContainer onClick={handleClickDisplayStyle}>
             <StyledMenuOpenCloseButton id="menu-icon" isOpen={isFullSizeView}>
-              <CustomButton variant="icon">
+              <CustomButton variant="transparent">
                 {displayStyleIconConfig(isFullSizeView)}
               </CustomButton>
             </StyledMenuOpenCloseButton>

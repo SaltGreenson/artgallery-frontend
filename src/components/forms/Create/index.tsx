@@ -63,15 +63,14 @@ const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
         required
       />
       <FlexBlock direction="column" gap="10px">
-        <CustomButton variant="primary" type="submit" width="100%">
+        <CustomButton variant="default" type="submit">
           CREATE
         </CustomButton>
         <CustomButton
-          variant="primary"
+          variant="default"
           color={Colors.RED}
           bgColor={Colors.LIGHT_RED}
           bgHover={Colors.HOVER_RED}
-          width="100%"
         >
           DELETE
         </CustomButton>

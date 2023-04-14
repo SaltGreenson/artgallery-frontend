@@ -32,7 +32,7 @@ const Card = () => {
     ) => (
       <FlexBlock gap="5px" align="center">
         <StyledCardIconContainer>
-          <CustomButton variant="icon">
+          <CustomButton variant="transparent">
             {likeDislikeIconsConfig[variant]}
           </CustomButton>
         </StyledCardIconContainer>

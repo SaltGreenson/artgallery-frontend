@@ -17,6 +17,6 @@ export const likeDislikeIconsConfig = {
 export const likeDislikeFontColorConfig = {
   like: Colors.NEW_LIGHT_GREEN,
   dislike: Colors.NEW_LIGHT_RED,
-  selfLiked: Colors.GREEN,
-  selfDisliked: Colors.RED,
+  selfLiked: Colors.NEW_LIGHT_GREEN,
+  selfDisliked: Colors.NEW_LIGHT_RED,
 };

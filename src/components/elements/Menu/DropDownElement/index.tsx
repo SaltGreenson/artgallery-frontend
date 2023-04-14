@@ -51,7 +51,7 @@ const MenuDropDownElement = ({
         onClick={onClickHandler}
       >
         <StyledMenuIcon id="menu-icon">
-          <CustomButton variant="icon">
+          <CustomButton variant="transparent">
             {React.cloneElement(headElement.icon, iconProps)}
           </CustomButton>
         </StyledMenuIcon>

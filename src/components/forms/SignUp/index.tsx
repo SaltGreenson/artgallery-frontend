@@ -100,7 +100,7 @@ const SignUpForm = ({ onSubmitHandler }: SignUpFormProps): JSX.Element => {
           error={errors.repeatPassword && String(errors.repeatPassword.message)}
         />
 
-        <CustomButton variant="primary" size="large" type="submit">
+        <CustomButton variant="default" type="submit">
           SIGN UP
         </CustomButton>
 

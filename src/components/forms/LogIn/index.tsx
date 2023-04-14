@@ -52,7 +52,7 @@ const LogInForm = ({ onSubmitHandler }: LogInFormProps): JSX.Element => {
           </CustomLink>
         </FlexBlock>
 
-        <CustomButton type="submit" variant="primary" size="large">
+        <CustomButton type="submit" variant="default">
           LOG IN
         </CustomButton>
 
