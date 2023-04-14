@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Colors } from "@/styles/colors";
+import { widthFrom100to0Animation } from "@/styles/keyframes";
 
 export const StyledNotificationContainer = styled.div<{ isActive?: boolean }>`
   z-index: 102;
@@ -33,14 +34,5 @@ export const StyledNotificationCrossContainer = styled.div`
 export const StyledNotificationBar = styled.div<{ color: string }>`
   width: 0;
   border-bottom: 4px solid ${({ color }) => color};
-  animation: 3s bar linear;
-
-  @keyframes bar {
-    0% {
-      width: 100%;
-    }
-    100% {
-      width: 0;
-    }
-  }
+  animation: 3s ${widthFrom100to0Animation} linear;
 `;

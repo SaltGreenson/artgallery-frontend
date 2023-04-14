@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { appearAnimation } from "@/styles/keyframes";
 
 export const StyledPopUp = styled.div`
   z-index: 110;
@@ -14,16 +15,7 @@ export const StyledPopUp = styled.div`
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.51);
   opacity: 0;
-  animation: ani 300ms forwards;
-
-  @keyframes ani {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+  animation: ${appearAnimation} 300ms forwards;
 `;
 
 export const StyledPopUpContent = styled.div`

@@ -1,13 +1,5 @@
-import styled, { keyframes } from "styled-components";
-
-const loadingAnimation = keyframes`
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
-`;
+import styled from "styled-components";
+import { loadingAnimation } from "@/styles/keyframes";
 
 export const SkeletonLoader = styled.div<{ isLightTheme?: boolean }>`
   position: absolute;

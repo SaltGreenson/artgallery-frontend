@@ -85,35 +85,3 @@ export const StyledTextButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
-
-export const StyledButtonBarContainer = styled.div<{ color: string }>`
-  width: 98%;
-  margin: 0 auto;
-  position: relative;
-  border-radius: 10px;
-  height: 4px;
-  background-color: ${({ color }) => color};
-  overflow: hidden;
-`;
-
-export const StyledButtonBarLineContainer = styled.div<{ color: string }>`
-  width: calc(100% / 3);
-  position: absolute;
-  border-bottom: 4px solid ${({ color }) => color};
-  border-radius: 10px;
-  animation: loading infinite 1.5s linear;
-
-  @keyframes loading {
-    0% {
-      left: calc(100% / 4 * -1);
-    }
-
-    50% {
-      left: calc(100% / 4 + (100% - 100% / 3));
-    }
-
-    100% {
-      left: calc(100% / 4 * -1);
-    }
-  }
-`;

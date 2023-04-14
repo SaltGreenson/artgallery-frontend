@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 import { Colors } from "@/styles/colors";
+import { shakeAnimation } from "@/styles/keyframes";
 
 export const StyledSmallSearchInput = styled.input`
   position: relative;
@@ -59,22 +60,6 @@ export const StyledLargeSearchInput = styled.input<{ error?: string }>`
   ${({ error }) =>
     error &&
     css`
-      animation: shake 300ms ease-out;
-
-      @keyframes shake {
-        0% {
-          transform: translateX(-3px);
-          border: 2px solid ${Colors.RED};
-        }
-        25% {
-          transform: translateX(3px);
-        }
-        50% {
-          transform: translateX(-3px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
+      animation: ${shakeAnimation} 300ms ease-out;
     `}
 `;

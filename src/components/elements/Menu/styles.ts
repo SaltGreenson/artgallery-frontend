@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Colors } from "@/styles/colors";
+import { changeIconAnimation } from "@/styles/keyframes";
 
 export const StyledMenuIcon = styled.div`
   border-radius: 10px;
@@ -129,32 +130,10 @@ export const StyledMenuOpenCloseButton = styled(StyledMenuIcon)<{
     transform: rotate(0deg);
     transition: rotate 300ms;
 
-    @keyframes changeIcon {
-      0% {
-        transform: rotate(90deg);
-        opacity: 0.75;
-      }
-
-      25% {
-        transform: rotate(180deg);
-        opacity: 0.5;
-      }
-
-      50% {
-        transform: rotate(270deg);
-        opacity: 0.75;
-      }
-
-      100% {
-        transform: rotate(360deg);
-        opacity: 1;
-      }
-    }
-
     ${({ isOpen }) =>
       isOpen &&
       css`
-        animation: linear changeIcon 300ms;
+        animation: linear ${changeIconAnimation} 300ms;
 
         #open-close-text {
           display: inline-flex;
