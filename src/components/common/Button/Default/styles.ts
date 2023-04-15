@@ -26,5 +26,9 @@ export const StyledDefaultButton = styled.button<StyledButtonProps>`
 
   &:disabled {
     cursor: default;
+
+    &:active {
+      transform: scale(1);
+    }
   }
 `;

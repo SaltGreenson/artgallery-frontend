@@ -1,16 +1,19 @@
 import React, { HTMLAttributes } from "react";
 import {
   StyledPreloaderContainer,
+  StyledPreloaderProps,
   StyledPreloaderSign,
 } from "@/components/common/Preloader/Default/styles";
 import { DynamicOptionsLoadingProps } from "next/dynamic";
 
-const Default = ({
-  ...props
-}: HTMLAttributes<HTMLDivElement> & DynamicOptionsLoadingProps) => (
+export type DefaultPreloaderProps = HTMLAttributes<HTMLDivElement> &
+  DynamicOptionsLoadingProps &
+  StyledPreloaderProps;
+
+const DefaultPreloader = ({ ...props }: DefaultPreloaderProps) => (
   <StyledPreloaderContainer {...props}>
-    <StyledPreloaderSign />
+    <StyledPreloaderSign {...props} />
   </StyledPreloaderContainer>
 );
 
-export default Default;
+export default DefaultPreloader;

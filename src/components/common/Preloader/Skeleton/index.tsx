@@ -9,9 +9,10 @@ import {
   StyledSkeletonCardText,
 } from "@/components/common/Preloader/Skeleton/styles";
 
-const SkeletonCard = ({
-  ...props
-}: HTMLAttributes<HTMLDivElement> & DynamicOptionsLoadingProps) => (
+export type SkeletonPreloaderProps = HTMLAttributes<HTMLDivElement> &
+  DynamicOptionsLoadingProps;
+
+const SkeletonCard = ({ ...props }: SkeletonPreloaderProps) => (
   <StyledSkeletonCard {...props}>
     <SkeletonLoader isLightTheme />
     <StyledSkeletonCardImage>

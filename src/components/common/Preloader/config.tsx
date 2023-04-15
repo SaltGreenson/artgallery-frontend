@@ -1,8 +1,13 @@
 import React from "react";
-import Preloader from "./Default";
-import SkeletonCard from "@/components/common/Preloader/Skeleton";
+import Preloader, { DefaultPreloaderProps } from "./Default";
+import SkeletonCard, {
+  SkeletonPreloaderProps,
+} from "@/components/common/Preloader/Skeleton";
 
-export const preloaderTypesConfig = {
-  default: <Preloader />,
-  card: <SkeletonCard />,
-};
+export type PreloaderTypesConfigProps = DefaultPreloaderProps &
+  SkeletonPreloaderProps;
+
+export const preloaderTypesConfig = (props: PreloaderTypesConfigProps) => ({
+  default: <Preloader {...props} />,
+  card: <SkeletonCard {...props} />,
+});

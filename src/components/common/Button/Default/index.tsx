@@ -1,15 +1,16 @@
 import React, { ReactNode } from "react";
-import { Colors } from "@/styles/colors";
-import Paragraph from "@/components/common/Paragraph";
+
+import { defaultButtonDisplayStyle } from "./config";
+
 import {
-  StyledDefaultButton,
   StyledButtonProps,
+  StyledDefaultButton,
 } from "@/components/common/Button/Default/styles";
 
 export interface IDefaultButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  color?: Colors.WHITE | Colors.BLACK | string;
+  color?: string;
   isFetching?: boolean;
 }
 
@@ -20,9 +21,7 @@ const DefaultButton = ({
   ...props
 }: IDefaultButtonProps & StyledButtonProps) => (
   <StyledDefaultButton {...props} disabled={isFetching}>
-    <Paragraph fontSize="15px" color={color} bold>
-      {children}
-    </Paragraph>
+    {defaultButtonDisplayStyle(children, isFetching, color)}
   </StyledDefaultButton>
 );
 
