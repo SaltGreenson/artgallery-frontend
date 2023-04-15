@@ -1,5 +1,5 @@
 import {
-  ITitleConfig,
+  TitleConfigType,
   titleTypesConfig,
 } from "@/components/common/Title/config";
 
@@ -10,6 +10,7 @@ interface ITitleProps {
 const CustomTitle = ({
   variant,
   ...props
-}: ITitleProps & ITitleConfig): JSX.Element => titleTypesConfig(props)[variant];
+}: ITitleProps & TitleConfigType): JSX.Element =>
+  titleTypesConfig(props)[variant];
 
 export default CustomTitle;

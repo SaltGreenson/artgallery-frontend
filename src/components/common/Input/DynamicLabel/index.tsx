@@ -12,7 +12,7 @@ import {
   StyledInputWDLInput,
 } from "@/components/common/Input/DynamicLabel/styles";
 
-interface InputWithDynamicLabelProps
+export interface IInputWithDynamicLabelProps
   extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   label: string;
@@ -26,7 +26,7 @@ const InputWithDynamicLabel = ({
   required,
   register,
   ...props
-}: InputWithDynamicLabelProps): JSX.Element => {
+}: IInputWithDynamicLabelProps): JSX.Element => {
   const [value, setValue] = useState<string>((defaultValue as string) || "");
   const [leftPosition] = useState(
     `-${label.length - calculatePercents(label.length, 20)}px`

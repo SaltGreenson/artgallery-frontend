@@ -1,22 +1,20 @@
-import React, { InputHTMLAttributes } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import React from "react";
 
-import Checkbox from "./Checkbox";
-import Default from "./Default";
-import DynamicLabel from "./DynamicLabel";
-import Search from "./Search";
+import Checkbox, { ICheckboxInputProps } from "./Checkbox";
+import Default, { IDefaultInputProps } from "./Default";
+import DynamicLabel, { IInputWithDynamicLabelProps } from "./DynamicLabel";
+import Search, { IInputSearchProps } from "./Search";
 import InputFile, { IInputFileProps } from "@/components/common/Input/File";
+import { IInputSearchConfig } from "@/components/common/Input/Search/config";
 
-export interface IInputConfig extends InputHTMLAttributes<HTMLInputElement> {
-  dimension?: "small" | "large";
-  error?: string;
-  label: string;
-  type?: string;
-  register?: UseFormRegisterReturn<string>;
-  width?: string;
-}
+export type InputConfigProps = IInputSearchConfig &
+  IInputSearchProps &
+  IInputFileProps &
+  IInputWithDynamicLabelProps &
+  IDefaultInputProps &
+  ICheckboxInputProps;
 
-export const inputTypesConfig = (props: IInputConfig & IInputFileProps) => ({
+export const inputTypesConfig = (props: InputConfigProps) => ({
   checkbox: <Checkbox {...props} />,
   default: <Default {...props} />,
   dynamicLabel: <DynamicLabel {...props} />,

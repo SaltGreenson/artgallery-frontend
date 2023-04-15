@@ -13,7 +13,6 @@ export interface StyledInputProps
   > {
   error?: string;
   initialType?: string;
-  isDarkTheme?: boolean;
 }
 
 export const PasswordTitle = styled(Paragraph)`
@@ -52,20 +51,6 @@ export const InputStyled = styled.input<StyledInputProps>`
     font-family: "Gotham Pro", serif;
     color: ${Colors.DARK_GREY_FOR_TEXT};
   }
-
-  ${({ isDarkTheme }) =>
-    isDarkTheme &&
-    css`
-      border: 1px solid ${Colors.GREY_FOR_INPUT};
-      border-radius: 6px;
-      color: ${Colors.MEDIUM_GREY};
-    `};
-
-  ${({ initialType }) =>
-    initialType === "password" &&
-    css`
-      padding-right: 50px;
-    `};
 
   ${({ error }) =>
     error &&

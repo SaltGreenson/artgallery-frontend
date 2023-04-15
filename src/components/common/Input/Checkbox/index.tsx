@@ -6,7 +6,8 @@ import CustomLabel from "../../Label";
 
 import { GeekMark, StyledCheckbox } from "./styles";
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface ICheckboxInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
   register?: UseFormRegisterReturn<string>;
@@ -17,7 +18,7 @@ const Index = ({
   label,
   register,
   ...props
-}: CheckboxProps): JSX.Element => (
+}: ICheckboxInputProps): JSX.Element => (
   <CustomBlock>
     <FlexBlock align="center" margin="0 0 8px 0">
       <RelativeBlock maxHeight="25px" width="25px">

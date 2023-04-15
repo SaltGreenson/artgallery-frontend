@@ -6,7 +6,8 @@ import { RelativeBlock } from "../../Block";
 
 import { InputStyled, PasswordTitle } from "./styles";
 
-interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface IDefaultInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   label: string;
   register?: UseFormRegisterReturn<string>;
@@ -17,7 +18,7 @@ const CustomInput = ({
   register,
   type,
   ...inputProps
-}: CustomInputProps): JSX.Element => {
+}: IDefaultInputProps): JSX.Element => {
   const [clicked, setClicked] = useState(false);
   const [passwordText, setPasswordText] = useState("Show");
   const [inputType, setInputType] = useState(type || "text");

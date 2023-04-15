@@ -1,29 +1,14 @@
-import React, { HTMLAttributes, ReactNode } from "react";
+import React from "react";
+import LargeTitle, { TitlePropsType } from "@/components/common/Title/Large";
+import SmallTitle from "@/components/common/Title/Small";
+import MediumTitle from "@/components/common/Title/Medium";
+import ThinTitle from "@/components/common/Title/Thin";
 
-import {
-  StyledLarge,
-  StyledMedium,
-  StyledSmall,
-  StyledSmallThin,
-} from "@/components/common/Title/styles";
+export type TitleConfigType = TitlePropsType;
 
-export interface ITitleConfig extends HTMLAttributes<HTMLHeadElement> {
-  children: ReactNode;
-  color?: string;
-  fontSize?: string;
-}
-
-export const titleTypesConfig = ({
-  children,
-  fontSize,
-  ...rest
-}: ITitleConfig) => ({
-  small: <StyledSmall {...rest}>{children}</StyledSmall>,
-  medium: <StyledMedium {...rest}>{children}</StyledMedium>,
-  large: <StyledLarge {...rest}>{children}</StyledLarge>,
-  thin: (
-    <StyledSmallThin fontSize={fontSize} {...rest}>
-      {children}
-    </StyledSmallThin>
-  ),
+export const titleTypesConfig = ({ children, ...rest }: TitleConfigType) => ({
+  small: <SmallTitle {...rest}>{children}</SmallTitle>,
+  medium: <MediumTitle {...rest}>{children}</MediumTitle>,
+  large: <LargeTitle {...rest}>{children}</LargeTitle>,
+  thin: <ThinTitle {...rest}>{children}</ThinTitle>,
 });

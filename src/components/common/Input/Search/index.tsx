@@ -3,14 +3,14 @@ import {
   inputSearchConfig,
 } from "@/components/common/Input/Search/config";
 
-interface InputSearchProps {
+export interface IInputSearchProps {
   dimension?: "small" | "large";
 }
 
 const Index = ({
   dimension,
   ...props
-}: InputSearchProps & IInputSearchConfig): JSX.Element =>
+}: IInputSearchProps & IInputSearchConfig): JSX.Element =>
   inputSearchConfig(props)[dimension ?? "small"];
 
 export default Index;
