@@ -9,7 +9,9 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof Card>;
 
-const TemplateHomePage: ComponentStory<typeof Card> = () => <Card />;
+const TemplateHomePage: ComponentStory<typeof Card> = (args) => (
+  <Card {...args} />
+);
 
 export const _Card = TemplateHomePage.bind({});
 _Card.args = {};

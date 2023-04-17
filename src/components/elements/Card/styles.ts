@@ -31,12 +31,12 @@ export const StyledCardImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   transition-delay: 300ms;
-  transition: linear 600ms;
+  transition: linear 200ms;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
 
   @media (min-width: 768px) {
     &:hover {
-      max-width: 80%;
+      max-width: 50%;
     }
   }
 
@@ -50,6 +50,14 @@ export const StyledCardImageContainer = styled.div`
 export const StyledCardImage = styled.img`
   height: 100%;
   object-fit: contain;
+  transition: transform 600ms;
+  will-change: transform;
+
+  @media (min-width: 768px) {
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 
   @media (max-width: 768px) {
     width: 100%;
@@ -57,6 +65,7 @@ export const StyledCardImage = styled.img`
 `;
 
 export const StyledCardContentContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

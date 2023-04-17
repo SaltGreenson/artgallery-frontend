@@ -34,7 +34,7 @@ const Liked = ({ likedPosts, setLikedPosts }: LikedPageProps): JSX.Element => {
 
   return (
     <MainLayout>
-      <DynamicLikedContent />
+      <DynamicLikedContent likedPosts={likedPosts} />
     </MainLayout>
   );
 };

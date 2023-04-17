@@ -23,8 +23,14 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
+import { IGallery } from "@/models/IGallery";
 
-const Card = () => {
+interface CardProps {
+  gallery: IGallery;
+}
+
+const Card = ({ gallery }: CardProps): JSX.Element => {
+  const { dislikes, likes, photo, user, title } = gallery;
   const renderIcon = useCallback(
     (
       variant: "like" | "dislike" | "selfLiked" | "selfDisliked",
@@ -47,29 +53,32 @@ const Card = () => {
   return (
     <StyledCardContainer>
       <StyledCardImageContainer>
-        <StyledCardImage src="/bigImage.png" />
+        <StyledCardImage src={gallery.photo.compressedUrl} />
       </StyledCardImageContainer>
       <StyledCardContentContainer>
         <FlexBlock gap="5px" justify="flex-end">
           <Paragraph variant="default" color={Colors.FONT_SIZE_GREY} bold>
             Posted by:
           </Paragraph>
-          <CustomLink href="#" bold>
-            Vlad Yuskovich
+          <CustomLink href={`/account/${user._id}`} bold>
+            {user.name}
           </CustomLink>
         </FlexBlock>
 
         <StyledCardTextContainer>
-          <Title variant="medium">
-            Vlad yuskovich is super cool i like him
-          </Title>
+          <Title variant="medium">{title}</Title>
         </StyledCardTextContainer>
 
-        <FlexBlock gap="10px">
-          {renderIcon("selfLiked", 1200000)}
-          {renderIcon("dislike", 121500)}
-          <a href="#">
-            <MdFileDownload fontSize="30px" color={Colors.FONT_SIZE_GREY} />
+        <FlexBlock justify="space-between">
+          <FlexBlock gap="10px">
+            {renderIcon("like", likes)}
+            {renderIcon("dislike", dislikes)}
+          </FlexBlock>
+
+          <a href={photo.originalUrl} target="_blank" rel="noreferrer">
+            <CustomButton variant="transparent">
+              <MdFileDownload fontSize="30px" color={Colors.FONT_SIZE_GREY} />
+            </CustomButton>
           </a>
         </FlexBlock>
       </StyledCardContentContainer>
