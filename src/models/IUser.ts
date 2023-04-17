@@ -14,4 +14,5 @@ export interface IAuthUser {
 export interface IUser {
   _id: string;
   name: string;
+  likedPosts: [{ _id: string }];
 }
