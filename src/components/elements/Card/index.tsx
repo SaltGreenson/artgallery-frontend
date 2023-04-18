@@ -1,12 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 
+import { HiDownload } from "react-icons/hi";
+
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import CustomLink from "@/components/common/Link";
 import { FlexBlock } from "@/components/common/Block";
-import { numberPrettier } from "@/utils/helpers/formatters.helper";
-import { MdFileDownload } from "react-icons/md";
 import CustomButton from "@/components/common/Button";
+
+import { IGallery } from "@/models/IGallery";
+import { IAuthUser } from "@/models/IUser";
+
+import { numberPrettier } from "@/utils/helpers/formatters.helper";
+import { isIdInArrayHelper } from "@/utils/helpers/idInArray.helper";
 
 import {
   likeDislikeFontColorConfig,
@@ -14,7 +20,6 @@ import {
 } from "@/components/elements/Card/config";
 
 import { Colors } from "@/styles/colors";
-
 import {
   StyledCardContainer,
   StyledCardContentContainer,
@@ -22,9 +27,6 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
-import { IGallery } from "@/models/IGallery";
-import { isIdInArrayHelper } from "@/utils/helpers/idInArray.helper";
-import { IAuthUser } from "@/models/IUser";
 
 interface CardProps {
   authUser: IAuthUser | null;
@@ -44,7 +46,7 @@ const Card = ({
   isFetchingDislikes,
   idx,
 }: CardProps): JSX.Element => {
-  const [{ _id, dislikes, likes, photo, user, title }] = useState(gallery);
+  const { _id, dislikes, likes, photo, user, title } = gallery;
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
 
@@ -115,7 +117,7 @@ const Card = ({
 
           <a href={photo.originalUrl} target="_blank" rel="noreferrer">
             <CustomButton variant="transparent">
-              <MdFileDownload fontSize="30px" color={Colors.FONT_SIZE_GREY} />
+              <HiDownload fontSize="30px" color={Colors.FONT_SIZE_GREY} />
             </CustomButton>
           </a>
         </FlexBlock>
