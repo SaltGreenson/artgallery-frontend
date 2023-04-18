@@ -1,16 +1,37 @@
 import React from "react";
 import GalleryViewLayout from "src/components/layouts/Gallery";
 import Card from "@/components/elements/Card";
-import { IGallery } from "@/models/IGallery";
+import { IGalleryPageProps } from "@/pages/gallery";
+import { IAuthUser } from "@/models/IUser";
 
-interface GalleryDynamicPageProps {
-  galleries: IGallery[];
+interface IGalleryDynamicPageProps extends IGalleryPageProps {
+  authUser: IAuthUser | null;
+  isFetchingDislikes: boolean;
+  isFetchingLikes: boolean;
 }
 
-const Gallery = ({ galleries }: GalleryDynamicPageProps): JSX.Element => (
+const Gallery = ({
+  authUser,
+  galleries,
+  likePost,
+  dislikePost,
+  isFetchingLikes,
+  isFetchingDislikes,
+}: IGalleryDynamicPageProps): JSX.Element => (
   <GalleryViewLayout title="Gallery">
     {galleries &&
-      galleries.map((gallery) => <Card key={gallery._id} gallery={gallery} />)}
+      galleries.map((gallery, idx) => (
+        <Card
+          key={gallery._id}
+          authUser={authUser}
+          gallery={gallery}
+          likePost={likePost}
+          dislikePost={dislikePost}
+          isFetchingLikes={isFetchingLikes}
+          isFetchingDislikes={isFetchingDislikes}
+          idx={idx}
+        />
+      ))}
   </GalleryViewLayout>
 );
 

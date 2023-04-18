@@ -1,6 +1,7 @@
 import { UserActionTypes } from "@/store/userReducer/actionTypes";
 import { IAuthUser } from "@/models/IUser";
-import { IGallery } from "@/models/IGallery";
+import { ILikedPosts } from "@/models/ILikedPosts";
+import { IDislikedPosts } from "@/models/IDislikedPosts";
 
 interface IFetching {
   type: UserActionTypes.FETCH_APP;
@@ -34,7 +35,12 @@ interface ISetAuthUser {
 
 interface ISetLikedPosts {
   type: UserActionTypes.SET_LIKED_POSTS;
-  payload: { likedPosts: IGallery[] | null };
+  payload: { likedPosts: ILikedPosts[] };
+}
+
+interface ISetDislikedPosts {
+  type: UserActionTypes.SET_DISLIKED_POSTS;
+  payload: { dislikedPosts: IDislikedPosts[] };
 }
 
 export type UserActionsType =
@@ -44,7 +50,8 @@ export type UserActionsType =
   | IFetchingSuccess
   | IFetchingError
   | ISetMessage
-  | ISetLikedPosts;
+  | ISetLikedPosts
+  | ISetDislikedPosts;
 
 export const userActions = {
   setFetching: (isFetching: boolean): IFetching =>
@@ -77,9 +84,14 @@ export const userActions = {
       type: UserActionTypes.SET_AUTH_USER,
       payload: { authUser },
     } as const),
-  setLikedPosts: (likedPosts: IGallery[] | null): ISetLikedPosts =>
+  setLikedPosts: (likedPosts: ILikedPosts[]): ISetLikedPosts =>
     ({
       type: UserActionTypes.SET_LIKED_POSTS,
       payload: { likedPosts },
+    } as const),
+  setDislikedPosts: (dislikedPosts: IDislikedPosts[]): ISetDislikedPosts =>
+    ({
+      type: UserActionTypes.SET_DISLIKED_POSTS,
+      payload: { dislikedPosts },
     } as const),
 };

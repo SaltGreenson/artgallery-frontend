@@ -1,5 +1,6 @@
 import axios from "axios";
 import handleRefreshToken from "@/utils/handlers/refreshToken.handler";
+import { getFromStorage } from "@/utils/helpers/localStorage.helper";
 
 export const API_URL = process.env.API_URL || "http://localhost:5000/api";
 
@@ -9,7 +10,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = getFromStorage("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

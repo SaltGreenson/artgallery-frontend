@@ -1,9 +1,9 @@
-import { NextPageContext } from "next";
+import { GetServerSidePropsContext, NextPageContext } from "next";
 import { destroyCookie } from "nookies";
 
 export const serverSideAxiosErrorHandler = (
   error: any,
-  context: NextPageContext,
+  context: GetServerSidePropsContext | NextPageContext,
   props: object,
   destination = "/log-in"
 ) => {

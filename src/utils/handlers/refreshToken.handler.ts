@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
-import { IAuthResponse } from "@/models/AuthResponse";
+import { IAuthResponse } from "@/models/IAuthResponse";
+import { setToStorage } from "@/utils/helpers/localStorage.helper";
 
 export const handleRefreshToken =
   (api: AxiosInstance, API_URL: string) => async (error: any) => {
@@ -12,13 +13,12 @@ export const handleRefreshToken =
     ) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.put<IAuthResponse>(
-          `${API_URL}/users/refresh`,
-          {
+        const data = (
+          await axios.put<IAuthResponse>(`${API_URL}/users/refresh`, {
             withCredentials: true,
-          }
-        );
-        localStorage.setItem("token", response.data.accessToken);
+          })
+        ).data;
+        setToStorage("token", data.accessToken);
         return api.request(originalRequest);
       } catch (e) {
         console.log(e);

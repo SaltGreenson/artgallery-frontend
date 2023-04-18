@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 
 import { defaultButtonDisplayStyle } from "./config";
 
@@ -8,7 +8,7 @@ import {
 } from "@/components/common/Button/Default/styles";
 
 export interface IDefaultButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   color?: string;
   isFetching?: boolean;

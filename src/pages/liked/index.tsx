@@ -34,7 +34,7 @@ const Liked = ({ likedPosts, setLikedPosts }: LikedPageProps): JSX.Element => {
 
   return (
     <MainLayout>
-      <DynamicLikedContent likedPosts={likedPosts} />
+      <DynamicLikedContent />
     </MainLayout>
   );
 };
@@ -57,7 +57,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        likedPosts: data.likedPosts,
+        // likedPosts: data.likedPosts,
       },
     };
   } catch (error: any) {

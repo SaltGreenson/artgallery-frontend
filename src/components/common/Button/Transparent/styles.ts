@@ -13,6 +13,14 @@ export const StyledTransparentButton = styled.button`
     background-color: transparent;
   }
 
+  &:disabled {
+    cursor: default;
+
+    &:active {
+      transform: scale(1);
+    }
+  }
+
   &:active {
     transform: scale(0.9);
   }

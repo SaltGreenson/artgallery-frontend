@@ -11,6 +11,7 @@ export const galleryReducer = (
   switch (action.type) {
     case GalleryActionTypes.SET_GALLERIES:
     case GalleryActionTypes.SET_DISLIKE_FETCHING:
+    case GalleryActionTypes.HYDRATE:
     case GalleryActionTypes.SET_GALLERY_FETCHING:
     case GalleryActionTypes.SET_LIKE_FETCHING: {
       return {
@@ -20,10 +21,14 @@ export const galleryReducer = (
     }
     case GalleryActionTypes.SET_DISLIKED: {
       const galleries = [...state.galleries];
-      galleries[action.payload.index] = {
-        ...galleries[action.payload.index],
-        dislikes: galleries[action.payload.index].dislikes + 1,
-      };
+      const galleryToUpdate = galleries[action.payload.index];
+
+      if (action.payload.isDisliked) {
+        galleryToUpdate.dislikes -= 1;
+      } else {
+        galleryToUpdate.dislikes += 1;
+      }
+
       return {
         ...state,
         galleries,
@@ -31,32 +36,14 @@ export const galleryReducer = (
     }
     case GalleryActionTypes.SET_LIKED: {
       const galleries = [...state.galleries];
-      galleries[action.payload.index] = {
-        ...galleries[action.payload.index],
-        likes: galleries[action.payload.index].likes + 1,
-      };
-      return {
-        ...state,
-        galleries,
-      };
-    }
-    case GalleryActionTypes.SET_UNLIKED: {
-      const galleries = [...state.galleries];
-      galleries[action.payload.index] = {
-        ...galleries[action.payload.index],
-        likes: galleries[action.payload.index].likes - 1,
-      };
-      return {
-        ...state,
-        galleries,
-      };
-    }
-    case GalleryActionTypes.SET_UNDISLIKED: {
-      const galleries = [...state.galleries];
-      galleries[action.payload.index] = {
-        ...galleries[action.payload.index],
-        dislikes: galleries[action.payload.index].dislikes - 1,
-      };
+      const galleryToUpdate = galleries[action.payload.index];
+
+      if (action.payload.isLiked) {
+        galleryToUpdate.likes -= 1;
+      } else {
+        galleryToUpdate.likes += 1;
+      }
+
       return {
         ...state,
         galleries,

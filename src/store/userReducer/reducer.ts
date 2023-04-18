@@ -15,7 +15,8 @@ export const userReducer = (
     case UserActionTypes.FETCH_APP_ERROR:
     case UserActionTypes.FETCH_APP_SUCCESS:
     case UserActionTypes.SET_MODAL_MESSAGE:
-    case UserActionTypes.SET_LIKED_POSTS: {
+    case UserActionTypes.SET_LIKED_POSTS:
+    case UserActionTypes.SET_DISLIKED_POSTS: {
       return {
         ...state,
         ...action.payload,

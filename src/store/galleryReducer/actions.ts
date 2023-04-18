@@ -2,7 +2,7 @@ import { GalleryActionTypes } from "./actionTypes";
 import { IGallery } from "@/models/IGallery";
 
 interface ISetGalleries {
-  type: GalleryActionTypes.SET_GALLERIES;
+  type: GalleryActionTypes.SET_GALLERIES | GalleryActionTypes.HYDRATE;
   payload: { galleries: IGallery[] };
 }
 
@@ -23,22 +23,12 @@ interface ISetDislikeFetching {
 
 interface ISetLiked {
   type: GalleryActionTypes.SET_LIKED;
-  payload: { index: number };
-}
-
-interface ISetUnliked {
-  type: GalleryActionTypes.SET_UNLIKED;
-  payload: { index: number };
+  payload: { index: number; isLiked: boolean };
 }
 
 interface ISetDisliked {
   type: GalleryActionTypes.SET_DISLIKED;
-  payload: { index: number };
-}
-
-interface ISetUndisliked {
-  type: GalleryActionTypes.SET_UNDISLIKED;
-  payload: { index: number };
+  payload: { index: number; isDisliked: boolean };
 }
 
 export type GalleryActionsType =
@@ -47,14 +37,17 @@ export type GalleryActionsType =
   | ISetLikeFetching
   | ISetDislikeFetching
   | ISetLiked
-  | ISetUnliked
-  | ISetDisliked
-  | ISetUndisliked;
+  | ISetDisliked;
 
 export const galleryActions = {
   setGalleries: (galleries: IGallery[]): ISetGalleries =>
     ({
       type: GalleryActionTypes.SET_GALLERIES,
+      payload: { galleries },
+    } as const),
+  hydrate: (galleries: IGallery[]): ISetGalleries =>
+    ({
+      type: GalleryActionTypes.HYDRATE,
       payload: { galleries },
     } as const),
   setGalleryFetching: (galleryFetching: boolean): ISetGalleryFetching =>
@@ -72,24 +65,14 @@ export const galleryActions = {
       type: GalleryActionTypes.SET_DISLIKE_FETCHING,
       payload: { dislikeFetching },
     } as const),
-  setLiked: (index: number): ISetLiked =>
+  setLiked: (index: number, isLiked: boolean): ISetLiked =>
     ({
       type: GalleryActionTypes.SET_LIKED,
-      payload: { index },
+      payload: { index, isLiked },
     } as const),
-  setDisliked: (index: number): ISetDisliked =>
+  setDisliked: (index: number, isDisliked: boolean): ISetDisliked =>
     ({
       type: GalleryActionTypes.SET_DISLIKED,
-      payload: { index },
-    } as const),
-  setUnliked: (index: number): ISetUnliked =>
-    ({
-      type: GalleryActionTypes.SET_UNLIKED,
-      payload: { index },
-    } as const),
-  setUndisliked: (index: number): ISetUndisliked =>
-    ({
-      type: GalleryActionTypes.SET_UNDISLIKED,
-      payload: { index },
+      payload: { index, isDisliked },
     } as const),
 };

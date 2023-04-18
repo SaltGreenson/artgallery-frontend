@@ -4,7 +4,6 @@ import {
   GalleryActionsType,
 } from "@/store/galleryReducer/actions";
 import { SortType } from "@/store/galleryReducer/initialState";
-import { _commonActions } from "@/store/userReducer/actionCreators";
 import { galleryService } from "@/services/GalleryService";
 import { userActions, UserActionsType } from "@/store/userReducer/actions";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
@@ -37,7 +36,7 @@ export const createGallery =
     title: string
   ): ThunkAction<GalleryActionsType | UserActionsType> =>
   async (dispatch) => {
-    await _commonActions(async () => {
+    try {
       const formData = new FormData();
       formData.append("gallery[]", photo);
       formData.append("gallery[]", title);
@@ -45,5 +44,47 @@ export const createGallery =
       dispatch(
         userActions.setModalMessage(`Gallery ${created._id} has been created`)
       );
-    }, dispatch);
+    } catch (e) {
+      handleAxiosError(e, dispatch);
+    } finally {
+      dispatch(galleryActions.setGalleryFetching(false));
+    }
+  };
+
+export const likePost =
+  (
+    galleryId: string,
+    index: number,
+    isLiked: boolean
+  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  async (dispatch) => {
+    try {
+      dispatch(galleryActions.setLikeFetching(true));
+      const data = (await galleryService.like(galleryId)).data;
+      dispatch(galleryActions.setLiked(index, isLiked));
+      dispatch(userActions.setLikedPosts(data.likedPosts));
+    } catch (e) {
+      handleAxiosError(e, dispatch);
+    } finally {
+      dispatch(galleryActions.setLikeFetching(false));
+    }
+  };
+
+export const dislikePost =
+  (
+    galleryId: string,
+    index: number,
+    isDisliked: boolean
+  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  async (dispatch) => {
+    try {
+      dispatch(galleryActions.setDislikeFetching(true));
+      const data = (await galleryService.dislike(galleryId)).data;
+      dispatch(galleryActions.setDisliked(index, isDisliked));
+      dispatch(userActions.setDislikedPosts(data.dislikedPosts));
+    } catch (e) {
+      handleAxiosError(e, dispatch);
+    } finally {
+      dispatch(galleryActions.setDislikeFetching(false));
+    }
   };

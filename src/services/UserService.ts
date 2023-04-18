@@ -1,6 +1,6 @@
 import api from "@/http/api";
 import { AxiosResponse } from "axios";
-import { IAuthResponse } from "@/models/AuthResponse";
+import { IAuthResponse } from "@/models/IAuthResponse";
 import { IGallery } from "@/models/IGallery";
 
 export const userService = {

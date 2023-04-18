@@ -1,5 +1,6 @@
 import { IAuthUser } from "@/models/IUser";
-import { IGallery } from "@/models/IGallery";
+import { ILikedPosts } from "@/models/ILikedPosts";
+import { IDislikedPosts } from "@/models/IDislikedPosts";
 
 export const initialState = {
   message: "",
@@ -8,5 +9,6 @@ export const initialState = {
   fetchingError: false,
   isAuth: false,
   authUser: null as IAuthUser | null,
-  likedPosts: null as IGallery[] | null,
+  likedPosts: [] as ILikedPosts[],
+  dislikedPosts: [] as IDislikedPosts[],
 };

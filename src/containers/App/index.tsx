@@ -10,6 +10,7 @@ import {
 } from "@/selectors/userSelectors";
 import Notification from "@/components/elements/Notification";
 import checkNotifyTypeHelper from "@/utils/helpers/checkNotifyType.helper";
+import { getFromStorage } from "@/utils/helpers/localStorage.helper";
 
 type CustomAppProps = AppProps & {
   router: Router;
@@ -23,7 +24,7 @@ function AppContainer({ Component, pageProps, router }: CustomAppProps) {
 
   useEffect(
     () => () => {
-      if (localStorage.getItem("token")) {
+      if (getFromStorage("token")) {
         checkAuth();
       }
     },

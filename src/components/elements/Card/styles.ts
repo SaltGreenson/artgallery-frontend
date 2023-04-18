@@ -87,5 +87,4 @@ export const StyledCardTextContainer = styled.div`
 
 export const StyledCardIconContainer = styled.div`
   display: inline-flex;
-  cursor: pointer;
 `;

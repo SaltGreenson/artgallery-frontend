@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
@@ -18,37 +18,52 @@ import { Colors } from "@/styles/colors";
 import {
   StyledCardContainer,
   StyledCardContentContainer,
-  StyledCardIconContainer,
   StyledCardImage,
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
 import { IGallery } from "@/models/IGallery";
+import { isIdInArrayHelper } from "@/utils/helpers/idInArray.helper";
+import { IAuthUser } from "@/models/IUser";
 
 interface CardProps {
+  authUser: IAuthUser | null;
   gallery: IGallery;
+  likePost: (galleryId: string, idx: number, isLiked: boolean) => void;
+  dislikePost: (galleryId: string, idx: number, isDisliked: boolean) => void;
+  isFetchingLikes: boolean;
+  isFetchingDislikes: boolean;
+  idx: number;
 }
+const Card = ({
+  authUser,
+  gallery,
+  likePost,
+  dislikePost,
+  isFetchingLikes,
+  isFetchingDislikes,
+  idx,
+}: CardProps): JSX.Element => {
+  const [{ _id, dislikes, likes, photo, user, title }] = useState(gallery);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isDisliked, setIsDisliked] = useState<boolean>(false);
 
-const Card = ({ gallery }: CardProps): JSX.Element => {
-  const { dislikes, likes, photo, user, title } = gallery;
-  const renderIcon = useCallback(
-    (
-      variant: "like" | "dislike" | "selfLiked" | "selfDisliked",
-      quantity: number
-    ) => (
-      <FlexBlock gap="5px" align="center">
-        <StyledCardIconContainer>
-          <CustomButton variant="transparent">
-            {likeDislikeIconsConfig[variant]}
-          </CustomButton>
-        </StyledCardIconContainer>
-        <Paragraph color={likeDislikeFontColorConfig[variant]} bold>
-          {numberPrettier(quantity)}
-        </Paragraph>
-      </FlexBlock>
-    ),
-    []
-  );
+  useEffect(() => {
+    setIsLiked(authUser ? isIdInArrayHelper(_id, authUser.likedPosts) : false);
+    setIsDisliked(
+      authUser ? isIdInArrayHelper(_id, authUser.dislikedPosts) : false
+    );
+  }, [authUser, setIsLiked, setIsDisliked, _id]);
+
+  const handleOnClickLike = useCallback(() => {
+    likePost(_id, idx, isLiked);
+    setIsLiked((prev) => !prev);
+  }, [_id, idx, likePost, isLiked]);
+
+  const handleOnClickDislike = useCallback(() => {
+    dislikePost(_id, idx, isDisliked);
+    setIsDisliked((prev) => !prev);
+  }, [_id, idx, dislikePost, isDisliked]);
 
   return (
     <StyledCardContainer>
@@ -71,8 +86,31 @@ const Card = ({ gallery }: CardProps): JSX.Element => {
 
         <FlexBlock justify="space-between">
           <FlexBlock gap="10px">
-            {renderIcon("like", likes)}
-            {renderIcon("dislike", dislikes)}
+            <FlexBlock gap="5px" align="center">
+              <CustomButton
+                variant="transparent"
+                isFetching={isFetchingLikes}
+                onClick={handleOnClickLike}
+              >
+                {likeDislikeIconsConfig(isLiked).like}
+              </CustomButton>
+              <Paragraph color={likeDislikeFontColorConfig.like} bold>
+                {numberPrettier(likes)}
+              </Paragraph>
+            </FlexBlock>
+
+            <FlexBlock gap="5px" align="center">
+              <CustomButton
+                variant="transparent"
+                isFetching={isFetchingDislikes}
+                onClick={handleOnClickDislike}
+              >
+                {likeDislikeIconsConfig(isDisliked).dislike}
+              </CustomButton>
+              <Paragraph color={likeDislikeFontColorConfig.dislike} bold>
+                {numberPrettier(dislikes)}
+              </Paragraph>
+            </FlexBlock>
           </FlexBlock>
 
           <a href={photo.originalUrl} target="_blank" rel="noreferrer">

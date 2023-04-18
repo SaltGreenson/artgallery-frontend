@@ -5,14 +5,18 @@ import { IAuthUser } from "@/models/IUser";
 import Messages from "@/messages";
 import { Dispatch } from "redux";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
+import {
+  removeFromStorage,
+  setToStorage,
+} from "@/utils/helpers/localStorage.helper";
 
-export const _commonActions = async (
-  callback: () => void,
+export const _commonLogicUserActionCreator = async (
+  callback: () => Promise<void>,
   dispatch: Dispatch<UserActionsType>
 ) => {
   try {
     dispatch(userActions.setFetching(true));
-    callback();
+    await callback();
     dispatch(userActions.setFetchingSuccess(true));
   } catch (e) {
     handleAxiosError(e, dispatch);
@@ -28,9 +32,9 @@ export const login =
     callback: () => void
   ): ThunkAction<UserActionsType> =>
   async (dispatch) => {
-    await _commonActions(async () => {
+    await _commonLogicUserActionCreator(async () => {
       const data = (await userService.login(email, password)).data;
-      localStorage.setItem("token", data.accessToken);
+      setToStorage("token", data.accessToken);
       dispatch(userActions.setIsAuth(true));
       dispatch(userActions.setAuthUser(data.user));
       callback();
@@ -45,9 +49,9 @@ export const signup =
     callback: () => void
   ): ThunkAction<UserActionsType> =>
   async (dispatch) => {
-    await _commonActions(async () => {
+    await _commonLogicUserActionCreator(async () => {
       const data = (await userService.signup(name, email, password)).data;
-      localStorage.setItem("token", data.accessToken);
+      setToStorage("token", data.accessToken);
       userActions.setIsAuth(true);
       userActions.setAuthUser(data.user);
       callback();
@@ -55,9 +59,9 @@ export const signup =
   };
 
 export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
-  await _commonActions(async () => {
+  await _commonLogicUserActionCreator(async () => {
     await userService.logout();
-    localStorage.removeItem("token");
+    removeFromStorage("token");
     dispatch(userActions.setIsAuth(false));
     dispatch(userActions.setAuthUser(null as IAuthUser | null));
     dispatch(userActions.setModalMessage(Messages.EXIT_FROM_ACCOUNT));
@@ -66,9 +70,9 @@ export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
 
 export const checkAuth =
   (): ThunkAction<UserActionsType> => async (dispatch) => {
-    await _commonActions(async () => {
+    await _commonLogicUserActionCreator(async () => {
       const data = (await userService.refresh()).data;
-      localStorage.setItem("token", data.accessToken);
+      setToStorage("token", data.accessToken);
       dispatch(userActions.setIsAuth(true));
       dispatch(userActions.setAuthUser(data.user));
     }, dispatch);
