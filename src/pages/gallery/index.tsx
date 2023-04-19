@@ -41,7 +41,6 @@ export interface IGalleryPageProps {
   dislikePost: (galleryId: string, index: number, isDisliked: boolean) => void;
 }
 
-/* duplicated lines with liked. need fix */
 const Gallery = ({
   galleries,
   setGalleries,
