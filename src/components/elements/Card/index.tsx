@@ -9,7 +9,6 @@ import { FlexBlock } from "@/components/common/Block";
 import CustomButton from "@/components/common/Button";
 
 import { IGallery } from "@/models/IGallery";
-import { IAuthUser } from "@/models/IUser";
 
 import { numberPrettier } from "@/utils/helpers/formatters.helper";
 import { isIdInArrayHelper } from "@/utils/helpers/idInArray.helper";
@@ -27,21 +26,25 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
+import { ILikedPosts } from "@/models/ILikedPosts";
+import { IDislikedPosts } from "@/models/IDislikedPosts";
 
 interface CardProps {
-  authUser: IAuthUser | null;
   gallery: IGallery;
+  likedPosts: ILikedPosts[];
   likePost: (galleryId: string, idx: number, isLiked: boolean) => void;
   dislikePost: (galleryId: string, idx: number, isDisliked: boolean) => void;
+  dislikedPosts: IDislikedPosts[];
   isFetchingLikes: boolean;
   isFetchingDislikes: boolean;
   idx: number;
 }
 const Card = ({
-  authUser,
   gallery,
   likePost,
+  likedPosts,
   dislikePost,
+  dislikedPosts,
   isFetchingLikes,
   isFetchingDislikes,
   idx,
@@ -51,11 +54,9 @@ const Card = ({
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsLiked(authUser ? isIdInArrayHelper(_id, authUser.likedPosts) : false);
-    setIsDisliked(
-      authUser ? isIdInArrayHelper(_id, authUser.dislikedPosts) : false
-    );
-  }, [authUser, setIsLiked, setIsDisliked, _id]);
+    setIsLiked(isIdInArrayHelper(_id, likedPosts));
+    setIsDisliked(isIdInArrayHelper(_id, dislikedPosts));
+  }, [likedPosts, dislikedPosts, setIsLiked, setIsDisliked, _id]);
 
   const handleOnClickLike = useCallback(() => {
     likePost(_id, idx, isLiked);

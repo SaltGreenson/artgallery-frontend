@@ -1,6 +1,3 @@
-import { ILikedPosts } from "@/models/ILikedPosts";
-import { IDislikedPosts } from "@/models/IDislikedPosts";
-
 export interface IAuthUser {
   email: string;
   _id: string;
@@ -8,8 +5,8 @@ export interface IAuthUser {
   likedCount: number;
   dislikedCount: number;
   postsCount: number;
-  likedPosts: ILikedPosts[];
-  dislikedPosts: IDislikedPosts[];
+  likedPosts: [{ _id: string }];
+  dislikedPosts: [{ _id: string }];
   createdAt: Date;
 }
 

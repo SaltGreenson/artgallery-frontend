@@ -1,7 +1,6 @@
 import { ThunkAction } from "../store";
-import { UserActionsType, userActions } from "@/store/userReducer/actions";
+import { userActions, UserActionsType } from "@/store/userReducer/actions";
 import { userService } from "@/services/UserService";
-import { IAuthUser } from "@/models/IUser";
 import Messages from "@/messages";
 import { Dispatch } from "redux";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
@@ -9,8 +8,9 @@ import {
   removeFromStorage,
   setToStorage,
 } from "@/utils/helpers/localStorage.helper";
+import { IAuthResponse } from "@/models/IAuthResponse";
 
-export const _commonLogicUserActionCreator = async (
+const _commonLogicUserActionCreator = async (
   callback: () => Promise<void>,
   dispatch: Dispatch<UserActionsType>
 ) => {
@@ -25,6 +25,17 @@ export const _commonLogicUserActionCreator = async (
   }
 };
 
+const _setUserData = (
+  data: IAuthResponse,
+  dispatch: Dispatch<UserActionsType>
+) => {
+  setToStorage("token", data.accessToken);
+  dispatch(userActions.setIsAuth(true));
+  dispatch(userActions.setAuthUser(data.user));
+  dispatch(userActions.setLikedPosts(data.user.likedPosts));
+  dispatch(userActions.setDislikedPosts(data.user.dislikedPosts));
+};
+
 export const login =
   (
     email: string,
@@ -34,9 +45,7 @@ export const login =
   async (dispatch) => {
     await _commonLogicUserActionCreator(async () => {
       const data = (await userService.login(email, password)).data;
-      setToStorage("token", data.accessToken);
-      dispatch(userActions.setIsAuth(true));
-      dispatch(userActions.setAuthUser(data.user));
+      _setUserData(data, dispatch);
       callback();
     }, dispatch);
   };
@@ -51,9 +60,7 @@ export const signup =
   async (dispatch) => {
     await _commonLogicUserActionCreator(async () => {
       const data = (await userService.signup(name, email, password)).data;
-      setToStorage("token", data.accessToken);
-      dispatch(userActions.setIsAuth(true));
-      dispatch(userActions.setAuthUser(data.user));
+      _setUserData(data, dispatch);
       callback();
     }, dispatch);
   };
@@ -63,7 +70,9 @@ export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
     await userService.logout();
     removeFromStorage("token");
     dispatch(userActions.setIsAuth(false));
-    dispatch(userActions.setAuthUser(null as IAuthUser | null));
+    dispatch(userActions.setAuthUser(null));
+    dispatch(userActions.setLikedPosts([]));
+    dispatch(userActions.setDislikedPosts([]));
     dispatch(userActions.setModalMessage(Messages.EXIT_FROM_ACCOUNT));
   }, dispatch);
 };
@@ -72,9 +81,7 @@ export const checkAuth =
   (): ThunkAction<UserActionsType> => async (dispatch) => {
     await _commonLogicUserActionCreator(async () => {
       const data = (await userService.refresh()).data;
-      setToStorage("token", data.accessToken);
-      dispatch(userActions.setIsAuth(true));
-      dispatch(userActions.setAuthUser(data.user));
+      _setUserData(data, dispatch);
     }, dispatch);
   };
 

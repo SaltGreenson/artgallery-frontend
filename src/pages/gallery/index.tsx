@@ -1,24 +1,27 @@
 import React, { useEffect } from "react";
 
-import dynamic from "next/dynamic";
-import Preloader from "@/components/common/Preloader";
-import MainLayout from "@/components/layouts/Main";
-import GalleryViewLayout from "@/components/layouts/Gallery";
-import { NextPageContext } from "next";
-import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
-import { bindActionCreators, Dispatch } from "redux";
 import { connect, useSelector } from "react-redux";
-import { IGallery } from "@/models/IGallery";
+import dynamic from "next/dynamic";
+import { NextPageContext } from "next";
+import { bindActionCreators, Dispatch } from "redux";
+
 import { galleryActions } from "@/store/galleryReducer/actions";
-import axios from "axios";
-import { API_URL } from "@/http/api";
-import { dislikePost, likePost } from "@/store/galleryReducer/actionCreators";
 import {
   getGalleries,
   getIsFetchingDislikes,
   getIsFetchingLikes,
 } from "@/selectors/gallerySelectors";
-import { getAuthUser } from "@/selectors/userSelectors";
+import { getDislikedPosts, getLikedPosts } from "@/selectors/userSelectors";
+import { dislikePost, likePost } from "@/store/galleryReducer/actionCreators";
+
+import Preloader from "@/components/common/Preloader";
+import MainLayout from "@/components/layouts/Main";
+import GalleryViewLayout from "@/components/layouts/Gallery";
+
+import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
+import axios from "axios";
+import { IGallery } from "@/models/IGallery";
+import { API_URL } from "@/http/api";
 
 const DynamicGalleryContent = dynamic(
   () => import("../../pagesContent/Gallery"),
@@ -38,6 +41,7 @@ export interface IGalleryPageProps {
   dislikePost: (galleryId: string, index: number, isDisliked: boolean) => void;
 }
 
+/* duplicated lines with liked. need fix */
 const Gallery = ({
   galleries,
   setGalleries,
@@ -45,7 +49,8 @@ const Gallery = ({
   dislikePost,
 }: IGalleryPageProps): JSX.Element => {
   const galleriesFromRedux = useSelector(getGalleries);
-  const authUser = useSelector(getAuthUser);
+  const likedPosts = useSelector(getLikedPosts);
+  const dislikedPosts = useSelector(getDislikedPosts);
   const isFetchingLikes = useSelector(getIsFetchingLikes);
   const isFetchingDislikes = useSelector(getIsFetchingDislikes);
 
@@ -56,11 +61,12 @@ const Gallery = ({
   return (
     <MainLayout>
       <DynamicGalleryContent
-        authUser={authUser}
         galleries={galleriesFromRedux}
         setGalleries={setGalleries}
         likePost={likePost}
+        likedPosts={likedPosts}
         dislikePost={dislikePost}
+        dislikedPosts={dislikedPosts}
         isFetchingLikes={isFetchingLikes}
         isFetchingDislikes={isFetchingDislikes}
       />
