@@ -3,11 +3,7 @@ import React, { useEffect } from "react";
 import { Router } from "next/router";
 import useActions from "@/utils/hooks/useActions";
 import { useSelector } from "react-redux";
-import {
-  getIsFetchingApp,
-  getIsFetchingSuccessApp,
-  getMessage,
-} from "@/selectors/userSelectors";
+import { getIsFetchingSuccessApp, getMessage } from "@/selectors/userSelectors";
 import Notification from "@/components/elements/Notification";
 import checkNotifyTypeHelper from "@/utils/helpers/checkNotifyType.helper";
 import { getFromStorage } from "@/utils/helpers/localStorage.helper";
@@ -18,7 +14,6 @@ type CustomAppProps = AppProps & {
 
 function AppContainer({ Component, pageProps, router }: CustomAppProps) {
   const { checkAuth, clearModalMessage } = useActions();
-  const isFetching = useSelector(getIsFetchingApp);
   const isFetchingSuccess = useSelector(getIsFetchingSuccessApp);
   const message = useSelector(getMessage);
 
@@ -34,7 +29,7 @@ function AppContainer({ Component, pageProps, router }: CustomAppProps) {
   return (
     <>
       <Component {...pageProps} router={router} />
-      {!isFetching && message && (
+      {message && (
         <Notification
           variant={checkNotifyTypeHelper(isFetchingSuccess)}
           message={message}

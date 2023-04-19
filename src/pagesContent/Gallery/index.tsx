@@ -4,12 +4,13 @@ import Card from "@/components/elements/Card";
 import { IGalleryPageProps } from "@/pages/gallery";
 import { ILikedPosts } from "@/models/ILikedPosts";
 import { IDislikedPosts } from "@/models/IDislikedPosts";
+import withCardPreloader from "@/utils/hocs/withCardPreloader";
 
 export interface IGalleryDynamicPageProps extends IGalleryPageProps {
   likedPosts: ILikedPosts[];
   dislikedPosts: IDislikedPosts[];
-  isFetchingDislikes: boolean;
   isFetchingLikes: boolean;
+  isFetchingDislikes: boolean;
 }
 
 const Gallery = ({
@@ -24,4 +25,4 @@ const Gallery = ({
   </GalleryViewLayout>
 );
 
-export default Gallery;
+export default withCardPreloader(Gallery);
