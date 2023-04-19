@@ -52,8 +52,8 @@ export const signup =
     await _commonLogicUserActionCreator(async () => {
       const data = (await userService.signup(name, email, password)).data;
       setToStorage("token", data.accessToken);
-      userActions.setIsAuth(true);
-      userActions.setAuthUser(data.user);
+      dispatch(userActions.setIsAuth(true));
+      dispatch(userActions.setAuthUser(data.user));
       callback();
     }, dispatch);
   };
