@@ -98,7 +98,7 @@ const Menu = ({
         </CustomLink>
       );
     },
-    [authUser]
+    []
   );
 
   const renderMainLinks = useCallback(
@@ -151,30 +151,30 @@ const Menu = ({
           </StyledMenuOpenCloseButtonContainer>
           {authUser && (
             <StyledMenuLogoWrapper id="logo-wrapper">
-              <CustomLink href="#">
+              <CustomLink href="/own-arts">
                 <Logo />
               </CustomLink>
               <StyledMenuOwnerInfo id="menu-text">
-                <CustomLink href="#" fontSize="16px" bold>
-                  Vlad Yuskovich
+                <CustomLink href="/own-arts" fontSize="16px" bold>
+                  {authUser.name}
                 </CustomLink>
                 <CustomLink
-                  href="#"
+                  href="/own-arts"
                   color={Colors.NEW_ORANGE}
                   hoverColor={Colors.NEW_ORANGE}
                   fontSize="16px"
                   bold
                 >
-                  Likes: 999+
+                  Likes: {authUser.likedCount}
                 </CustomLink>
                 <CustomLink
-                  href="#"
+                  href="/own-arts"
                   color={Colors.NEW_ORANGE}
                   hoverColor={Colors.NEW_ORANGE}
                   fontSize="16px"
                   bold
                 >
-                  Posts: 999+
+                  Posts: {authUser.postsCount}
                 </CustomLink>
               </StyledMenuOwnerInfo>
             </StyledMenuLogoWrapper>
