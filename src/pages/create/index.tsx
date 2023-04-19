@@ -16,7 +16,7 @@ const DynamicCreateContent = dynamic(
   {
     loading: () => (
       <GalleryViewLayout title="Create">
-        <Preloader variant="card" />
+        <Preloader variant="default" />
       </GalleryViewLayout>
     ),
   }

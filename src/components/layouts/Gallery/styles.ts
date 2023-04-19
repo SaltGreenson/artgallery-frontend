@@ -15,4 +15,8 @@ export const CatalogViewContainer = styled.div`
 
 export const CatalogViewTitleContainer = styled.div`
   padding-bottom: 3rem;
+
+  @media (min-width: 1024px) {
+    width: clamp(300px, 100vw / 1.5, 800px);
+  }
 `;
