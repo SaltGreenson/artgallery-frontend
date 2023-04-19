@@ -6,7 +6,6 @@ import GalleryViewLayout from "@/components/layouts/Gallery";
 function withCardPreloader<T>(Component: FC<T>) {
   return function _(props: T) {
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
       const startLoading = () => setLoading(true);
       const stopLoading = () => setLoading(false);
@@ -23,7 +22,7 @@ function withCardPreloader<T>(Component: FC<T>) {
     }, []);
 
     return loading ? (
-      <GalleryViewLayout title="Gallery">
+      <GalleryViewLayout title="&nbsp;">
         <Preloader variant="card" />
       </GalleryViewLayout>
     ) : (

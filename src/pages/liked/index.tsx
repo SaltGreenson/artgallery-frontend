@@ -16,7 +16,7 @@ interface LikedPageProps {
 }
 
 const Liked = ({ galleries }: LikedPageProps): JSX.Element => (
-  <Gallery galleries={galleries} />
+  <Gallery galleries={galleries} title="Liked" />
 );
 
 export async function getServerSideProps(context: NextPageContext) {

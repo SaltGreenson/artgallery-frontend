@@ -16,25 +16,20 @@ import { dislikePost, likePost } from "@/store/galleryReducer/actionCreators";
 
 import Preloader from "@/components/common/Preloader";
 import MainLayout from "@/components/layouts/Main";
-import GalleryViewLayout from "@/components/layouts/Gallery";
 
 import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
-import axios from "axios";
 import { IGallery } from "@/models/IGallery";
-import { API_URL } from "@/http/api";
+import createAxiosInstance from "@/utils/http/axiosInstance";
 
 const DynamicGalleryContent = dynamic(
   () => import("../../pagesContent/Gallery"),
   {
-    loading: () => (
-      <GalleryViewLayout title="Gallery">
-        <Preloader variant="card" />
-      </GalleryViewLayout>
-    ),
+    loading: () => <Preloader variant="default" />,
   }
 );
 
 export interface IGalleryPageProps {
+  title?: string;
   galleries: IGallery[];
   setGalleries: (galleries: IGallery[]) => void;
   likePost: (galleryId: string, index: number, isLiked: boolean) => void;
@@ -42,6 +37,7 @@ export interface IGalleryPageProps {
 }
 
 const Gallery = ({
+  title = "Gallery",
   galleries,
   setGalleries,
   likePost,
@@ -60,6 +56,7 @@ const Gallery = ({
   return (
     <MainLayout>
       <DynamicGalleryContent
+        title={title}
         galleries={galleriesFromRedux}
         setGalleries={setGalleries}
         likePost={likePost}
@@ -75,7 +72,8 @@ const Gallery = ({
 
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
-    const data = (await axios.get<IGallery[]>(`${API_URL}/gallery`)).data;
+    const instance = createAxiosInstance();
+    const data = (await instance.get<IGallery[]>("/gallery")).data;
     return {
       props: {
         galleries: data,

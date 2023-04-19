@@ -15,7 +15,7 @@ interface OwnArtsPageProps {
 }
 
 const OwnArts = ({ galleries }: OwnArtsPageProps): JSX.Element => (
-  <Gallery galleries={galleries} />
+  <Gallery galleries={galleries} title="Own arts" />
 );
 
 export async function getServerSideProps(context: NextPageContext) {

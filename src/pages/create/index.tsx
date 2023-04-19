@@ -3,7 +3,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Preloader from "@/components/common/Preloader";
 import MainLayout from "@/components/layouts/Main";
-import GalleryViewLayout from "@/components/layouts/Gallery";
 import { NextPageContext } from "next";
 import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
 import { bindActionCreators, Dispatch } from "redux";
@@ -14,11 +13,7 @@ import { CreateProps } from "@/pagesContent/Create";
 const DynamicCreateContent = dynamic(
   () => import("../../pagesContent/Create"),
   {
-    loading: () => (
-      <GalleryViewLayout title="Create">
-        <Preloader variant="default" />
-      </GalleryViewLayout>
-    ),
+    loading: () => <Preloader variant="default" />,
   }
 );
 
