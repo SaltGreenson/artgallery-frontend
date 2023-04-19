@@ -19,7 +19,7 @@ const Gallery = ({
   <GalleryViewLayout title="Gallery">
     {galleries &&
       galleries.map((gallery, idx) => (
-        <Card key={gallery._id} gallery={gallery} {...cardProps} idx={idx} />
+        <Card key={gallery._id} gallery={gallery} idx={idx} {...cardProps} />
       ))}
   </GalleryViewLayout>
 );

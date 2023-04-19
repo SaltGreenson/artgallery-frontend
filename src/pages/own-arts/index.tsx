@@ -1,25 +1,46 @@
 import React from "react";
+import { NextPageContext } from "next";
 
-import dynamic from "next/dynamic";
-import Preloader from "@/components/common/Preloader";
-import MainLayout from "@/components/layouts/Main";
-import GalleryViewLayout from "@/components/layouts/Gallery";
+import createAxiosInstance from "@/utils/http/axiosInstance";
 
-const DynamicOwnArtsContent = dynamic(
-  () => import("../../pagesContent/OwnArts"),
-  {
-    loading: () => (
-      <GalleryViewLayout title="Own arts">
-        <Preloader variant="card" />
-      </GalleryViewLayout>
-    ),
+import Gallery from "@/pages/gallery";
+
+import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
+import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
+
+import { IGallery } from "@/models/IGallery";
+
+interface OwnArtsPageProps {
+  galleries: IGallery[];
+}
+
+const OwnArts = ({ galleries }: OwnArtsPageProps): JSX.Element => (
+  <Gallery galleries={galleries} />
+);
+
+export async function getServerSideProps(context: NextPageContext) {
+  const token = getAccessTokenHelper(context);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/log-in",
+        permanent: false,
+      },
+    };
   }
-);
 
-const OwnArts = () => (
-  <MainLayout>
-    <DynamicOwnArtsContent />
-  </MainLayout>
-);
+  try {
+    const instance = createAxiosInstance(token);
+    const data = (await instance.get<IGallery[]>("/gallery/own")).data;
+    return {
+      props: {
+        galleries: data,
+      },
+    };
+  } catch (error: any) {
+    return serverSideAxiosErrorHandler(error, context, { galleries: [] });
+  }
+}
 
 export default OwnArts;
