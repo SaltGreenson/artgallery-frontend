@@ -79,10 +79,17 @@ export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
 
 export const checkAuth =
   (): ThunkAction<UserActionsType> => async (dispatch) => {
-    await _commonLogicUserActionCreator(async () => {
+    try {
+      dispatch(userActions.setFetching(true));
       const data = (await userService.refresh()).data;
       _setUserData(data, dispatch);
-    }, dispatch);
+      dispatch(userActions.setFetchingSuccess(true));
+    } catch (e) {
+      dispatch(userActions.setFetchingError(true));
+      dispatch(userActions.setFetchingSuccess(false));
+    } finally {
+      dispatch(userActions.setFetching(false));
+    }
   };
 
 export const clearModalMessage =
