@@ -117,7 +117,7 @@ const Menu = ({
           handleClickActiveIdx({ mainIdx: idx })
         )
       ),
-    [activeMainIdx, handleClickActiveIdx, renderLink]
+    [activeMainIdx, handleClickActiveIdx, renderLink, authUser]
   );
 
   const renderSubLinks = useCallback(
