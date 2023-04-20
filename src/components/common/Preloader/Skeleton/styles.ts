@@ -13,6 +13,10 @@ export const SkeletonLoader = styled.div<{ isLightTheme?: boolean }>`
       : "linear-gradient(to right, #cecece, #c0bfbf, #cecece)"};
   background-repeat: no-repeat;
   animation: ${loadingAnimation} 1s infinite linear;
+
+  @media (max-width: 768px) {
+    height: 350px;
+  }
 `;
 
 export const StyledSkeletonCard = styled.div`
@@ -27,8 +31,8 @@ export const StyledSkeletonCard = styled.div`
   background-color: #f2f2f2;
 
   @media (max-width: 768px) {
-    width: 100%;
-    height: 350px;
+    min-width: 100%;
+    min-height: 350px;
     flex-direction: column;
   }
 `;

@@ -7,8 +7,9 @@ import { IDislikedPosts } from "@/models/IDislikedPosts";
 import { withCardPreloader } from "@/utils/hocs";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Preloader from "@/components/common/Preloader";
-import { FlexBlock } from "@/components/common/Block";
+import { CustomBlock, FlexBlock } from "@/components/common/Block";
 import { IGallery } from "@/models/IGallery";
+import Title from "@/components/common/Title";
 
 export interface IGalleryDynamicPageProps extends IGalleryPageProps {
   authUserId?: string;
@@ -72,41 +73,47 @@ const Gallery = ({
 
   return (
     <GalleryViewLayout title={title}>
-      <InfiniteScroll
-        dataLength={items.length}
-        next={fetchMoreData}
-        hasMore={!!galleries.length}
-        loader={
-          <FlexBlock padding="20px 0 0 0" gap="20px" direction="column">
-            <Preloader variant="card" />
-            <Preloader variant="card" />
-          </FlexBlock>
-        }
-        scrollThreshold={0.5}
-        style={{ overflow: "unset" }}
-      >
-        <FlexBlock
-          width="100%"
-          align="center"
-          justify="center"
-          gap="20px"
-          flex={1}
-          direction="column"
+      {!items.length ? (
+        <Title variant="thin" fontSize="26px">
+          Galleries not found
+        </Title>
+      ) : (
+        <InfiniteScroll
+          dataLength={items.length}
+          next={fetchMoreData}
+          hasMore={!!galleries.length}
+          loader={
+            <FlexBlock padding="20px 0 0 0" gap="20px" direction="column">
+              <Preloader variant="card" />
+              <Preloader variant="card" />
+            </FlexBlock>
+          }
+          scrollThreshold={0.5}
+          style={{ overflow: "unset" }}
         >
-          {items &&
-            items.map((gallery, idx) => (
-              <Card
-                key={gallery._id}
-                gallery={gallery}
-                authUserId={authUserId}
-                idx={idx}
-                likePost={handleLikePost}
-                dislikePost={handleDislikePost}
-                {...cardProps}
-              />
-            ))}
-        </FlexBlock>
-      </InfiniteScroll>
+          <FlexBlock
+            width="100%"
+            align="center"
+            justify="center"
+            gap="20px"
+            flex={1}
+            direction="column"
+          >
+            {items &&
+              items.map((gallery, idx) => (
+                <Card
+                  key={gallery._id}
+                  gallery={gallery}
+                  authUserId={authUserId}
+                  idx={idx}
+                  likePost={handleLikePost}
+                  dislikePost={handleDislikePost}
+                  {...cardProps}
+                />
+              ))}
+          </FlexBlock>
+        </InfiniteScroll>
+      )}
     </GalleryViewLayout>
   );
 };

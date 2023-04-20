@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const MainLayoutContainer = styled.div<{ visible?: boolean }>`
   display: grid;
-  grid-template-rows: auto 100px 350px;
+  grid-template-rows: auto 100px max-content;
   grid-template-columns: max-content auto;
   min-height: 100vh;
   max-width: 100vw;
 
   @media (max-width: 768px) {
-    grid-template-rows: auto 100px 377px;
+    grid-template-rows: auto 100px max-content;
   }
 
   @media (max-width: 1024px) {
