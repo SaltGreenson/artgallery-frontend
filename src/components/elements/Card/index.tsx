@@ -55,7 +55,6 @@ const Card = ({
   const { _id, dislikes, likes, photo, user, title } = gallery;
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isDisliked, setIsDisliked] = useState<boolean>(false);
-
   useEffect(() => {
     setIsLiked(isIdInArrayHelper(_id, likedPosts));
     setIsDisliked(isIdInArrayHelper(_id, dislikedPosts));

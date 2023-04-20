@@ -21,23 +21,11 @@ interface ISetDislikeFetching {
   payload: { dislikeFetching: boolean };
 }
 
-interface ISetLiked {
-  type: GalleryActionTypes.SET_LIKED;
-  payload: { index: number; isLiked: boolean };
-}
-
-interface ISetDisliked {
-  type: GalleryActionTypes.SET_DISLIKED;
-  payload: { index: number; isDisliked: boolean };
-}
-
 export type GalleryActionsType =
   | ISetGalleries
   | ISetGalleryFetching
   | ISetLikeFetching
-  | ISetDislikeFetching
-  | ISetLiked
-  | ISetDisliked;
+  | ISetDislikeFetching;
 
 export const galleryActions = {
   setGalleries: (galleries: IGallery[]): ISetGalleries =>
@@ -59,15 +47,5 @@ export const galleryActions = {
     ({
       type: GalleryActionTypes.SET_DISLIKE_FETCHING,
       payload: { dislikeFetching },
-    } as const),
-  setLiked: (index: number, isLiked: boolean): ISetLiked =>
-    ({
-      type: GalleryActionTypes.SET_LIKED,
-      payload: { index, isLiked },
-    } as const),
-  setDisliked: (index: number, isDisliked: boolean): ISetDisliked =>
-    ({
-      type: GalleryActionTypes.SET_DISLIKED,
-      payload: { index, isDisliked },
     } as const),
 };

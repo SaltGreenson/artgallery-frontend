@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import GalleryViewLayout from "src/components/layouts/Gallery";
 import Card from "@/components/elements/Card";
 import { IGalleryPageProps } from "@/pages/gallery";
@@ -8,6 +8,7 @@ import { withCardPreloader } from "@/utils/hocs";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Preloader from "@/components/common/Preloader";
 import { FlexBlock } from "@/components/common/Block";
+import { IGallery } from "@/models/IGallery";
 
 export interface IGalleryDynamicPageProps extends IGalleryPageProps {
   authUserId?: string;
@@ -16,7 +17,6 @@ export interface IGalleryDynamicPageProps extends IGalleryPageProps {
   dislikedPosts: IDislikedPosts[];
   isFetchingLikes: boolean;
   isFetchingDislikes: boolean;
-  isFetchingGalleries: boolean;
 }
 
 const Gallery = ({
@@ -24,10 +24,46 @@ const Gallery = ({
   collectGalleries,
   title,
   galleries,
-  isFetchingGalleries,
+  likePost,
+  dislikePost,
   ...cardProps
 }: IGalleryDynamicPageProps): JSX.Element => {
-  const [skip, setSkip] = useState(0);
+  const [skip, setSkip] = useState(10);
+  const [items, setItems] = useState<IGallery[]>([]);
+
+  useEffect(() => {
+    setItems([]);
+  }, []);
+
+  useEffect(() => {
+    setItems((prev) => [...prev, ...galleries]);
+  }, [galleries]);
+
+  const handleLikePost = useCallback(
+    (galleryId: string, idx: number, isLiked: boolean) => {
+      if (isLiked) {
+        items[idx].likes -= 1;
+      } else {
+        items[idx].likes += 1;
+      }
+      likePost(galleryId);
+      setItems(items);
+    },
+    [items]
+  );
+
+  const handleDislikePost = useCallback(
+    (galleryId: string, idx: number, isDisliked: boolean) => {
+      if (isDisliked) {
+        items[idx].dislikes -= 1;
+      } else {
+        items[idx].dislikes += 1;
+      }
+      dislikePost(galleryId);
+      setItems(items);
+    },
+    [items]
+  );
 
   const fetchMoreData = useCallback(() => {
     collectGalleries(skip);
@@ -39,9 +75,14 @@ const Gallery = ({
       <InfiniteScroll
         dataLength={galleries.length}
         next={fetchMoreData}
-        hasMore={isFetchingGalleries}
-        loader={<Preloader variant="card" />}
-        scrollThreshold={0.9}
+        hasMore={!!galleries.length}
+        loader={
+          <FlexBlock padding="20px 0 0 0" gap="20px" direction="column">
+            <Preloader variant="card" />
+            <Preloader variant="card" />
+          </FlexBlock>
+        }
+        scrollThreshold={0.5}
         style={{ overflow: "unset" }}
       >
         <FlexBlock
@@ -52,13 +93,15 @@ const Gallery = ({
           flex={1}
           direction="column"
         >
-          {galleries &&
-            galleries.map((gallery, idx) => (
+          {items &&
+            items.map((gallery, idx) => (
               <Card
                 key={gallery._id}
                 gallery={gallery}
                 authUserId={authUserId}
                 idx={idx}
+                likePost={handleLikePost}
+                dislikePost={handleDislikePost}
                 {...cardProps}
               />
             ))}

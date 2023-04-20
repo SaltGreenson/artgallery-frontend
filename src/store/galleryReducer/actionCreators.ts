@@ -54,16 +54,11 @@ export const createGallery =
   };
 
 export const likePost =
-  (
-    galleryId: string,
-    index: number,
-    isLiked: boolean
-  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  (galleryId: string): ThunkAction<GalleryActionsType | UserActionsType> =>
   async (dispatch) => {
     try {
       dispatch(galleryActions.setLikeFetching(true));
       const data = (await galleryService.like(galleryId)).data;
-      dispatch(galleryActions.setLiked(index, isLiked));
       dispatch(userActions.setLikedPosts(data.likedPosts));
       dispatch(userActions.setLikedCount(data.likedPosts.length));
     } catch (e) {
@@ -74,16 +69,11 @@ export const likePost =
   };
 
 export const dislikePost =
-  (
-    galleryId: string,
-    index: number,
-    isDisliked: boolean
-  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  (galleryId: string): ThunkAction<GalleryActionsType | UserActionsType> =>
   async (dispatch) => {
     try {
       dispatch(galleryActions.setDislikeFetching(true));
       const data = (await galleryService.dislike(galleryId)).data;
-      dispatch(galleryActions.setDisliked(index, isDisliked));
       dispatch(userActions.setDislikedPosts(data.dislikedPosts));
     } catch (e) {
       handleAxiosError(e, dispatch);

@@ -18,36 +18,6 @@ export const galleryReducer = (
         ...action.payload,
       };
     }
-    case GalleryActionTypes.SET_DISLIKED: {
-      const galleries = [...state.galleries];
-      const galleryToUpdate = galleries[action.payload.index];
-
-      if (action.payload.isDisliked) {
-        galleryToUpdate.dislikes -= 1;
-      } else {
-        galleryToUpdate.dislikes += 1;
-      }
-
-      return {
-        ...state,
-        galleries,
-      };
-    }
-    case GalleryActionTypes.SET_LIKED: {
-      const galleries = [...state.galleries];
-      const galleryToUpdate = galleries[action.payload.index];
-
-      if (action.payload.isLiked) {
-        galleryToUpdate.likes -= 1;
-      } else {
-        galleryToUpdate.likes += 1;
-      }
-
-      return {
-        ...state,
-        galleries,
-      };
-    }
     default:
       return state;
   }

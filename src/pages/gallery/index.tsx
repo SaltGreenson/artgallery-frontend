@@ -9,7 +9,6 @@ import { galleryActions } from "@/store/galleryReducer/actions";
 import {
   getGalleries,
   getIsFetchingDislikes,
-  getIsFetchingGallery,
   getIsFetchingLikes,
 } from "@/selectors/gallerySelectors";
 import {
@@ -41,9 +40,9 @@ const DynamicGalleryContent = dynamic(
 export interface IGalleryPageProps {
   title?: string;
   galleries: IGallery[];
-  dislikePost: (galleryId: string, index: number, isDisliked: boolean) => void;
+  dislikePost: (galleryId: string) => void;
   setGalleries: (galleries: IGallery[]) => void;
-  likePost: (galleryId: string, index: number, isLiked: boolean) => void;
+  likePost: (galleryId: string) => void;
   collectGalleries: (
     skip?: number,
     limit?: number,
@@ -67,7 +66,6 @@ const Gallery = ({
   const dislikedPosts = useSelector(getDislikedPosts);
   const isFetchingLikes = useSelector(getIsFetchingLikes);
   const isFetchingDislikes = useSelector(getIsFetchingDislikes);
-  const isFetchingGalleries = useSelector(getIsFetchingGallery);
 
   useEffect(() => {
     setGalleries(galleries);
@@ -87,7 +85,6 @@ const Gallery = ({
         dislikedPosts={dislikedPosts}
         isFetchingLikes={isFetchingLikes}
         isFetchingDislikes={isFetchingDislikes}
-        isFetchingGalleries={isFetchingGalleries}
       />
     </MainLayout>
   );
