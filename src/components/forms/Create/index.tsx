@@ -5,12 +5,18 @@ import CustomButton from "@/components/common/Button";
 import { Colors } from "@/styles/colors";
 import { useForm } from "react-hook-form";
 import { StyledCreateForm } from "@/components/forms/Create/styles";
+import { IGallery } from "@/models/IGallery";
+import { submitBtnTextConfig } from "@/components/forms/Create/config";
 
 interface CreateFormProps {
   onSubmitHandler: (photo: File, title: string) => void;
+  defaultValues?: IGallery;
 }
 
-const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
+const CreateForm = ({
+  onSubmitHandler,
+  defaultValues,
+}: CreateFormProps): JSX.Element => {
   const {
     handleSubmit,
     register,
@@ -30,6 +36,7 @@ const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
       onSubmit={handleSubmit((data) => onSubmitHandler(data.photo, data.title))}
     >
       <CustomInput
+        imageUrl={defaultValues?.photo.compressedUrl}
         variant="file"
         label=""
         fileTypes={["jpeg"]}
@@ -43,6 +50,7 @@ const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
         onChangeFile={handleFileChange}
       />
       <CustomInput
+        defaultValue={defaultValues?.title}
         variant="dynamicLabel"
         label="Title"
         register={register("title", {
@@ -64,16 +72,18 @@ const CreateForm = ({ onSubmitHandler }: CreateFormProps): JSX.Element => {
       />
       <FlexBlock direction="column" gap="10px">
         <CustomButton variant="default" type="submit">
-          CREATE
+          {submitBtnTextConfig(defaultValues)}
         </CustomButton>
-        <CustomButton
-          variant="default"
-          color={Colors.RED}
-          bgColor={Colors.LIGHT_RED}
-          bgHover={Colors.HOVER_RED}
-        >
-          DELETE
-        </CustomButton>
+        {defaultValues && (
+          <CustomButton
+            variant="default"
+            color={Colors.RED}
+            bgColor={Colors.LIGHT_RED}
+            bgHover={Colors.HOVER_RED}
+          >
+            DELETE
+          </CustomButton>
+        )}
       </FlexBlock>
     </StyledCreateForm>
   );

@@ -1,4 +1,4 @@
-const Account = () => null;
+const Edit = () => null;
 
 export async function getServerSideProps() {
   return {
@@ -9,4 +9,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Account;
+export default Edit;

@@ -17,6 +17,7 @@ import {
 } from "./styles";
 
 export interface IInputFileProps {
+  imageUrl?: string;
   error?: string;
   hoverTitle?: string;
   maxSize?: number;
@@ -33,12 +34,13 @@ export interface IInputFileProps {
 }
 
 const InputFile = ({
+  imageUrl,
   fileTypes,
   register,
   onChangeFile,
   ...props
 }: IInputFileProps): JSX.Element => {
-  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(imageUrl);
   const handleChange = (file: File) => {
     const reader = new FileReader();
     reader.addEventListener("load", () => {
