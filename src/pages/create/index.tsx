@@ -10,6 +10,7 @@ import { createGallery } from "@/store/galleryReducer/actionCreators";
 import { connect, useSelector } from "react-redux";
 import { CreateProps } from "@/pagesContent/Create";
 import { getAuthUser } from "@/selectors/userSelectors";
+import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
 
 const DynamicCreateContent = dynamic(
   () => import("../../pagesContent/Create"),
@@ -20,10 +21,13 @@ const DynamicCreateContent = dynamic(
 
 const Create = ({ createGallery }: CreateProps): JSX.Element => {
   const authUser = useSelector(getAuthUser);
-
+  const isFetching = useSelector(getIsFetchingGallery);
   return (
     <MainLayout authUser={authUser}>
-      <DynamicCreateContent createGallery={createGallery} />
+      <DynamicCreateContent
+        createGallery={createGallery}
+        isFetching={isFetching}
+      />
     </MainLayout>
   );
 };

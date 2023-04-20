@@ -11,11 +11,13 @@ import { submitBtnTextConfig } from "@/components/forms/Create/config";
 interface CreateFormProps {
   onSubmitHandler: (photo: File, title: string) => void;
   defaultValues?: IGallery;
+  isFetching: boolean;
 }
 
 const CreateForm = ({
   onSubmitHandler,
   defaultValues,
+  isFetching,
 }: CreateFormProps): JSX.Element => {
   const {
     handleSubmit,
@@ -71,12 +73,13 @@ const CreateForm = ({
         required
       />
       <FlexBlock direction="column" gap="10px">
-        <CustomButton variant="default" type="submit">
+        <CustomButton variant="default" isFetching={isFetching} type="submit">
           {submitBtnTextConfig(defaultValues)}
         </CustomButton>
         {defaultValues && (
           <CustomButton
             variant="default"
+            isFetching={isFetching}
             color={Colors.RED}
             bgColor={Colors.LIGHT_RED}
             bgHover={Colors.HOVER_RED}

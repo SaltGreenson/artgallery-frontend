@@ -4,11 +4,12 @@ import GalleryViewLayout from "@/components/layouts/Gallery";
 
 export interface CreateProps {
   createGallery: (photo: File, title: string) => void;
+  isFetching: boolean;
 }
 
-const Create = ({ createGallery }: CreateProps): JSX.Element => (
+const Create = ({ createGallery, isFetching }: CreateProps): JSX.Element => (
   <GalleryViewLayout title="Create">
-    <CreateForm onSubmitHandler={createGallery} />
+    <CreateForm onSubmitHandler={createGallery} isFetching={isFetching} />
   </GalleryViewLayout>
 );
 

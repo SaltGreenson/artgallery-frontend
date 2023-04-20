@@ -6,11 +6,20 @@ import { IGallery } from "@/models/IGallery";
 export interface EditProps {
   editGallery: (photo: File, title: string) => void;
   defaultValues: IGallery;
+  isFetching: boolean;
 }
 
-const Edit = ({ editGallery, defaultValues }: EditProps): JSX.Element => (
+const Edit = ({
+  editGallery,
+  defaultValues,
+  isFetching,
+}: EditProps): JSX.Element => (
   <GalleryViewLayout title="Create">
-    <CreateForm onSubmitHandler={editGallery} defaultValues={defaultValues} />
+    <CreateForm
+      onSubmitHandler={editGallery}
+      defaultValues={defaultValues}
+      isFetching={isFetching}
+    />
   </GalleryViewLayout>
 );
 

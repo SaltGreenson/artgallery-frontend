@@ -11,6 +11,7 @@ import { getAuthUser } from "@/selectors/userSelectors";
 import MainLayout from "@/components/layouts/Main";
 import { bindActionCreators, Dispatch } from "redux";
 import { createGallery } from "@/store/galleryReducer/actionCreators";
+import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
 
 const DynamicEditContent = dynamic(() => import("../../pagesContent/Edit"), {
   loading: () => <Preloader variant="default" />,
@@ -23,10 +24,14 @@ interface EditPageProps {
 
 const Edit = ({ editGallery, gallery }: EditPageProps): JSX.Element => {
   const authUser = useSelector(getAuthUser);
-
+  const isFetching = useSelector(getIsFetchingGallery);
   return (
     <MainLayout authUser={authUser}>
-      <DynamicEditContent editGallery={editGallery} defaultValues={gallery} />
+      <DynamicEditContent
+        editGallery={editGallery}
+        defaultValues={gallery}
+        isFetching={isFetching}
+      />
     </MainLayout>
   );
 };

@@ -37,6 +37,7 @@ export const createGallery =
   ): ThunkAction<GalleryActionsType | UserActionsType> =>
   async (dispatch) => {
     try {
+      dispatch(galleryActions.setGalleryFetching(true));
       const formData = new FormData();
       formData.append("gallery[]", photo);
       formData.append("gallery[]", title);
