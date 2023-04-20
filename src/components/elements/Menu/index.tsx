@@ -2,7 +2,6 @@ import React, { HTMLAttributes, useCallback, useState } from "react";
 
 import { IoSettingsOutline } from "react-icons/io5";
 import Paragraph from "@/components/common/Paragraph";
-import Logo from "@/components/common/Sign/Logo";
 import MenuDropDownElement from "@/components/elements/Menu/DropDownElement";
 import { CustomBlock, FlexBlock } from "@/components/common/Block";
 import CustomLink from "@/components/common/Link";
@@ -34,6 +33,7 @@ import { useRouter } from "next/router";
 import { isEqualHelper } from "@/utils/helpers/isEqual.helper";
 import { IAuthUser } from "@/models/IUser";
 import { numberPrettier } from "@/utils/helpers/formatters.helper";
+import UserIcon from "@/components/common/UserIcon";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   authUser: IAuthUser | null;
@@ -157,7 +157,7 @@ const Menu = ({
           {authUser && (
             <StyledMenuLogoWrapper id="logo-wrapper">
               <CustomLink href="/own-arts">
-                <Logo />
+                <UserIcon name={authUser.name} isActive={isFullSizeView} />
               </CustomLink>
               <StyledMenuOwnerInfo id="menu-text">
                 <CustomLink href="/own-arts" fontSize="16px" bold>

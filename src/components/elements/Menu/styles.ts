@@ -28,10 +28,6 @@ export const StyledMenuLogoWrapper = styled.div`
   width: 300px;
   padding-top: 1rem;
   padding-left: 5px;
-
-  svg {
-    transition: height 300ms, width 300ms;
-  }
 `;
 
 export const MenuContainer = styled.div<{ isFullSizeView: boolean }>`
