@@ -5,8 +5,8 @@ type CreateQueryStringType = {
   userId?: string;
   searchString?: string;
   sortType?: SortType;
-  skip: number;
-  limit: number;
+  skip?: number;
+  limit?: number;
   [key: string]: any;
 };
 
@@ -17,11 +17,14 @@ export const createQueryStringHelper = ({
   skip,
   limit,
 }: CreateQueryStringType) => {
-  const str: CreateQueryStringType = {
-    skip,
-    limit,
-  };
+  const str: CreateQueryStringType = {};
 
+  if (skip) {
+    str.skip = skip;
+  }
+  if (limit) {
+    str.limit = limit;
+  }
   if (userId) {
     str.userId = userId;
   }

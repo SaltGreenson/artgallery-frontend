@@ -16,8 +16,8 @@ export const galleryService = {
   remove: (galleryId: string): Promise<AxiosResponse<IGallery>> =>
     api.delete(`/gallery/remove?galleryId=${galleryId}`),
   getAll: (
-    skip: number,
-    limit: number,
+    skip?: number,
+    limit?: number,
     userId?: string,
     searchString?: string,
     sortType?: SortType

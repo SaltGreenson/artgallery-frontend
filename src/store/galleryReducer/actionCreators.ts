@@ -8,10 +8,10 @@ import { galleryService } from "@/services/GalleryService";
 import { userActions, UserActionsType } from "@/store/userReducer/actions";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
 
-export const collectGallery =
+export const collectGalleries =
   (
-    skip: number,
-    limit: number,
+    skip?: number,
+    limit?: number,
     userId?: string,
     searchString?: string,
     sortType?: SortType
@@ -44,7 +44,6 @@ export const createGallery =
       dispatch(
         userActions.setModalMessage(`Gallery ${created._id} has been created`)
       );
-      console.log(created);
       dispatch(userActions.setPostsCount(created.postsCount));
     } catch (e) {
       handleAxiosError(e, dispatch);
