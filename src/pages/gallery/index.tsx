@@ -23,7 +23,6 @@ import {
 } from "@/store/galleryReducer/actionCreators";
 
 import Preloader from "@/components/common/Preloader";
-import MainLayout from "@/components/layouts/Main";
 
 import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
 import { IGallery } from "@/models/IGallery";
@@ -72,21 +71,19 @@ const Gallery = ({
   }, []);
 
   return (
-    <MainLayout authUser={authUser}>
-      <DynamicGalleryContent
-        authUserId={authUser?._id}
-        title={title}
-        collectGalleries={collectGalleries}
-        galleries={galleriesFromRedux}
-        setGalleries={setGalleries}
-        likePost={likePost}
-        likedPosts={likedPosts}
-        dislikePost={dislikePost}
-        dislikedPosts={dislikedPosts}
-        isFetchingLikes={isFetchingLikes}
-        isFetchingDislikes={isFetchingDislikes}
-      />
-    </MainLayout>
+    <DynamicGalleryContent
+      authUserId={authUser?._id}
+      title={title}
+      collectGalleries={collectGalleries}
+      galleries={galleriesFromRedux}
+      setGalleries={setGalleries}
+      likePost={likePost}
+      likedPosts={likedPosts}
+      dislikePost={dislikePost}
+      dislikedPosts={dislikedPosts}
+      isFetchingLikes={isFetchingLikes}
+      isFetchingDislikes={isFetchingDislikes}
+    />
   );
 };
 

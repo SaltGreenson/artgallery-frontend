@@ -49,23 +49,12 @@ const Menu = ({
   logOutHandler,
   ...props
 }: MenuProps): JSX.Element => {
-  const [activeMainIdx, setActiveMainIdx] = useState(0);
-  const [activeSettingsIdx, setActiveSettingsIdx] = useState(-1);
   const [isFullSizeView, setIsFullSizeView] = useState(false);
   const router = useRouter();
 
   const handleClickDisplayStyle = useCallback(() => {
     setIsFullSizeView((prev) => !prev);
   }, []);
-
-  const handleClickActiveIdx = useCallback(
-    ({ mainIdx, settingsIdx }: { mainIdx?: number; settingsIdx?: number }) =>
-      () => {
-        setActiveMainIdx(mainIdx ?? -1);
-        setActiveSettingsIdx(settingsIdx ?? -1);
-      },
-    []
-  );
 
   const renderLink = useCallback(
     (
@@ -109,30 +98,18 @@ const Menu = ({
   const renderMainLinks = useCallback(
     () =>
       menuLinksConfig(!!authUser).map((link, idx) =>
-        renderLink(
-          idx,
-          link,
-          "16px",
-          isEqualHelper(router.pathname, link.href),
-          handleClickActiveIdx({ mainIdx: idx })
-        )
+        renderLink(idx, link, "16px", isEqualHelper(router.pathname, link.href))
       ),
-    [activeMainIdx, handleClickActiveIdx, renderLink, authUser]
+    [router.pathname, renderLink, authUser]
   );
 
   const renderSubLinks = useCallback(
     (elements: MenuLinkType[]) => () =>
       elements.map((link, idx) =>
-        renderLink(
-          idx,
-          link,
-          "15px",
-          isEqualHelper(router.pathname, link.href),
-          handleClickActiveIdx({ settingsIdx: idx })
-        )
+        renderLink(idx, link, "15px", isEqualHelper(router.pathname, link.href))
       ),
 
-    [activeSettingsIdx, handleClickActiveIdx, renderLink]
+    [router.pathname, renderLink]
   );
 
   const displayMainLinks = renderMainLinks();
@@ -188,7 +165,9 @@ const Menu = ({
             {displayMainLinks}
             {authUser && (
               <MenuDropDownElement
-                activeIdx={activeSettingsIdx}
+                isActive={menuSettingLinksConfig.some(
+                  (link) => link.href === router.pathname
+                )}
                 isNeedRotateHeadElement
                 headElement={{
                   title: "Settings",

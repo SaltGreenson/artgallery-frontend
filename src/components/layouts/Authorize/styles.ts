@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Layout = styled.div`
-  min-height: 100vh;
-  min-width: 100%;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   position: relative;
 
@@ -15,7 +16,7 @@ export const Layout = styled.div`
 
 export const Content = styled.div`
   width: 40%;
-
+  padding-top: 3rem;
   @media (max-width: 768px) {
     width: 96%;
   }

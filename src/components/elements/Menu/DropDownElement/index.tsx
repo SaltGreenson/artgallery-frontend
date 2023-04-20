@@ -19,22 +19,19 @@ import { Colors } from "@/styles/colors";
 import CustomButton from "@/components/common/Button";
 
 interface MenuDropDownElementProps extends HTMLAttributes<HTMLDivElement> {
-  activeIdx: number;
+  isActive: boolean;
   isNeedRotateHeadElement?: boolean;
   headElement: MenuDropDownLinkType;
   renderLinks: () => JSX.Element[];
 }
 
 const MenuDropDownElement = ({
-  activeIdx,
   isNeedRotateHeadElement,
   headElement,
   renderLinks,
 }: MenuDropDownElementProps) => {
   const [isActive, setIsActive] = useState(false);
-
-  const iconProps =
-    activeIdx >= 0 ? { color: menuIconColorsConfig.active } : {};
+  const iconProps = isActive ? { color: menuIconColorsConfig.active } : {};
 
   const onClickHandler = useCallback(() => {
     setIsActive((prev) => !prev);
@@ -47,7 +44,7 @@ const MenuDropDownElement = ({
     >
       <StyledMenuRotateList
         id="rotate-menu-list"
-        isActive={activeIdx >= 0}
+        isActive={isActive}
         onClick={onClickHandler}
       >
         <StyledMenuIcon id="menu-icon">

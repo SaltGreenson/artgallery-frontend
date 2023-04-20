@@ -2,14 +2,12 @@ import React from "react";
 
 import dynamic from "next/dynamic";
 import Preloader from "@/components/common/Preloader";
-import MainLayout from "@/components/layouts/Main";
 import { NextPageContext } from "next";
 import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
 import { bindActionCreators, Dispatch } from "redux";
 import { createGallery } from "@/store/galleryReducer/actionCreators";
 import { connect, useSelector } from "react-redux";
 import { CreateProps } from "@/pagesContent/Create";
-import { getAuthUser } from "@/selectors/userSelectors";
 import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
 
 const DynamicCreateContent = dynamic(
@@ -20,15 +18,12 @@ const DynamicCreateContent = dynamic(
 );
 
 const Create = ({ createGallery }: CreateProps): JSX.Element => {
-  const authUser = useSelector(getAuthUser);
   const isFetching = useSelector(getIsFetchingGallery);
   return (
-    <MainLayout authUser={authUser}>
-      <DynamicCreateContent
-        createGallery={createGallery}
-        isFetching={isFetching}
-      />
-    </MainLayout>
+    <DynamicCreateContent
+      createGallery={createGallery}
+      isFetching={isFetching}
+    />
   );
 };
 

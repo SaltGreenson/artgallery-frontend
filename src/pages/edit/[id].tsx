@@ -7,8 +7,6 @@ import createAxiosInstance from "@/utils/http/axiosInstance";
 import dynamic from "next/dynamic";
 import Preloader from "@/components/common/Preloader";
 import { connect, useSelector } from "react-redux";
-import { getAuthUser } from "@/selectors/userSelectors";
-import MainLayout from "@/components/layouts/Main";
 import { bindActionCreators, Dispatch } from "redux";
 import { createGallery } from "@/store/galleryReducer/actionCreators";
 import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
@@ -23,16 +21,13 @@ interface EditPageProps {
 }
 
 const Edit = ({ editGallery, gallery }: EditPageProps): JSX.Element => {
-  const authUser = useSelector(getAuthUser);
   const isFetching = useSelector(getIsFetchingGallery);
   return (
-    <MainLayout authUser={authUser}>
-      <DynamicEditContent
-        editGallery={editGallery}
-        defaultValues={gallery}
-        isFetching={isFetching}
-      />
-    </MainLayout>
+    <DynamicEditContent
+      editGallery={editGallery}
+      defaultValues={gallery}
+      isFetching={isFetching}
+    />
   );
 };
 

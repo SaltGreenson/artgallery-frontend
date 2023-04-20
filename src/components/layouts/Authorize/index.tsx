@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Content, Layout } from "./styles";
-import { AbsoluteBlock, FlexBlock } from "@/components/common/Block";
+import { CustomBlock, FlexBlock } from "@/components/common/Block";
 import Logo from "@/components/common/Sign/Logo";
 import { LimitContent } from "@/components/common/LimitContent/styles";
 import Paragraph from "@/components/common/Paragraph";
@@ -12,22 +12,24 @@ type AuthorizeProps = {
 const AuthorizeLayout = ({ children }: AuthorizeProps): JSX.Element => (
   <LimitContent maxWidth="1200px">
     <Layout>
-      <AbsoluteBlock top="50px" left="2%">
-        <FlexBlock align="center" gap="20px">
-          <Logo />
-          <FlexBlock>
-            <Paragraph
-              variant="default"
-              dimension="large"
-              color={Colors.PURPLE}
-              bold
-            >
-              BREENKY
-            </Paragraph>
+      <Content>
+        <CustomBlock padding="0 0 50px 0">
+          <FlexBlock align="center" gap="20px">
+            <Logo />
+            <FlexBlock>
+              <Paragraph
+                variant="default"
+                dimension="large"
+                color={Colors.PURPLE}
+                bold
+              >
+                BREENKY
+              </Paragraph>
+            </FlexBlock>
           </FlexBlock>
-        </FlexBlock>
-      </AbsoluteBlock>
-      <Content>{children}</Content>
+        </CustomBlock>
+        {children}
+      </Content>
     </Layout>
   </LimitContent>
 );
