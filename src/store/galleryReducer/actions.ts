@@ -2,7 +2,7 @@ import { GalleryActionTypes } from "./actionTypes";
 import { IGallery } from "@/models/IGallery";
 
 interface ISetGalleries {
-  type: GalleryActionTypes.SET_GALLERIES | GalleryActionTypes.HYDRATE;
+  type: GalleryActionTypes.SET_GALLERIES;
   payload: { galleries: IGallery[] };
 }
 
@@ -43,11 +43,6 @@ export const galleryActions = {
   setGalleries: (galleries: IGallery[]): ISetGalleries =>
     ({
       type: GalleryActionTypes.SET_GALLERIES,
-      payload: { galleries },
-    } as const),
-  hydrate: (galleries: IGallery[]): ISetGalleries =>
-    ({
-      type: GalleryActionTypes.HYDRATE,
       payload: { galleries },
     } as const),
   setGalleryFetching: (galleryFetching: boolean): ISetGalleryFetching =>

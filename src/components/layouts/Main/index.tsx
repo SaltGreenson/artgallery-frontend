@@ -8,17 +8,22 @@ import {
   MainLayoutContainer,
   MenuContainer,
 } from "./styles";
-import { useSelector } from "react-redux";
-import { getAuthUser } from "@/selectors/userSelectors";
 import useActions from "@/utils/hooks/useActions";
+import { useSelector } from "react-redux";
+import {
+  getAuthUser,
+  getLikedCount,
+  getPostsCount,
+} from "@/selectors/userSelectors";
 
 type PropsTypes = {
   children: ReactNode;
 };
 const MainLayout = ({ children }: PropsTypes): JSX.Element => {
-  const authUser = useSelector(getAuthUser);
   const { logout } = useActions();
-
+  const authUser = useSelector(getAuthUser);
+  const postsCount = useSelector(getPostsCount);
+  const likedCount = useSelector(getLikedCount);
   const logOutHandler = useCallback(() => {
     logout();
   }, []);
@@ -26,7 +31,12 @@ const MainLayout = ({ children }: PropsTypes): JSX.Element => {
   return (
     <MainLayoutContainer>
       <MenuContainer>
-        <Menu authUser={authUser} logOutHandler={logOutHandler} />
+        <Menu
+          authUser={authUser}
+          postsCount={postsCount}
+          likedCount={likedCount}
+          logOutHandler={logOutHandler}
+        />
       </MenuContainer>
       <ContentContainer>{children}</ContentContainer>
       <FooterContainer>

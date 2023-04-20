@@ -33,14 +33,19 @@ import CustomButton from "@/components/common/Button";
 import { useRouter } from "next/router";
 import { isEqualHelper } from "@/utils/helpers/isEqual.helper";
 import { IAuthUser } from "@/models/IUser";
+import { numberPrettier } from "@/utils/helpers/formatters.helper";
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   authUser: IAuthUser | null;
+  postsCount: number;
+  likedCount: number;
   logOutHandler: () => void;
 }
 
 const Menu = ({
   authUser,
+  postsCount,
+  likedCount,
   logOutHandler,
   ...props
 }: MenuProps): JSX.Element => {
@@ -165,7 +170,7 @@ const Menu = ({
                   fontSize="16px"
                   bold
                 >
-                  Likes: {authUser.likedCount}
+                  Likes: {numberPrettier(likedCount)}
                 </CustomLink>
                 <CustomLink
                   href="/own-arts"
@@ -174,7 +179,7 @@ const Menu = ({
                   fontSize="16px"
                   bold
                 >
-                  Posts: {authUser.postsCount}
+                  Posts: {numberPrettier(postsCount)}
                 </CustomLink>
               </StyledMenuOwnerInfo>
             </StyledMenuLogoWrapper>

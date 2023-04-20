@@ -21,3 +21,9 @@ export const getLikedPosts = (state: AppStateType): ILikedPosts[] =>
 
 export const getDislikedPosts = (state: AppStateType): IDislikedPosts[] =>
   state.user.dislikedPosts;
+
+export const getLikedCount = (state: AppStateType): number =>
+  state.user.likedCount;
+
+export const getPostsCount = (state: AppStateType): number =>
+  state.user.postsCount;

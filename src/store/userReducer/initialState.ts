@@ -11,4 +11,6 @@ export const initialState = {
   authUser: null as IAuthUser | null,
   likedPosts: [] as ILikedPosts[],
   dislikedPosts: [] as IDislikedPosts[],
+  postsCount: 0,
+  likedCount: 0,
 };

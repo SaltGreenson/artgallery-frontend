@@ -44,6 +44,8 @@ export const createGallery =
       dispatch(
         userActions.setModalMessage(`Gallery ${created._id} has been created`)
       );
+      console.log(created);
+      dispatch(userActions.setPostsCount(created.postsCount));
     } catch (e) {
       handleAxiosError(e, dispatch);
     } finally {
@@ -63,6 +65,7 @@ export const likePost =
       const data = (await galleryService.like(galleryId)).data;
       dispatch(galleryActions.setLiked(index, isLiked));
       dispatch(userActions.setLikedPosts(data.likedPosts));
+      dispatch(userActions.setLikedCount(data.likedPosts.length));
     } catch (e) {
       handleAxiosError(e, dispatch);
     } finally {

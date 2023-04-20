@@ -4,10 +4,11 @@ import { IGallery } from "@/models/IGallery";
 import { SortType } from "@/store/galleryReducer/initialState";
 import { createQueryStringHelper } from "@/utils/helpers/createQueryString.helper";
 import { ILikeDislikeResponse } from "@/models/ILikeDislikeResponse";
+import { ICreateGalleryResponse } from "@/models/ICreateGalleryResponse";
 
 export const galleryService = {
-  create: (gallery: FormData): Promise<AxiosResponse<IGallery>> =>
-    api.post<IGallery>("/gallery/create", gallery, {
+  create: (gallery: FormData): Promise<AxiosResponse<ICreateGalleryResponse>> =>
+    api.post<ICreateGalleryResponse>("/gallery/create", gallery, {
       headers: {
         "content-type": "multipart/form-data",
       },

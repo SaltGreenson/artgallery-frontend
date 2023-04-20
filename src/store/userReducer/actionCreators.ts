@@ -26,14 +26,16 @@ const _commonLogicUserActionCreator = async (
 };
 
 const _setUserData = (
-  data: IAuthResponse,
+  { accessToken, user }: IAuthResponse,
   dispatch: Dispatch<UserActionsType>
 ) => {
-  setToStorage("token", data.accessToken);
+  setToStorage("token", accessToken);
   dispatch(userActions.setIsAuth(true));
-  dispatch(userActions.setAuthUser(data.user));
-  dispatch(userActions.setLikedPosts(data.user.likedPosts));
-  dispatch(userActions.setDislikedPosts(data.user.dislikedPosts));
+  dispatch(userActions.setAuthUser(user));
+  dispatch(userActions.setLikedPosts(user.likedPosts));
+  dispatch(userActions.setDislikedPosts(user.dislikedPosts));
+  dispatch(userActions.setLikedCount(user.likedCount));
+  dispatch(userActions.setPostsCount(user.postsCount));
 };
 
 export const login =

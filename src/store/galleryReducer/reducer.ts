@@ -11,7 +11,6 @@ export const galleryReducer = (
   switch (action.type) {
     case GalleryActionTypes.SET_GALLERIES:
     case GalleryActionTypes.SET_DISLIKE_FETCHING:
-    case GalleryActionTypes.HYDRATE:
     case GalleryActionTypes.SET_GALLERY_FETCHING:
     case GalleryActionTypes.SET_LIKE_FETCHING: {
       return {

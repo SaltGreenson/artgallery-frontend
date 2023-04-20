@@ -43,6 +43,16 @@ interface ISetDislikedPosts {
   payload: { dislikedPosts: IDislikedPosts[] };
 }
 
+interface ISetLikesCount {
+  type: UserActionTypes.SET_LIKED_COUNT;
+  payload: { likedCount: number };
+}
+
+interface ISetPostsCount {
+  type: UserActionTypes.SET_POSTS_COUNT;
+  payload: { postsCount: number };
+}
+
 export type UserActionsType =
   | IFetching
   | ISetIsAuth
@@ -51,7 +61,9 @@ export type UserActionsType =
   | IFetchingError
   | ISetMessage
   | ISetLikedPosts
-  | ISetDislikedPosts;
+  | ISetDislikedPosts
+  | ISetLikesCount
+  | ISetPostsCount;
 
 export const userActions = {
   setFetching: (isFetching: boolean): IFetching =>
@@ -93,5 +105,15 @@ export const userActions = {
     ({
       type: UserActionTypes.SET_DISLIKED_POSTS,
       payload: { dislikedPosts },
+    } as const),
+  setLikedCount: (likedCount: number): ISetLikesCount =>
+    ({
+      type: UserActionTypes.SET_LIKED_COUNT,
+      payload: { likedCount },
+    } as const),
+  setPostsCount: (postsCount: number): ISetPostsCount =>
+    ({
+      type: UserActionTypes.SET_POSTS_COUNT,
+      payload: { postsCount },
     } as const),
 };
