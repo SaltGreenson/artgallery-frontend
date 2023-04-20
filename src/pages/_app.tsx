@@ -12,6 +12,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <Head>
         <title>BREENKY</title>
         <meta property="og:title" content="BREENKY" />
+        <meta property="og:image" content="/ogLogo.png" />
         <link
           rel="icon"
           type="image/png"
