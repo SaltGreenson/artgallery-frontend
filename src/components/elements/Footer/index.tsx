@@ -21,7 +21,7 @@ const Footer = () => (
         <FlexBlock direction="column" gap="48px" justify="space-between">
           <FlexBlock gap="16px" direction="column">
             <CustomTitle variant="small" color={Colors.PURPLE}>
-              Познакомьтесь с нами поближе
+              Get to know us better
             </CustomTitle>
             {getToKnowUsLinks &&
               getToKnowUsLinks.map((link) => (

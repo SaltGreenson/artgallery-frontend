@@ -2,26 +2,26 @@ import { LinkType } from "@/types/common.types";
 
 export const generalLinks: LinkType[] = [
   {
-    title: "Политика конфиденциальности",
+    title: "Privacy policy",
     href: "#",
   },
   {
-    title: "Условия обслуживания",
+    title: "Terms of service",
     href: "#",
   },
 ];
 
 export const getToKnowUsLinks: LinkType[] = [
   {
-    title: "О нас",
+    title: "About us",
     href: "#",
   },
   {
-    title: "Продукция",
+    title: "Products",
     href: "#",
   },
   {
-    title: "Свяжитесь с нами",
+    title: "Contact us",
     href: "#",
   },
   {
