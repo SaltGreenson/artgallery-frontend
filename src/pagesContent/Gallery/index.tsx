@@ -73,7 +73,7 @@ const Gallery = ({
   return (
     <GalleryViewLayout title={title}>
       <InfiniteScroll
-        dataLength={galleries.length}
+        dataLength={items.length}
         next={fetchMoreData}
         hasMore={!!galleries.length}
         loader={
