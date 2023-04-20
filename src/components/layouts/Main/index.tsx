@@ -10,18 +10,15 @@ import {
 } from "./styles";
 import useActions from "@/utils/hooks/useActions";
 import { useSelector } from "react-redux";
-import {
-  getAuthUser,
-  getLikedCount,
-  getPostsCount,
-} from "@/selectors/userSelectors";
+import { getLikedCount, getPostsCount } from "@/selectors/userSelectors";
+import { IAuthUser } from "@/models/IUser";
 
 type PropsTypes = {
+  authUser: IAuthUser | null;
   children: ReactNode;
 };
-const MainLayout = ({ children }: PropsTypes): JSX.Element => {
+const MainLayout = ({ authUser, children }: PropsTypes): JSX.Element => {
   const { logout } = useActions();
-  const authUser = useSelector(getAuthUser);
   const postsCount = useSelector(getPostsCount);
   const likedCount = useSelector(getLikedCount);
   const logOutHandler = useCallback(() => {

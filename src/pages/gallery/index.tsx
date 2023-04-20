@@ -12,7 +12,11 @@ import {
   getIsFetchingGallery,
   getIsFetchingLikes,
 } from "@/selectors/gallerySelectors";
-import { getDislikedPosts, getLikedPosts } from "@/selectors/userSelectors";
+import {
+  getAuthUser,
+  getDislikedPosts,
+  getLikedPosts,
+} from "@/selectors/userSelectors";
 import {
   collectGalleries,
   dislikePost,
@@ -57,6 +61,7 @@ const Gallery = ({
   setGalleries,
   title = "Gallery",
 }: IGalleryPageProps): JSX.Element => {
+  const authUser = useSelector(getAuthUser);
   const galleriesFromRedux = useSelector(getGalleries);
   const likedPosts = useSelector(getLikedPosts);
   const dislikedPosts = useSelector(getDislikedPosts);
@@ -69,8 +74,9 @@ const Gallery = ({
   }, []);
 
   return (
-    <MainLayout>
+    <MainLayout authUser={authUser}>
       <DynamicGalleryContent
+        authUserId={authUser?._id}
         title={title}
         collectGalleries={collectGalleries}
         galleries={galleriesFromRedux}

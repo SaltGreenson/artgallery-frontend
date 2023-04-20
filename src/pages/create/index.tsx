@@ -7,8 +7,9 @@ import { NextPageContext } from "next";
 import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
 import { bindActionCreators, Dispatch } from "redux";
 import { createGallery } from "@/store/galleryReducer/actionCreators";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { CreateProps } from "@/pagesContent/Create";
+import { getAuthUser } from "@/selectors/userSelectors";
 
 const DynamicCreateContent = dynamic(
   () => import("../../pagesContent/Create"),
@@ -17,11 +18,15 @@ const DynamicCreateContent = dynamic(
   }
 );
 
-const Create = ({ createGallery }: CreateProps): JSX.Element => (
-  <MainLayout>
-    <DynamicCreateContent createGallery={createGallery} />
-  </MainLayout>
-);
+const Create = ({ createGallery }: CreateProps): JSX.Element => {
+  const authUser = useSelector(getAuthUser);
+
+  return (
+    <MainLayout authUser={authUser}>
+      <DynamicCreateContent createGallery={createGallery} />
+    </MainLayout>
+  );
+};
 
 export async function getServerSideProps(context: NextPageContext) {
   const token = getAccessTokenHelper(context);

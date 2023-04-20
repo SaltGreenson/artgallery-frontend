@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { HiDownload } from "react-icons/hi";
+import { BiPencil } from "react-icons/bi";
 
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
@@ -9,6 +10,8 @@ import { FlexBlock } from "@/components/common/Block";
 import CustomButton from "@/components/common/Button";
 
 import { IGallery } from "@/models/IGallery";
+import { ILikedPosts } from "@/models/ILikedPosts";
+import { IDislikedPosts } from "@/models/IDislikedPosts";
 
 import { numberPrettier } from "@/utils/helpers/formatters.helper";
 import { isIdInArrayHelper } from "@/utils/helpers/idInArray.helper";
@@ -26,10 +29,9 @@ import {
   StyledCardImageContainer,
   StyledCardTextContainer,
 } from "@/components/elements/Card/styles";
-import { ILikedPosts } from "@/models/ILikedPosts";
-import { IDislikedPosts } from "@/models/IDislikedPosts";
 
 interface CardProps {
+  authUserId?: string;
   gallery: IGallery;
   likedPosts: ILikedPosts[];
   likePost: (galleryId: string, idx: number, isLiked: boolean) => void;
@@ -40,6 +42,7 @@ interface CardProps {
   idx: number;
 }
 const Card = ({
+  authUserId,
   gallery,
   likePost,
   likedPosts,
@@ -68,6 +71,27 @@ const Card = ({
     setIsDisliked((prev) => !prev);
   }, [_id, idx, dislikePost, isDisliked]);
 
+  const displayPostedBy = useCallback(
+    () =>
+      authUserId === user._id ? (
+        <CustomLink href={`/edit/${gallery._id}`}>
+          <CustomButton variant="transparent">
+            <BiPencil fontSize="30px" color={Colors.FONT_SIZE_GREY} />
+          </CustomButton>
+        </CustomLink>
+      ) : (
+        <>
+          <Paragraph variant="default" color={Colors.FONT_SIZE_GREY} bold>
+            Posted by:
+          </Paragraph>
+          <CustomLink href={`/account/${user._id}`} bold>
+            {user.name}
+          </CustomLink>
+        </>
+      ),
+    [authUserId, user._id, user.name, gallery._id]
+  );
+
   return (
     <StyledCardContainer>
       <StyledCardImageContainer>
@@ -75,12 +99,7 @@ const Card = ({
       </StyledCardImageContainer>
       <StyledCardContentContainer>
         <FlexBlock gap="5px" justify="flex-end">
-          <Paragraph variant="default" color={Colors.FONT_SIZE_GREY} bold>
-            Posted by:
-          </Paragraph>
-          <CustomLink href={`/account/${user._id}`} bold>
-            {user.name}
-          </CustomLink>
+          {displayPostedBy()}
         </FlexBlock>
 
         <StyledCardTextContainer>

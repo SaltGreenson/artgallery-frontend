@@ -10,6 +10,7 @@ import Preloader from "@/components/common/Preloader";
 import { FlexBlock } from "@/components/common/Block";
 
 export interface IGalleryDynamicPageProps extends IGalleryPageProps {
+  authUserId?: string;
   title: string;
   likedPosts: ILikedPosts[];
   dislikedPosts: IDislikedPosts[];
@@ -19,6 +20,7 @@ export interface IGalleryDynamicPageProps extends IGalleryPageProps {
 }
 
 const Gallery = ({
+  authUserId,
   collectGalleries,
   title,
   galleries,
@@ -40,6 +42,7 @@ const Gallery = ({
         hasMore={isFetchingGalleries}
         loader={<Preloader variant="card" />}
         scrollThreshold={0.9}
+        style={{ overflow: "unset" }}
       >
         <FlexBlock
           width="100%"
@@ -54,6 +57,7 @@ const Gallery = ({
               <Card
                 key={gallery._id}
                 gallery={gallery}
+                authUserId={authUserId}
                 idx={idx}
                 {...cardProps}
               />
