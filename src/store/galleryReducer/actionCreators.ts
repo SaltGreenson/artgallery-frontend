@@ -33,7 +33,8 @@ export const collectGalleries =
 export const createGallery =
   (
     photo: File,
-    title: string
+    title: string,
+    callback: () => void
   ): ThunkAction<GalleryActionsType | UserActionsType> =>
   async (dispatch) => {
     try {
@@ -46,6 +47,7 @@ export const createGallery =
         userActions.setModalMessage(`Gallery ${created._id} has been created`)
       );
       dispatch(userActions.setPostsCount(created.postsCount));
+      callback();
     } catch (e) {
       handleAxiosError(e, dispatch);
     } finally {
@@ -79,5 +81,47 @@ export const dislikePost =
       handleAxiosError(e, dispatch);
     } finally {
       dispatch(galleryActions.setDislikeFetching(false));
+    }
+  };
+
+export const editGallery =
+  (
+    galleryId: string,
+    title: string,
+    callback: () => void
+  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  async (dispatch) => {
+    try {
+      dispatch(galleryActions.setGalleryFetching(true));
+      // const edited = (await galleryService.create(formData)).data;
+      // dispatch(
+      //   userActions.setModalMessage(`Gallery ${edited._id} has been edited`)
+      // );
+      callback();
+    } catch (e) {
+      handleAxiosError(e, dispatch);
+    } finally {
+      dispatch(galleryActions.setGalleryFetching(false));
+    }
+  };
+
+export const removeGallery =
+  (
+    galleryId: string,
+    callback: () => void
+  ): ThunkAction<GalleryActionsType | UserActionsType> =>
+  async (dispatch) => {
+    try {
+      dispatch(galleryActions.setGalleryFetching(true));
+      const deleted = (await galleryService.remove(galleryId)).data;
+      dispatch(
+        userActions.setModalMessage(`Gallery ${deleted._id} has been deleted`)
+      );
+      dispatch(userActions.setPostsCount(deleted.postsCount));
+      callback();
+    } catch (e) {
+      handleAxiosError(e, dispatch);
+    } finally {
+      dispatch(galleryActions.setGalleryFetching(false));
     }
   };

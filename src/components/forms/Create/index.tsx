@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { FormEvent, useCallback } from "react";
 import CustomInput from "@/components/common/Input";
 import { FlexBlock } from "@/components/common/Block";
 import CustomButton from "@/components/common/Button";
@@ -10,12 +10,14 @@ import { submitBtnTextConfig } from "@/components/forms/Create/config";
 
 interface CreateFormProps {
   onSubmitHandler: (photo: File, title: string) => void;
+  onDeleteHandler?: (event: FormEvent) => void;
   defaultValues?: IGallery;
   isFetching: boolean;
 }
 
 const CreateForm = ({
   onSubmitHandler,
+  onDeleteHandler,
   defaultValues,
   isFetching,
 }: CreateFormProps): JSX.Element => {
@@ -34,50 +36,56 @@ const CreateForm = ({
   );
 
   return (
-    <StyledCreateForm
-      onSubmit={handleSubmit((data) => onSubmitHandler(data.photo, data.title))}
-    >
-      <CustomInput
-        imageUrl={defaultValues?.photo.compressedUrl}
-        variant="file"
-        label=""
-        fileTypes={["jpeg"]}
-        disabled={!!defaultValues}
-        register={register("photo", {
-          required: {
-            value: true,
-            message: "Image should be selected",
-          },
-        })}
-        error={errors.photo && String(errors.photo.message)}
-        onChangeFile={handleFileChange}
-      />
-      <CustomInput
-        defaultValue={defaultValues?.title}
-        variant="dynamicLabel"
-        label="Title"
-        register={register("title", {
-          required: {
-            value: true,
-            message: "Title is required",
-          },
-          maxLength: {
-            value: 40,
-            message: "Title length should be less than 40",
-          },
-          minLength: {
-            value: 3,
-            message: "Title length should be more than 3",
-          },
-        })}
-        error={errors.title && String(errors.title.message)}
-        required
-      />
-      <FlexBlock direction="column" gap="10px">
-        <CustomButton variant="default" isFetching={isFetching} type="submit">
-          {submitBtnTextConfig(defaultValues)}
-        </CustomButton>
-        {defaultValues && (
+    <FlexBlock direction="column" gap="5px">
+      <StyledCreateForm
+        onSubmit={handleSubmit((data) =>
+          onSubmitHandler(data.photo, data.title)
+        )}
+      >
+        <CustomInput
+          imageUrl={defaultValues?.photo.compressedUrl}
+          variant="file"
+          label=""
+          fileTypes={["jpeg"]}
+          disabled={!!defaultValues}
+          register={register("photo", {
+            required: {
+              value: !defaultValues,
+              message: "Image should be selected",
+            },
+          })}
+          error={errors.photo && String(errors.photo.message)}
+          onChangeFile={handleFileChange}
+        />
+        <CustomInput
+          defaultValue={defaultValues?.title}
+          variant="dynamicLabel"
+          label="Title"
+          register={register("title", {
+            required: {
+              value: true,
+              message: "Title is required",
+            },
+            maxLength: {
+              value: 40,
+              message: "Title length should be less than 40",
+            },
+            minLength: {
+              value: 3,
+              message: "Title length should be more than 3",
+            },
+          })}
+          error={errors.title && String(errors.title.message)}
+          required
+        />
+        <FlexBlock direction="column" gap="10px">
+          <CustomButton variant="default" isFetching={isFetching} type="submit">
+            {submitBtnTextConfig(defaultValues)}
+          </CustomButton>
+        </FlexBlock>
+      </StyledCreateForm>
+      {defaultValues && onDeleteHandler && (
+        <form onSubmit={onDeleteHandler}>
           <CustomButton
             variant="default"
             isFetching={isFetching}
@@ -87,9 +95,9 @@ const CreateForm = ({
           >
             DELETE
           </CustomButton>
-        )}
-      </FlexBlock>
-    </StyledCreateForm>
+        </form>
+      )}
+    </FlexBlock>
   );
 };
 

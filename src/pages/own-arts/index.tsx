@@ -33,6 +33,7 @@ export async function getServerSideProps(context: NextPageContext) {
   try {
     const instance = createAxiosInstance(token);
     const data = (await instance.get<IGallery[]>("/gallery/own")).data;
+
     return {
       props: {
         galleries: data,

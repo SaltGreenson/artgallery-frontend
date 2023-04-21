@@ -8,7 +8,10 @@ import dynamic from "next/dynamic";
 import Preloader from "@/components/common/Preloader";
 import { connect, useSelector } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import { createGallery } from "@/store/galleryReducer/actionCreators";
+import {
+  editGallery,
+  removeGallery,
+} from "@/store/galleryReducer/actionCreators";
 import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
 
 const DynamicEditContent = dynamic(() => import("../../pagesContent/Edit"), {
@@ -17,14 +20,20 @@ const DynamicEditContent = dynamic(() => import("../../pagesContent/Edit"), {
 
 interface EditPageProps {
   gallery: IGallery;
-  editGallery: (photo: File, title: string) => void;
+  editGallery: (galleryId: string, title: string, callback: () => void) => void;
+  removeGallery: (galleryId: string, callback: () => void) => void;
 }
 
-const Edit = ({ editGallery, gallery }: EditPageProps): JSX.Element => {
+const Edit = ({
+  editGallery,
+  removeGallery,
+  gallery,
+}: EditPageProps): JSX.Element => {
   const isFetching = useSelector(getIsFetchingGallery);
   return (
     <DynamicEditContent
       editGallery={editGallery}
+      removeGallery={removeGallery}
       defaultValues={gallery}
       isFetching={isFetching}
     />
@@ -48,7 +57,8 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  editGallery: bindActionCreators(createGallery, dispatch),
+  editGallery: bindActionCreators(editGallery, dispatch),
+  removeGallery: bindActionCreators(removeGallery, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(Edit);

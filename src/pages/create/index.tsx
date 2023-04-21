@@ -7,7 +7,7 @@ import { getAccessTokenHelper } from "@/utils/helpers/getAccessToken.helper";
 import { bindActionCreators, Dispatch } from "redux";
 import { createGallery } from "@/store/galleryReducer/actionCreators";
 import { connect, useSelector } from "react-redux";
-import { CreateProps } from "@/pagesContent/Create";
+import { DynamicCreateProps } from "@/pagesContent/Create";
 import { getIsFetchingGallery } from "@/selectors/gallerySelectors";
 
 const DynamicCreateContent = dynamic(
@@ -17,7 +17,7 @@ const DynamicCreateContent = dynamic(
   }
 );
 
-const Create = ({ createGallery }: CreateProps): JSX.Element => {
+const Create = ({ createGallery }: DynamicCreateProps): JSX.Element => {
   const isFetching = useSelector(getIsFetchingGallery);
   return (
     <DynamicCreateContent
