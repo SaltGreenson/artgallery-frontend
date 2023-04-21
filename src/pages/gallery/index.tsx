@@ -27,7 +27,7 @@ import Preloader from "@/components/common/Preloader";
 import { serverSideAxiosErrorHandler } from "@/utils/handlers/serverSideAxiosError.handler";
 import { IGallery } from "@/models/IGallery";
 import createAxiosInstance from "@/utils/http/axiosInstance";
-import { SortType } from "@/store/galleryReducer/initialState";
+import { createQueryStringHelper } from "@/utils/helpers/createQueryString.helper";
 
 const DynamicGalleryContent = dynamic(
   () => import("../../pagesContent/Gallery"),
@@ -38,6 +38,8 @@ const DynamicGalleryContent = dynamic(
 
 export interface IGalleryPageProps {
   title?: string;
+  isFirstLiked?: string;
+  searchString?: string;
   galleries: IGallery[];
   dislikePost: (galleryId: string) => void;
   setGalleries: (galleries: IGallery[]) => void;
@@ -47,7 +49,7 @@ export interface IGalleryPageProps {
     limit?: number,
     userId?: string,
     searchString?: string,
-    sortType?: SortType
+    isFirstLiked?: string
   ) => void;
 }
 
@@ -57,6 +59,8 @@ const Gallery = ({
   galleries,
   likePost,
   setGalleries,
+  isFirstLiked,
+  searchString,
   title = "Gallery",
 }: IGalleryPageProps): JSX.Element => {
   const authUser = useSelector(getAuthUser);
@@ -68,7 +72,7 @@ const Gallery = ({
 
   useEffect(() => {
     setGalleries(galleries);
-  }, []);
+  }, [setGalleries, galleries]);
 
   return (
     <DynamicGalleryContent
@@ -83,6 +87,8 @@ const Gallery = ({
       dislikedPosts={dislikedPosts}
       isFetchingLikes={isFetchingLikes}
       isFetchingDislikes={isFetchingDislikes}
+      isFirstLikedParam={isFirstLiked}
+      searchStringParam={searchString}
     />
   );
 };
@@ -90,10 +96,20 @@ const Gallery = ({
 export const getServerSideProps = async (context: NextPageContext) => {
   try {
     const instance = createAxiosInstance();
-    const data = (await instance.get<IGallery[]>("/gallery")).data;
+    const { isFirstLiked, searchString } = context.query;
+
+    const queryString = createQueryStringHelper({
+      isFirstLiked: isFirstLiked as string,
+      searchString: searchString as string,
+    });
+    const data = (await instance.get<IGallery[]>(`/gallery?${queryString}`))
+      .data;
+
     return {
       props: {
         galleries: data,
+        isFirstLiked: isFirstLiked || null,
+        searchString: searchString || null,
       },
     };
   } catch (error: any) {

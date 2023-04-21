@@ -3,7 +3,6 @@ import {
   galleryActions,
   GalleryActionsType,
 } from "@/store/galleryReducer/actions";
-import { SortType } from "@/store/galleryReducer/initialState";
 import { galleryService } from "@/services/GalleryService";
 import { userActions, UserActionsType } from "@/store/userReducer/actions";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
@@ -14,13 +13,19 @@ export const collectGalleries =
     limit?: number,
     userId?: string,
     searchString?: string,
-    sortType?: SortType
+    isFirstLiked?: string
   ): ThunkAction<GalleryActionsType> =>
   async (dispatch) => {
     try {
       dispatch(galleryActions.setGalleryFetching(true));
       const data = (
-        await galleryService.getAll(skip, limit, userId, searchString, sortType)
+        await galleryService.getAll(
+          skip,
+          limit,
+          userId,
+          searchString,
+          isFirstLiked
+        )
       ).data;
       dispatch(galleryActions.setGalleries(data));
     } catch (e) {

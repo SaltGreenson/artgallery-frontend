@@ -18,7 +18,8 @@ export const CatalogViewTitleContainer = styled.div`
   padding-bottom: 3rem;
   width: 100%;
   flex: 1;
-  @media (min-width: 1024px) {
+
+  @media (min-width: 768px) {
     width: clamp(300px, 100vw / 1.5, 800px);
   }
 `;

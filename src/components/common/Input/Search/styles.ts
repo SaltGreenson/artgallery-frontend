@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Colors } from "@/styles/colors";
 import { shakeAnimation } from "@/styles/keyframes";
 
-export const StyledSmallSearchInput = styled.input`
+export const StyledSmallSearchInput = styled.input<{ error?: string }>`
   position: relative;
   width: 30px;
   height: 30px;
@@ -17,7 +17,6 @@ export const StyledSmallSearchInput = styled.input`
   background: transparent url(/Icons/searchIcon.svg) no-repeat 7px 5px;
   transition: width 400ms, background-position 400ms, border 300ms;
   outline: none;
-  color: ${Colors.DARK_BLUE};
 
   &:focus {
     width: 200px;
@@ -25,6 +24,13 @@ export const StyledSmallSearchInput = styled.input`
     color: ${Colors.INPUT_FONT_COLOR};
     border: 1px solid ${Colors.GREY};
   }
+
+  ${({ error }) =>
+    error &&
+    css`
+      animation: ${shakeAnimation} 300ms ease-out;
+      border: 1px solid ${Colors.RED};
+    `}
 `;
 
 export const StyledLargeSearchInput = styled.input<{ error?: string }>`

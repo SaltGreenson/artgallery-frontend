@@ -1,7 +1,6 @@
 import api from "@/http/api";
 import { AxiosResponse } from "axios";
 import { IGallery } from "@/models/IGallery";
-import { SortType } from "@/store/galleryReducer/initialState";
 import { createQueryStringHelper } from "@/utils/helpers/createQueryString.helper";
 import { ILikeDislikeResponse } from "@/models/ILikeDislikeResponse";
 import { ICRUDGalleryResponse } from "@/models/ICRUDGalleryResponse";
@@ -22,7 +21,7 @@ export const galleryService = {
     limit?: number,
     userId?: string,
     searchString?: string,
-    sortType?: SortType
+    isFirstLiked?: string
   ): Promise<AxiosResponse<IGallery[]>> =>
     api.get<IGallery[]>(
       `/gallery?${createQueryStringHelper({
@@ -30,7 +29,7 @@ export const galleryService = {
         limit,
         userId,
         searchString,
-        sortType,
+        isFirstLiked,
       })}`
     ),
   like: (galleryId: string): Promise<AxiosResponse<ILikeDislikeResponse>> =>

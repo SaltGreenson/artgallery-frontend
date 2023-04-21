@@ -1,19 +1,17 @@
-import { SortType } from "@/store/galleryReducer/initialState";
 import * as querystring from "querystring";
 
 type CreateQueryStringType = {
   userId?: string;
   searchString?: string;
-  sortType?: SortType;
+  isFirstLiked?: string;
   skip?: number;
   limit?: number;
-  [key: string]: any;
 };
 
 export const createQueryStringHelper = ({
   userId,
   searchString,
-  sortType,
+  isFirstLiked,
   skip,
   limit,
 }: CreateQueryStringType) => {
@@ -31,8 +29,11 @@ export const createQueryStringHelper = ({
   if (searchString) {
     str.searchString = searchString;
   }
-  if (sortType) {
-    str[sortType] = "true";
+  if (isFirstLiked === "true") {
+    str.isFirstLiked = "true";
+  }
+  if (isFirstLiked === "false") {
+    str.isFirstLiked = "false";
   }
 
   return querystring.stringify(str);

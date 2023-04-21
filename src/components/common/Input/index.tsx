@@ -4,7 +4,13 @@ import {
 } from "@/components/common/Input/config";
 
 interface ICustomInputProps {
-  variant: "checkbox" | "default" | "dynamicLabel" | "search" | "file";
+  variant:
+    | "checkbox"
+    | "default"
+    | "dynamicLabel"
+    | "search"
+    | "file"
+    | "toggle";
 }
 
 const CustomInput = ({
