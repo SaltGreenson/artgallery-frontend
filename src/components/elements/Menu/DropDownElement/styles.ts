@@ -3,7 +3,7 @@ import { StyledMenuList } from "@/components/elements/Menu/styles";
 
 type StyledMenuRotateProps = {
   isNeedRotate?: boolean;
-  isActive?: boolean;
+  isClicked?: boolean;
 };
 
 export const StyledMenuRotateList = styled(StyledMenuList)`
@@ -27,17 +27,17 @@ export const StyledMenuRotateWrapper = styled.div<StyledMenuRotateProps>`
   flex-direction: column;
   gap: 10px;
 
-  ${({ isActive }) =>
-    isActive &&
+  ${({ isClicked }) =>
+    isClicked &&
     css`
       #rotate-menu {
         max-height: 140px;
       }
     `}
 
-  ${({ isNeedRotate, isActive }) =>
+  ${({ isNeedRotate, isClicked }) =>
     isNeedRotate &&
-    isActive &&
+    isClicked &&
     css`
       #rotate-menu-list {
         svg {

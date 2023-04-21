@@ -26,21 +26,22 @@ interface MenuDropDownElementProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const MenuDropDownElement = ({
+  isActive,
   isNeedRotateHeadElement,
   headElement,
   renderLinks,
 }: MenuDropDownElementProps) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const iconProps = isActive ? { color: menuIconColorsConfig.active } : {};
 
   const onClickHandler = useCallback(() => {
-    setIsActive((prev) => !prev);
+    setIsClicked((prev) => !prev);
   }, []);
 
   return (
     <StyledMenuRotateWrapper
       isNeedRotate={isNeedRotateHeadElement}
-      isActive={isActive}
+      isClicked={isClicked}
     >
       <StyledMenuRotateList
         id="rotate-menu-list"

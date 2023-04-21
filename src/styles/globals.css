@@ -58,6 +58,13 @@ body::-webkit-scrollbar {
   background-color: #e7e7e7;
 }
 
+a:focus,
+button:focus,
+li:focus,
+li:active {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @font-face {
   font-family: "Gotham Pro";
   src: url("../../fonts/GothamProRegular.ttf") format("truetype");

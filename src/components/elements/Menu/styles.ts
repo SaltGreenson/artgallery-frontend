@@ -10,6 +10,7 @@ export const StyledMenuIcon = styled.div`
   padding: 5px 10px;
   min-height: 44px;
   transition: 200ms;
+  user-select: none;
 `;
 
 export const StyledMenuText = styled.div`
