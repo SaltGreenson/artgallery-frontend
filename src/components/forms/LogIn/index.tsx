@@ -47,9 +47,7 @@ const LogInForm = ({ onSubmitHandler }: LogInFormProps): JSX.Element => {
             })}
             error={errors.password && String(errors.password.message)}
           />
-          <CustomLink href="/password-recovery">
-            Forgot your password?
-          </CustomLink>
+          <CustomLink href="#">Forgot your password?</CustomLink>
         </FlexBlock>
 
         <CustomButton type="submit" variant="default">
