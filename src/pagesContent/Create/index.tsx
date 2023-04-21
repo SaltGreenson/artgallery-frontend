@@ -17,7 +17,7 @@ const Create = ({
   const onSubmitHandler = useCallback(
     (photo: File, title: string) => {
       createGallery(photo, title, () => {
-        void router.push("/own-arts");
+        void router.push(`/own-arts`);
       });
     },
     [createGallery]

@@ -92,7 +92,7 @@ const Card = ({
   );
 
   return (
-    <StyledCardContainer>
+    <StyledCardContainer id={gallery._id}>
       <StyledCardImageContainer>
         <StyledCardImage src={gallery.photo.compressedUrl} />
       </StyledCardImageContainer>
