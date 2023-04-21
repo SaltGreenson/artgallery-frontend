@@ -90,11 +90,11 @@ export const menuSettingLinksConfig: MenuLinkType[] = [
   {
     icon: <IoPersonOutline {...iconGreyProps} />,
     title: "Personal data",
-    href: "/personal-data",
+    href: "#",
   },
   {
     icon: <BiLockAlt {...iconGreyProps} />,
     title: "Safety",
-    href: "/safety",
+    href: "#",
   },
 ];
