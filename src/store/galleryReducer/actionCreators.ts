@@ -93,10 +93,10 @@ export const editGallery =
   async (dispatch) => {
     try {
       dispatch(galleryActions.setGalleryFetching(true));
-      // const edited = (await galleryService.create(formData)).data;
-      // dispatch(
-      //   userActions.setModalMessage(`Gallery ${edited._id} has been edited`)
-      // );
+      const edited = (await galleryService.edit(galleryId, title)).data;
+      dispatch(
+        userActions.setModalMessage(`Gallery ${edited._id} has been edited`)
+      );
       callback();
     } catch (e) {
       handleAxiosError(e, dispatch);

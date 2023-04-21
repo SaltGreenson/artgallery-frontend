@@ -15,6 +15,8 @@ export const galleryService = {
     }),
   remove: (galleryId: string): Promise<AxiosResponse<ICRUDGalleryResponse>> =>
     api.delete(`/gallery/remove?galleryId=${galleryId}`),
+  edit: (galleryId: string, title: string): Promise<AxiosResponse<IGallery>> =>
+    api.put(`/gallery/edit`, { galleryId, title }),
   getAll: (
     skip?: number,
     limit?: number,
