@@ -30,7 +30,6 @@ const SearchGalleryForm = ({
 
   useEffect(() => {
     setValue("searchString", searchStringParam);
-    setValue("sortType", isFirstLikedParam);
   }, []);
 
   const createQueryString = useCallback(
@@ -52,8 +51,7 @@ const SearchGalleryForm = ({
 
   const onSubmitHandler = useCallback(
     (data: FieldValues) => {
-      let { searchString } = data.searchString;
-
+      let { searchString } = data;
       if (!searchString) {
         searchString = "";
       }

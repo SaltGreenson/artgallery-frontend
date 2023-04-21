@@ -27,6 +27,6 @@ export const toggleSortTypeConfig = (
         color={Colors.FONT_SIZE_GREY}
       />
     ),
-    defaultChecked: defaultChecked === "" || defaultChecked === null,
+    defaultChecked: defaultChecked !== "false" && defaultChecked !== "true",
   },
 ];

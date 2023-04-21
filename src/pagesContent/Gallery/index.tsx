@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { IGalleryPageProps } from "@/pages/gallery";
 import { StyledGalleryFormContainer } from "@/pagesContent/Gallery/styles";
 
 import GalleryViewLayout from "src/components/layouts/Gallery";
@@ -17,16 +16,15 @@ import { withCardPreloader } from "@/utils/hocs";
 import { IGallery } from "@/models/IGallery";
 import { IDislikedPosts } from "@/models/IDislikedPosts";
 import { ILikedPosts } from "@/models/ILikedPosts";
+import { IGalleryContainerProps } from "@/containers/Gallery";
 
-export interface IGalleryDynamicPageProps extends IGalleryPageProps {
+export interface IGalleryDynamicPageProps extends IGalleryContainerProps {
   authUserId?: string;
   title: string;
   likedPosts: ILikedPosts[];
   dislikedPosts: IDislikedPosts[];
   isFetchingLikes: boolean;
   isFetchingDislikes: boolean;
-  isFirstLikedParam?: string;
-  searchStringParam?: string;
 }
 
 const Gallery = ({
@@ -38,18 +36,26 @@ const Gallery = ({
   dislikePost,
   searchStringParam,
   isFirstLikedParam,
+  withoutForm,
   ...cardProps
 }: IGalleryDynamicPageProps): JSX.Element => {
   const [skip, setSkip] = useState(10);
   const [items, setItems] = useState<IGallery[]>([]);
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
-    setItems([]);
+    if (!isFirstRender) {
+      setItems([]);
+    } else {
+      setIsFirstRender(false);
+    }
   }, []);
 
   useEffect(() => {
-    setItems((prev) => [...prev, ...galleries]);
-  }, [galleries]);
+    if (!isFirstRender) {
+      setItems((prev) => [...prev, ...galleries]);
+    }
+  }, [isFirstRender, galleries]);
 
   const handleLikePost = useCallback(
     (galleryId: string, idx: number, isLiked: boolean) => {
@@ -84,12 +90,14 @@ const Gallery = ({
 
   return (
     <GalleryViewLayout title={title}>
-      <StyledGalleryFormContainer>
-        <SearchGalleryForm
-          searchStringParam={searchStringParam}
-          isFirstLikedParam={isFirstLikedParam}
-        />
-      </StyledGalleryFormContainer>
+      {!withoutForm && (
+        <StyledGalleryFormContainer>
+          <SearchGalleryForm
+            searchStringParam={searchStringParam}
+            isFirstLikedParam={isFirstLikedParam}
+          />
+        </StyledGalleryFormContainer>
+      )}
       {!items.length ? (
         <Title variant="thin" fontSize="26px">
           Galleries not found

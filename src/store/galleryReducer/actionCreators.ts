@@ -6,33 +6,57 @@ import {
 import { galleryService } from "@/services/GalleryService";
 import { userActions, UserActionsType } from "@/store/userReducer/actions";
 import handleAxiosError from "@/utils/handlers/reduxAxiosError.handler";
+import { userService } from "@/services/UserService";
+import { Dispatch } from "redux";
+
+const _collectGalleriesWrapper = async (
+  callback: () => Promise<void>,
+  dispatch: Dispatch<UserActionsType | GalleryActionsType>
+) => {
+  try {
+    dispatch(galleryActions.setGalleryFetching(true));
+    await callback();
+  } catch (e) {
+    handleAxiosError(e, dispatch);
+  } finally {
+    dispatch(galleryActions.setGalleryFetching(false));
+  }
+};
 
 export const collectGalleries =
-  (
-    skip?: number,
-    limit?: number,
-    userId?: string,
-    searchString?: string,
-    isFirstLiked?: string
-  ): ThunkAction<GalleryActionsType> =>
+  (skip?: number): ThunkAction<GalleryActionsType> =>
   async (dispatch) => {
-    try {
-      dispatch(galleryActions.setGalleryFetching(true));
-      const data = (
-        await galleryService.getAll(
-          skip,
-          limit,
-          userId,
-          searchString,
-          isFirstLiked
-        )
-      ).data;
+    await _collectGalleriesWrapper(async () => {
+      const data = (await galleryService.getAll(skip)).data;
       dispatch(galleryActions.setGalleries(data));
-    } catch (e) {
-      handleAxiosError(e, dispatch);
-    } finally {
-      dispatch(galleryActions.setGalleryFetching(false));
-    }
+    }, dispatch);
+  };
+
+export const collectLikedGalleries =
+  (skip?: number): ThunkAction<GalleryActionsType> =>
+  async (dispatch) => {
+    await _collectGalleriesWrapper(async () => {
+      const data = (await userService.likedPosts(skip)).data;
+      dispatch(galleryActions.setGalleries(data.likedPosts));
+    }, dispatch);
+  };
+
+export const collectOwnGalleries =
+  (skip?: number): ThunkAction<GalleryActionsType> =>
+  async (dispatch) => {
+    await _collectGalleriesWrapper(async () => {
+      const data = (await galleryService.own(skip)).data;
+      dispatch(galleryActions.setGalleries(data));
+    }, dispatch);
+  };
+
+export const collectUserGalleries =
+  (userId: string, skip?: number): ThunkAction<GalleryActionsType> =>
+  async (dispatch) => {
+    await _collectGalleriesWrapper(async () => {
+      const data = (await galleryService.getAll(skip, undefined, userId)).data;
+      dispatch(galleryActions.setGalleries(data));
+    }, dispatch);
   };
 
 export const createGallery =

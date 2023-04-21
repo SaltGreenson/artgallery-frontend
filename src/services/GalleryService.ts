@@ -40,4 +40,20 @@ export const galleryService = {
     api.post<ILikeDislikeResponse>(`/gallery/dislike`, {
       galleryId,
     }),
+  own: (
+    skip?: number,
+    limit?: number,
+    userId?: string,
+    searchString?: string,
+    isFirstLiked?: string
+  ): Promise<AxiosResponse<IGallery[]>> =>
+    api.get<IGallery[]>(
+      `/gallery/own?${createQueryStringHelper({
+        skip,
+        limit,
+        userId,
+        searchString,
+        isFirstLiked,
+      })}`
+    ),
 };
