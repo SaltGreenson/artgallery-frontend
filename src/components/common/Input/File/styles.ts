@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Colors } from "@/styles/colors";
 
-export const StyledInputDropFileContainer = styled.div`
+export const StyledInputDropFileContainer = styled.div<{ disabled?: boolean }>`
   width: clamp(250px, 100vw / 3, 500px);
   height: clamp(100px, 100vh / 4, 300px);
   display: flex;
@@ -10,7 +10,7 @@ export const StyledInputDropFileContainer = styled.div`
   padding: 2%;
   border: 4px dashed ${Colors.PURPLE};
   border-radius: 23px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 `;
 
 export const StyledInputDropFileIcon = styled.div`

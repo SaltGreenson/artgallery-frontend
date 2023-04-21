@@ -14,7 +14,7 @@ const Edit = ({
   defaultValues,
   isFetching,
 }: EditProps): JSX.Element => (
-  <GalleryViewLayout title="Create">
+  <GalleryViewLayout title="Edit">
     <CreateForm
       onSubmitHandler={editGallery}
       defaultValues={defaultValues}

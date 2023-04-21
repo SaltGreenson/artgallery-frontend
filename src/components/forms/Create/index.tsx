@@ -42,6 +42,7 @@ const CreateForm = ({
         variant="file"
         label=""
         fileTypes={["jpeg"]}
+        disabled={!!defaultValues}
         register={register("photo", {
           required: {
             value: true,

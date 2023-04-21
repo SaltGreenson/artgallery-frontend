@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import Image from "next/image";
 import { UseFormRegisterReturn } from "react-hook-form";
@@ -16,7 +16,7 @@ import {
   StyledInputFileContainer,
 } from "./styles";
 
-export interface IInputFileProps {
+export interface IInputFileProps extends InputHTMLAttributes<HTMLInputElement> {
   imageUrl?: string;
   error?: string;
   hoverTitle?: string;
@@ -28,9 +28,9 @@ export interface IInputFileProps {
   register?: UseFormRegisterReturn<string>;
   onTypeError?: (err: Error) => void;
   onSizeError?: (file: File) => void;
-  onDrop?: (file: File) => void;
+  onDropFile?: (file: File) => void;
   onChangeFile?: (file: File) => void;
-  onSelect?: (file: File) => void;
+  onSelectFile?: (file: File) => void;
 }
 
 const InputFile = ({
@@ -38,6 +38,9 @@ const InputFile = ({
   fileTypes,
   register,
   onChangeFile,
+  onDropFile,
+  onSelectFile,
+  disabled,
   ...props
 }: IInputFileProps): JSX.Element => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(imageUrl);
@@ -57,6 +60,8 @@ const InputFile = ({
       <FileUploader
         handleChange={handleChange}
         types={fileTypes}
+        onDrop={onDropFile}
+        onSelect={onSelectFile}
         dropMessageStyle={{
           borderRadius: "23px",
           backgroundColor: Colors.PURPLE,
@@ -65,10 +70,11 @@ const InputFile = ({
           fontWeight: 700,
           border: "4px dashed ${Colors.PURPLE}",
         }}
+        disabled={disabled}
         {...register}
         {...props}
       >
-        <StyledInputDropFileContainer>
+        <StyledInputDropFileContainer disabled={disabled}>
           {previewUrl ? (
             <StyledInputDropFileSelectedImageContainer>
               <Image
