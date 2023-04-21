@@ -23,14 +23,11 @@ function AppContainer({ Component, pageProps, router }: CustomAppProps) {
   const message = useSelector(getMessage);
   const authUser = useSelector(getAuthUser);
 
-  useEffect(
-    () => () => {
-      if (getFromStorage("token")) {
-        checkAuth();
-      }
-    },
-    []
-  );
+  useEffect(() => {
+    if (getFromStorage("token")) {
+      checkAuth();
+    }
+  }, []);
 
   return (
     <>

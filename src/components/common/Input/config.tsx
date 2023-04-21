@@ -5,10 +5,10 @@ import Default, { IDefaultInputProps } from "./Default";
 import DynamicLabel, { IInputWithDynamicLabelProps } from "./DynamicLabel";
 import Search, { IInputSearchProps } from "./Search";
 import InputFile, { IInputFileProps } from "@/components/common/Input/File";
-import { IInputSearchConfig } from "@/components/common/Input/Search/config";
+import { InputSearchConfigType } from "@/components/common/Input/Search/config";
 import Toggle, { IToggleProps } from "@/components/common/Input/Toggle";
 
-export type InputConfigProps = IInputSearchConfig &
+export type InputConfigProps = InputSearchConfigType &
   IInputSearchProps &
   IInputFileProps &
   IInputWithDynamicLabelProps &

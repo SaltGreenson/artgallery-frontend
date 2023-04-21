@@ -61,6 +61,7 @@ const CreateForm = ({
           defaultValue={defaultValues?.title}
           variant="dynamicLabel"
           label="Title"
+          maxLength={40}
           register={register("title", {
             required: {
               value: true,

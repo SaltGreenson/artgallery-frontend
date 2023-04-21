@@ -1,5 +1,5 @@
 import {
-  IInputSearchConfig,
+  InputSearchConfigType,
   inputSearchConfig,
 } from "@/components/common/Input/Search/config";
 
@@ -10,7 +10,7 @@ export interface IInputSearchProps {
 const Index = ({
   dimension,
   ...props
-}: IInputSearchProps & IInputSearchConfig): JSX.Element =>
+}: IInputSearchProps & InputSearchConfigType): JSX.Element =>
   inputSearchConfig(props)[dimension ?? "small"];
 
 export default Index;

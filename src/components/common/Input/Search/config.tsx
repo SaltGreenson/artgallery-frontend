@@ -1,21 +1,16 @@
-import React, { InputHTMLAttributes } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import React from "react";
 
-import {
-  StyledLargeSearchInput,
-  StyledSmallSearchInput,
-} from "@/components/common/Input/Search/styles";
+import SmallSearch, {
+  IInputSmallSearchProps,
+} from "@/components/common/Input/Search/Small";
+import LargeSearch, {
+  IInputLargeSearchProps,
+} from "@/components/common/Input/Search/Large";
 
-export interface IInputSearchConfig
-  extends InputHTMLAttributes<HTMLInputElement> {
-  register?: UseFormRegisterReturn<string>;
-  error?: string;
-}
+export type InputSearchConfigType = IInputLargeSearchProps &
+  IInputSmallSearchProps;
 
-export const inputSearchConfig = ({
-  register,
-  ...props
-}: IInputSearchConfig) => ({
-  small: <StyledSmallSearchInput {...register} {...props} />,
-  large: <StyledLargeSearchInput {...register} {...props} />,
+export const inputSearchConfig = ({ ...props }: InputSearchConfigType) => ({
+  small: <SmallSearch {...props} />,
+  large: <LargeSearch {...props} />,
 });
