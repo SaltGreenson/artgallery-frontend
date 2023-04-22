@@ -1,8 +1,7 @@
 import axios from "axios";
 import handleRefreshToken from "@/utils/handlers/refreshToken.handler";
 import { getFromStorage } from "@/utils/helpers/localStorage.helper";
-
-export const API_URL = process.env.API_URL || "http://localhost:5000/api";
+import { API_URL } from "@/http/api";
 
 const createAxiosInstance = (accessToken?: string | null) => {
   const instance = axios.create({

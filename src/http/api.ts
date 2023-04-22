@@ -2,7 +2,10 @@ import axios from "axios";
 import handleRefreshToken from "@/utils/handlers/refreshToken.handler";
 import { getFromStorage } from "@/utils/helpers/localStorage.helper";
 
-export const API_URL = process.env.API_URL || "http://localhost:5000/api";
+// https://artgallery-backend.onrender.com/api
+// http://localhost:5000/api
+export const API_URL =
+  process.env.API_URL || "https://artgallery-backend.onrender.com/api";
 
 const api = axios.create({
   withCredentials: true,
