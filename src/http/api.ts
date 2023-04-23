@@ -5,7 +5,7 @@ import { getFromStorage } from "@/utils/helpers/localStorage.helper";
 // https://artgallery-backend.onrender.com/api
 // http://localhost:5000/api
 export const API_URL =
-  process.env.API_URL || "https://dev-artgallery-backend.onrender.com";
+  process.env.API_URL || "https://dev-artgallery-backend.onrender.com/api";
 
 const api = axios.create({
   withCredentials: true,
