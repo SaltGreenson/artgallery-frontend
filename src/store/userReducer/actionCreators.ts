@@ -9,7 +9,6 @@ import {
   setToStorage,
 } from "@/utils/helpers/localStorage.helper";
 import { IAuthResponse } from "@/models/IAuthResponse";
-import Cookies from "js-cookie";
 
 const _commonLogicUserActionCreator = async (
   callback: () => Promise<void>,
@@ -64,12 +63,6 @@ export const signup =
     await _commonLogicUserActionCreator(async () => {
       const data = (await userService.signup(name, email, password)).data;
       _setUserData(data, dispatch);
-      Cookies.set("accessToken", data.accessToken, {
-        expires: 2 * 60 * 60 * 1000,
-      });
-      Cookies.set("refreshToken", data.refreshToken, {
-        expires: 2 * 60 * 60 * 1000,
-      });
       callback();
     }, dispatch);
   };
@@ -78,8 +71,6 @@ export const logout = (): ThunkAction<UserActionsType> => async (dispatch) => {
   await _commonLogicUserActionCreator(async () => {
     await userService.logout();
     removeFromStorage("token");
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
     dispatch(userActions.setIsAuth(false));
     dispatch(userActions.setAuthUser(null));
     dispatch(userActions.setLikedPosts([]));
@@ -94,12 +85,6 @@ export const checkAuth =
       dispatch(userActions.setFetching(true));
       const data = (await userService.refresh()).data;
       _setUserData(data, dispatch);
-      Cookies.set("accessToken", data.accessToken, {
-        expires: 2 * 60 * 60 * 1000,
-      });
-      Cookies.set("refreshToken", data.refreshToken, {
-        expires: 2 * 60 * 60 * 1000,
-      });
       dispatch(userActions.setFetchingSuccess(true));
     } catch (e) {
       dispatch(userActions.setFetchingError(true));
