@@ -53,7 +53,7 @@ export async function getServerSideProps(context: NextPageContext) {
       searchString: searchString as string,
     });
 
-    const data = (await instance.get<IGallery[]>(`/gallery?${queryString}`))
+    const data = (await instance.get<IGallery[]>(`/galleries?${queryString}`))
       .data;
     return {
       props: {

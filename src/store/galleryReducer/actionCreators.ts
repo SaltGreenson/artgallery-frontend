@@ -69,8 +69,8 @@ export const createGallery =
     try {
       dispatch(galleryActions.setGalleryFetching(true));
       const formData = new FormData();
-      formData.append("gallery[]", photo);
-      formData.append("gallery[]", title);
+      formData.append("image", photo);
+      formData.append("title", title);
       const created = (await galleryService.create(formData)).data;
       dispatch(
         userActions.setModalMessage(`Gallery ${created._id} has been created`)
