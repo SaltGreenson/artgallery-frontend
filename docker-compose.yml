@@ -1,0 +1,40 @@
+version: "2"
+
+services:
+  node:
+    image: "node:19.8.1"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - "8081"
+    command: "npm start"
+  server:
+    build:
+      context: ./
+      target: production-build-stage
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      API_URL: http://localhost:5000/api
+      CLIENT_URL: http://localhost:3000
+    links:
+      - node
+    depends_on:
+      - node
+
+networks:
+  breenky:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local
