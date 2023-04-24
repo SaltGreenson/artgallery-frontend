@@ -7,15 +7,15 @@ import { ICRUDGalleryResponse } from "@/models/ICRUDGalleryResponse";
 
 export const galleryService = {
   create: (gallery: FormData): Promise<AxiosResponse<ICRUDGalleryResponse>> =>
-    api.post<ICRUDGalleryResponse>("/gallery/create", gallery, {
+    api.post<ICRUDGalleryResponse>("/galleries/create", gallery, {
       headers: {
         "content-type": "multipart/form-data",
       },
     }),
   remove: (galleryId: string): Promise<AxiosResponse<ICRUDGalleryResponse>> =>
-    api.delete(`/gallery/remove?galleryId=${galleryId}`),
+    api.delete(`/galleries/remove?galleryId=${galleryId}`),
   edit: (galleryId: string, title: string): Promise<AxiosResponse<IGallery>> =>
-    api.put(`/gallery/edit`, { galleryId, title }),
+    api.put(`/galleries/edit`, { galleryId, title }),
   getAll: (
     skip?: number,
     limit?: number,
@@ -24,7 +24,7 @@ export const galleryService = {
     isFirstLiked?: string
   ): Promise<AxiosResponse<IGallery[]>> =>
     api.get<IGallery[]>(
-      `/gallery?${createQueryStringHelper({
+      `/galleries?${createQueryStringHelper({
         skip,
         limit,
         userId,
@@ -33,11 +33,11 @@ export const galleryService = {
       })}`
     ),
   like: (galleryId: string): Promise<AxiosResponse<ILikeDislikeResponse>> =>
-    api.post<ILikeDislikeResponse>(`/gallery/like`, {
+    api.put<ILikeDislikeResponse>(`/galleries/like`, {
       galleryId,
     }),
   dislike: (galleryId: string): Promise<AxiosResponse<ILikeDislikeResponse>> =>
-    api.post<ILikeDislikeResponse>(`/gallery/dislike`, {
+    api.put<ILikeDislikeResponse>(`/galleries/dislike`, {
       galleryId,
     }),
   own: (
@@ -48,7 +48,7 @@ export const galleryService = {
     isFirstLiked?: string
   ): Promise<AxiosResponse<IGallery[]>> =>
     api.get<IGallery[]>(
-      `/gallery/own?${createQueryStringHelper({
+      `/galleries/own?${createQueryStringHelper({
         skip,
         limit,
         userId,

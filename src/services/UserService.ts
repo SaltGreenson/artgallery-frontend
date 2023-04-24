@@ -8,23 +8,23 @@ export const userService = {
     email: string,
     password: string
   ): Promise<AxiosResponse<IAuthResponse>> =>
-    api.post<IAuthResponse>("/users/log-in", {
+    api.post<IAuthResponse>("/auth/log-in", {
       email,
       password,
     }),
-  logout: (): Promise<void> => api.delete("/users/logout"),
+  logout: (): Promise<void> => api.delete("/auth/logout"),
   signup: (
     name: string,
     email: string,
     password: string
   ): Promise<AxiosResponse<IAuthResponse>> =>
-    api.post<IAuthResponse>("/users/sign-up", {
+    api.post<IAuthResponse>("/auth/sign-up", {
       name,
       email,
       password,
     }),
   refresh: (): Promise<AxiosResponse<IAuthResponse>> =>
-    api.put<IAuthResponse>(`/users/refresh`, {
+    api.put<IAuthResponse>(`/auth/refresh`, {
       withCredentials: true,
     }),
   likedPosts: (skip?: number): Promise<AxiosResponse<ILikeDislikeResponse>> =>
